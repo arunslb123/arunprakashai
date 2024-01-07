@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html</loc>
+    <lastmod>2024-01-07T18:07:48.034Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling.html</loc>
+    <lastmod>2024-01-07T18:07:49.307Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html</loc>
+    <lastmod>2024-01-07T18:07:51.805Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.arunprakash.ai/index.html</loc>
+    <lastmod>2024-01-07T18:07:52.683Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.arunprakash.ai/about.html</loc>
+    <lastmod>2024-01-07T18:07:53.163Z</lastmod>
+  </url>
+</urlset>
