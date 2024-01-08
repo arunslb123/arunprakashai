@@ -8,6 +8,7 @@
 
 <meta name="author" content="Arun Prakash">
 <meta name="dcterms.date" content="2024-01-03">
+<meta name="description" content="The blog post introduces MoodCast, a project that uses OpenAI’s parallel function calling feature to create real-time, weather-based music playlists. It integrates OpenWeather and Spotify APIs, demonstrating the power and flexibility of OpenAI’s function calling. This feature allows developers to describe a function, and the model generates a JSON output containing arguments. It doesn’t call any function itself, but generates the JSON that can be used to call a function from your code. This is a significant advancement as it allows developers to interact with AI in a more structured and systematic way, overcoming the challenges of dealing with unstructured data outputs. The blog post provides a detailed guide on how to use function calling for OpenAI’s chat completion endpoints, with MoodCast serving as a real-world example. It aims to provide valuable insights into the potential of OpenAI’s function calling feature for both seasoned developers and beginners in the field of AI">
 
 <title>Explained Intuitively - MoodCast: Leveraging OpenAI Parallel Function Calling for Real-Time Weather-Based Music Playlists</title>
 <style>
@@ -143,13 +144,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 
 <link rel="stylesheet" href="../../styles.css">
 <link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="function_calling.xml"><meta property="og:title" content="Explained Intuitively - MoodCast: Leveraging OpenAI Parallel Function Calling for Real-Time Weather-Based Music Playlists">
-<meta property="og:description" content="">
+<meta property="og:description" content="The blog post introduces MoodCast, a project that uses OpenAI’s parallel function calling feature to create real-time, weather-based music playlists. It integrates OpenWeather and Spotify APIs, demonstrating the power and flexibility of OpenAI’s function calling. This feature allows developers to describe a function, and the model generates a JSON output containing arguments. It doesn’t call any function itself, but generates the JSON that can be used to call a function from your code. This is a significant advancement as it allows developers to interact with AI in a more structured and systematic way, overcoming the challenges of dealing with unstructured data outputs. The blog post provides a detailed guide on how to use function calling for OpenAI’s chat completion endpoints, with MoodCast serving as a real-world example. It aims to provide valuable insights into the potential of OpenAI’s function calling feature for both seasoned developers and beginners in the field of AI">
 <meta property="og:image" content="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/music.png">
 <meta property="og:site-name" content="Explained Intuitively">
 <meta property="og:image:height" content="2048">
 <meta property="og:image:width" content="2048">
 <meta name="twitter:title" content="Explained Intuitively - MoodCast: Leveraging OpenAI Parallel Function Calling for Real-Time Weather-Based Music Playlists">
-<meta name="twitter:description" content="">
+<meta name="twitter:description" content="The blog post introduces MoodCast, a project that uses OpenAI’s parallel function calling feature to create real-time, weather-based music playlists. It integrates OpenWeather and Spotify APIs, demonstrating the power and flexibility of OpenAI’s function calling. This feature allows developers to describe a function, and the model generates a JSON output containing arguments. It doesn’t call any function itself, but generates the JSON that can be used to call a function from your code. This is a significant advancement as it allows developers to interact with AI in a more structured and systematic way, overcoming the challenges of dealing with unstructured data outputs. The blog post provides a detailed guide on how to use function calling for OpenAI’s chat completion endpoints, with MoodCast serving as a real-world example. It aims to provide valuable insights into the potential of OpenAI’s function calling feature for both seasoned developers and beginners in the field of AI">
 <meta name="twitter:image" content="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/music.png">
 <meta name="twitter:image-height" content="2048">
 <meta name="twitter:image-width" content="2048">
@@ -199,10 +200,15 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-right">
       <h1 class="title">MoodCast: Leveraging OpenAI Parallel Function Calling for Real-Time Weather-Based Music Playlists</h1>
-                                <div class="quarto-categories">
+                  <div>
+        <div class="description">
+          The blog post introduces MoodCast, a project that uses OpenAI’s parallel function calling feature to create real-time, weather-based music playlists. It integrates OpenWeather and Spotify APIs, demonstrating the power and flexibility of OpenAI’s function calling. This feature allows developers to describe a function, and the model generates a JSON output containing arguments. It doesn’t call any function itself, but generates the JSON that can be used to call a function from your code. This is a significant advancement as it allows developers to interact with AI in a more structured and systematic way, overcoming the challenges of dealing with unstructured data outputs. The blog post provides a detailed guide on how to use function calling for OpenAI’s chat completion endpoints, with MoodCast serving as a real-world example. It aims to provide valuable insights into the potential of OpenAI’s function calling feature for both seasoned developers and beginners in the field of AI
+        </div>
+      </div>
+                          <div class="quarto-categories">
                 <div class="quarto-category">llm</div>
                 <div class="quarto-category">openai</div>
-                <div class="quarto-category">function-calling</div>
+                <div class="quarto-category">function_calling</div>
               </div>
                   </div>
   </div>
@@ -990,7 +996,7 @@ Parameters: {"song_name": "Aaromale"}</code></pre>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="function_calling_files/figure-html/4b798f0d-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="function_calling_files/figure-html/684d2f2c-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>

@@ -8,13 +8,13 @@
 <title>Explained Intuitively</title>
 <link>https://www.arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html</link>
 <atom:link href="https://www.arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.xml" rel="self" type="application/rss+xml"/>
-<description>A blog about large language models and tools</description>
+<description>Discover how to leverage function calling in the OpenAI Assistant API with our comprehensive guide. This tutorial, suitable for both seasoned developers and beginners, covers the basics of function calling, creating an assistant, initiating a thread, and more. Learn how to identify when a message requires a function call, determine which function to call and what arguments to pass, and retrieve the response from a function call. We illustrate these concepts with a simple demo of reversing a string using a function integrated with the assistant. Enhance your AI applications with a clear, practical understanding of function calling in the OpenAI Assistant API</description>
 <image>
 <url>https://www.arunprakash.ai/assistant.png</url>
 <title>Explained Intuitively</title>
 <link>https://www.arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html</link>
 </image>
 <generator>quarto-1.3.340</generator>
-<lastBuildDate>Sun, 07 Jan 2024 18:07:47 GMT</lastBuildDate>
+<lastBuildDate>Mon, 08 Jan 2024 04:39:03 GMT</lastBuildDate>
 </channel>
 </rss>

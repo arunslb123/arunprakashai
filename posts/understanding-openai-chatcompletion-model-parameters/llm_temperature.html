@@ -8,6 +8,7 @@
 
 <meta name="author" content="Arun Prakash">
 <meta name="dcterms.date" content="2023-12-17">
+<meta name="description" content="Details: Dive into the intricacies of LLM token generation with our insightful notebook. We cover key parameters like temperature, top_p, frequency_penalty, and presence_penalty, examining their value ranges and OpenAI’s defaults.We highlight the generation probability using log_probs. Our comprehensive guide includes real examples to demonstrate how these settings impact the token generation process, providing a valuable resource for developers and AI enthusiasts alike">
 
 <title>Explained Intuitively - Understanding OpenAI ChatCompletion Model Parameters</title>
 <style>
@@ -143,11 +144,11 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 
 <link rel="stylesheet" href="../../styles.css">
 <link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="llm_temperature.xml"><meta property="og:title" content="Explained Intuitively - Understanding OpenAI ChatCompletion Model Parameters">
-<meta property="og:description" content="">
+<meta property="og:description" content="Details: Dive into the intricacies of LLM token generation with our insightful notebook. We cover key parameters like temperature, top_p, frequency_penalty, and presence_penalty, examining their value ranges and OpenAI’s defaults.We highlight the generation probability using log_probs. Our comprehensive guide includes real examples to demonstrate how these settings impact the token generation process, providing a valuable resource for developers and AI enthusiasts alike">
 <meta property="og:image" content="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/IMG_F4CC52CE7F7F-1.jpeg">
 <meta property="og:site-name" content="Explained Intuitively">
 <meta name="twitter:title" content="Explained Intuitively - Understanding OpenAI ChatCompletion Model Parameters">
-<meta name="twitter:description" content="">
+<meta name="twitter:description" content="Details: Dive into the intricacies of LLM token generation with our insightful notebook. We cover key parameters like temperature, top_p, frequency_penalty, and presence_penalty, examining their value ranges and OpenAI’s defaults.We highlight the generation probability using log_probs. Our comprehensive guide includes real examples to demonstrate how these settings impact the token generation process, providing a valuable resource for developers and AI enthusiasts alike">
 <meta name="twitter:image" content="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/IMG_F4CC52CE7F7F-1.jpeg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -195,7 +196,12 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-right">
       <h1 class="title">Understanding OpenAI ChatCompletion Model Parameters</h1>
-                                <div class="quarto-categories">
+                  <div>
+        <div class="description">
+          Details: Dive into the intricacies of LLM token generation with our insightful notebook. We cover key parameters like temperature, top_p, frequency_penalty, and presence_penalty, examining their value ranges and OpenAI’s defaults.We highlight the generation probability using log_probs. Our comprehensive guide includes real examples to demonstrate how these settings impact the token generation process, providing a valuable resource for developers and AI enthusiasts alike
+        </div>
+      </div>
+                          <div class="quarto-categories">
                 <div class="quarto-category">llm</div>
                 <div class="quarto-category">openai</div>
               </div>
@@ -294,7 +300,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>In each parameter, we will explore different range of values and discuss about openai’s default values and recommendations. Then in the final section we will go through <strong>some real examples</strong> to understand how these parameters affect the token generation process.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/833c9917-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="llm_temperature_files/figure-html/5f34ad97-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption class="figure-caption">IMG_F4CC52CE7F7F-1.jpeg</figcaption>
 </figure>
 </div>
@@ -405,7 +411,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>In the context of OpenAI, tokens are the basic units of text processed by their language models, such as GPT-3. OpenAI employs Byte-Pair Encoding (BPE) for tokenization, which is a method initially designed for text compression. BPE identifies the most frequent pairs of characters or tokens and merges them to form new tokens, thus optimizing the tokenization process for efficiency and effectiveness in representing the text data. This approach allows the model to handle a wide range of vocabulary, including rare words or phrases, by breaking them down into subword units.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/b6b67fd9-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="llm_temperature_files/figure-html/da731c9e-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -842,7 +848,7 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 </section>
 <section id="openai-recommendations-for-temperature" class="level1">
 <h1>OpenAI Recommendations for Temperature</h1>
-<p><img src="llm_temperature_files/figure-html/bc8a4a72-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="llm_temperature_files/figure-html/bc8a4a72-2-image.png" class="img-fluid" alt="image.png"></p>
+<p><img src="llm_temperature_files/figure-html/18f6ef4f-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="llm_temperature_files/figure-html/18f6ef4f-2-image.png" class="img-fluid" alt="image.png"></p>
 </section>
 <section id="top-p-nucleus-sampling" class="level1">
 <h1>Top-P (Nucleus Sampling)</h1>
@@ -1239,13 +1245,13 @@ Machine learning is like that toy, but with big computers. They can learn from l
 <h1>OpenAI Recommendations for Top-P</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/0aa2f8a0-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="llm_temperature_files/figure-html/836b5a5a-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/4ddcd856-1-image-2.png" class="img-fluid figure-img"></p>
+<p><img src="llm_temperature_files/figure-html/cff409da-1-image-2.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image-2.png</figcaption>
 </figure>
 </div>
@@ -1344,7 +1350,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/df8b48ff-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="llm_temperature_files/figure-html/851f0157-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -1356,7 +1362,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 <p>It ranges from -2.0 to 2.0, where positive values discourage repetition by penalizing tokens that occur frequently, and negative values can increase the likelihood of repetition. This helps control the diversity of the generated content and prevent verbatim repetition.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/4fa3335c-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="llm_temperature_files/figure-html/6b767b27-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -1428,13 +1434,13 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/8c85ceaf-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="llm_temperature_files/figure-html/f9fea503-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/aa463792-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="llm_temperature_files/figure-html/3478f763-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -1503,13 +1509,13 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/43ed6469-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="llm_temperature_files/figure-html/d246d5ce-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/11b0ee58-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="llm_temperature_files/figure-html/9f543940-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
