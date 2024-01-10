@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Explained Intuitively</title>
-<link>https://www.arunprakash.ai/index.html</link>
-<atom:link href="https://www.arunprakash.ai/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://arunprakash.ai/index.html</link>
+<atom:link href="https://arunprakash.ai/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog about large language models and tools</description>
 <generator>quarto-1.3.340</generator>
 <lastBuildDate>Tue, 09 Jan 2024 18:30:00 GMT</lastBuildDate>
 <item>
   <title>Transform Your Travel: How to Build a Personalised Planner with OpenAI Assistants API</title>
   <dc:creator>Arun Prakash</dc:creator>
-  <link>https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html</link>
+  <link>https://arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html</link>
   <description><![CDATA[ 
 
 
@@ -22,7 +22,7 @@
 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/travel2.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/travel2.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Voyage Vista</figcaption>
 </figure>
 </div>
@@ -2125,7 +2125,7 @@ font-style: inherit;">""</span>)))</span></code></pre></div>
 <p>Here is the map with the planned route:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/Kyoto.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/Kyoto.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Kyoto Map with Attractions</figcaption>
 </figure>
 </div>
@@ -2399,7 +2399,7 @@ font-style: inherit;">.docx'</span>)</span></code></pre></div>
 <section id="display-the-travel-guide" class="level1">
 <h1>Display the Travel Guide</h1>
 <p>A word document is created with the following details</p>
-<p><img src="https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/s1.png" class="img-fluid" alt="Voyage Vista screenshot1"> <img src="https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/s2.png" class="img-fluid" alt="Voyage Vista screenshot2"> <img src="https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/s3.png" class="img-fluid" alt="Voyage Vista screenshot3"></p>
+<p><img src="https://arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/s1.png" class="img-fluid" alt="Voyage Vista screenshot1"> <img src="https://arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/s2.png" class="img-fluid" alt="Voyage Vista screenshot2"> <img src="https://arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/s3.png" class="img-fluid" alt="Voyage Vista screenshot3"></p>
 <div class="cell" data-execution_count="67">
 <div class="sourceCode cell-code" id="cb68" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -2600,20 +2600,20 @@ No matching items
   <category>function_calling</category>
   <category>openai_assistants_api</category>
   <category>handson</category>
-  <guid>https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html</guid>
+  <guid>https://arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html</guid>
   <pubDate>Tue, 09 Jan 2024 18:30:00 GMT</pubDate>
-  <media:content url="https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/travel2.png" medium="image" type="image/png" height="144" width="144"/>
+  <media:content url="https://arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/travel2.png" medium="image" type="image/png" height="144" width="144"/>
 </item>
 <item>
   <title>Master the Art of Function Calling in OpenAI Assistants API: A Comprehensive Guide for Beginners</title>
   <dc:creator>Arun Prakash</dc:creator>
-  <link>https://www.arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html</link>
+  <link>https://arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html</link>
   <description><![CDATA[ 
 
 
 
 
-<p><img src="https://www.arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistant.png" class="img-fluid"></p>
+<p><img src="https://arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistant.png" class="img-fluid"></p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -4139,14 +4139,14 @@ No matching items
   <category>openai</category>
   <category>function_calling</category>
   <category>openai_assistants_api</category>
-  <guid>https://www.arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html</guid>
+  <guid>https://arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html</guid>
   <pubDate>Thu, 04 Jan 2024 18:30:00 GMT</pubDate>
-  <media:content url="https://www.arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistant.png" medium="image" type="image/png" height="144" width="144"/>
+  <media:content url="https://arunprakash.ai/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistant.png" medium="image" type="image/png" height="144" width="144"/>
 </item>
 <item>
   <title>MoodCast: Leveraging OpenAI Parallel Function Calling for Real-Time Weather-Based Music Playlists</title>
   <dc:creator>Arun Prakash</dc:creator>
-  <link>https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling.html</link>
+  <link>https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling.html</link>
   <description><![CDATA[ 
 
 
@@ -4158,7 +4158,7 @@ No matching items
 <p>This blog post will focus on how to use function calling for OpenAI’s chat completion endpoints. It will provide a detailed guide on how to leverage this feature for your applications, with MoodCast serving as a real-world example. Whether you’re a seasoned developer or a beginner in the field of AI, this post aims to provide valuable insights into the potential of OpenAI’s function calling feature.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/music.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/music.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Logo</figcaption>
 </figure>
 </div>
@@ -4639,7 +4639,7 @@ font-style: inherit;">print</span>(song_details_json[<span class="st" style="col
 background-color: null;
 font-style: inherit;">"album"</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2737bbef42d34fd25b14b2a54ea" width="100">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2737bbef42d34fd25b14b2a54ea" width="100">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/df03b78315eaa0c7e20d66ea17dcf1a5fa4e6e3e?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Appadi Podu by Vidyasagar, Krishnakumar Kunnath, Anuradha Sriram</a></p>
@@ -5463,7 +5463,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> Chekka Chivantha Vaanam (Original Motion Picture Soundtrack)</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2735234d8419de0ffdccc8c27a7" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2735234d8419de0ffdccc8c27a7" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/771e747c73fc6cd5914a4e447f9daf3bd74e38a5?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -5484,7 +5484,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> Kadal (Original Motion Picture Soundtrack)</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b273d3d692e38621d741606588e7" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b273d3d692e38621d741606588e7" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/d48678e7eef2bebd5a099d2b6b1ff5dd299ff102?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -5505,7 +5505,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> Bombay (Original Motion Picture Soundtrack)</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2738b895bdb8ccefee6ab65114b" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2738b895bdb8ccefee6ab65114b" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/c4e812236497ce1f72610be2af10740ad6ecead6?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -5526,7 +5526,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> Minnalae (Original Motion Picture Soundtrack)</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b273102f02fa7e7ded2bc5f65653" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b273102f02fa7e7ded2bc5f65653" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/2db5c05f48a7214b56c8eed843103ae3f241e00e?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -5547,7 +5547,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> Vinnaithaandi Varuvaayaa (Original Motion Picture Soundtrack)</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b27397838a7eeb5f477cfc6707a5" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b27397838a7eeb5f477cfc6707a5" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/ed07e1b3e3fe14b55e29c10c5413dd9e04fbe1e5?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -5791,7 +5791,7 @@ font-style: inherit;">return</span> third_response</span></code></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling_files/figure-html/089b6425-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling_files/figure-html/6431b31c-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -5942,7 +5942,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> Alone In Iz World</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b27356c868c8c85e7e4e62bd9ec1" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b27356c868c8c85e7e4e62bd9ec1" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/2b0ebc854ece09122c1918aeff6af258493defe9?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -5963,7 +5963,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> I Love You.</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2738265a736a1eb838ad5a0b921" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2738265a736a1eb838ad5a0b921" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/877602f424a9dea277b13301ffc516f9fd1fbe7e?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -5984,7 +5984,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> 21</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2732118bf9b198b05a95ded6300" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b2732118bf9b198b05a95ded6300" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/6fc68c105e091645376471727960d2ba3cd0ee01?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -6005,7 +6005,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> Cloudy Day</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b273d2cf6639f08099bdb14e388d" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b273d2cf6639f08099bdb14e388d" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/9c49fc0dfef73b4f91d444309b06450c9e30fee5?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -6026,7 +6026,7 @@ font-style: inherit;">"----"</span>))</span></code></pre></div>
 <p><strong>Album:</strong> Hounds Of Love</p>
 </div>
 <div class="cell-output cell-output-display">
-<img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b273ad08f4b38efbff0c0da0f252" width="200">
+<img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/https:/i.scdn.co/image/ab67616d0000b273ad08f4b38efbff0c0da0f252" width="200">
 </div>
 <div class="cell-output cell-output-display">
 <p><a href="https://p.scdn.co/mp3-preview/0156aec767cfcbe6bfc80bb9c8ad931169a3d910?cid=706a549bcf8a4575b6e1dd3fc24f5f95">Preview the song</a></p>
@@ -6054,14 +6054,14 @@ No matching items
   <category>llm</category>
   <category>openai</category>
   <category>function_calling</category>
-  <guid>https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling.html</guid>
+  <guid>https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling.html</guid>
   <pubDate>Tue, 02 Jan 2024 18:30:00 GMT</pubDate>
-  <media:content url="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/music.png" medium="image" type="image/png" height="144" width="144"/>
+  <media:content url="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/music.png" medium="image" type="image/png" height="144" width="144"/>
 </item>
 <item>
   <title>Understanding OpenAI ChatCompletion Model Parameters</title>
   <dc:creator>Arun Prakash</dc:creator>
-  <link>https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html</link>
+  <link>https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html</link>
   <description><![CDATA[ 
 
 
@@ -6077,7 +6077,7 @@ No matching items
 <p>In each parameter, we will explore different range of values and discuss about openai’s default values and recommendations. Then in the final section we will go through <strong>some real examples</strong> to understand how these parameters affect the token generation process.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/aadfad16-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/875e22a1-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption class="figure-caption">IMG_F4CC52CE7F7F-1.jpeg</figcaption>
 </figure>
 </div>
@@ -6472,7 +6472,7 @@ font-style: inherit;">42</span></span></code></pre></div>
 <p>In the context of OpenAI, tokens are the basic units of text processed by their language models, such as GPT-3. OpenAI employs Byte-Pair Encoding (BPE) for tokenization, which is a method initially designed for text compression. BPE identifies the most frequent pairs of characters or tokens and merges them to form new tokens, thus optimizing the tokenization process for efficiency and effectiveness in representing the text data. This approach allows the model to handle a wide range of vocabulary, including rare words or phrases, by breaking them down into subword units.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/3131b461-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/aad20e12-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -6975,7 +6975,7 @@ font-style: inherit;">"Probability"</span>)</span>
 <span id="cb15-10">plt.legend()</span>
 <span id="cb15-11">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <section id="temperature-0-deterministic" class="level3">
@@ -7082,7 +7082,7 @@ background-color: null;
 font-style: inherit;">"Count"</span>)</span>
 <span id="cb23-4">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="18">
@@ -7172,7 +7172,7 @@ font-style: inherit;">"Count"</span>)</span>
 <span id="cb28-8">plt.show()</span>
 <span id="cb28-9"></span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -7249,13 +7249,13 @@ background-color: null;
 font-style: inherit;">"Count"</span>)</span>
 <span id="cb31-8">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="openai-recommendations-for-temperature" class="level1">
 <h1>OpenAI Recommendations for Temperature</h1>
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/2e6703fc-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/2e6703fc-2-image.png" class="img-fluid" alt="image.png"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/0c03d227-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/0c03d227-2-image.png" class="img-fluid" alt="image.png"></p>
 </section>
 <section id="top-p-nucleus-sampling" class="level1">
 <h1>Top-P (Nucleus Sampling)</h1>
@@ -7701,7 +7701,7 @@ font-style: inherit;">"Count"</span>)</span>
 <span id="cb42-8">plt.show()</span>
 <span id="cb42-9"></span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-34-output-1.png" class="img-fluid"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-34-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -7782,7 +7782,7 @@ font-style: inherit;">"Count"</span>)</span>
 <span id="cb45-8">plt.show()</span>
 <span id="cb45-9"></span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-37-output-1.png" class="img-fluid"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cell-37-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -7790,13 +7790,13 @@ font-style: inherit;">"Count"</span>)</span>
 <h1>OpenAI Recommendations for Top-P</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/13638fd0-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/366859ac-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/b39ed28b-1-image-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/e9d1ac7e-1-image-2.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image-2.png</figcaption>
 </figure>
 </div>
@@ -8031,7 +8031,7 @@ font-style: inherit;">=</span>seed</span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/0306a3a9-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/9d915e22-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -8043,7 +8043,7 @@ font-style: inherit;">=</span>seed</span>
 <p>It ranges from -2.0 to 2.0, where positive values discourage repetition by penalizing tokens that occur frequently, and negative values can increase the likelihood of repetition. This helps control the diversity of the generated content and prevent verbatim repetition.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/c3f79922-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/e91c946f-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -8221,13 +8221,13 @@ font-style: inherit;">0.5</span></span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/86b48d58-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/a11ff382-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/c73966cd-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/8108343a-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -8394,13 +8394,13 @@ font-style: inherit;">2</span></span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/1407d1f9-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/b7be69fc-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/8058bffd-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/5b35cbe0-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -8571,9 +8571,9 @@ No matching items
 </div><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
   <category>llm</category>
   <category>openai</category>
-  <guid>https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html</guid>
+  <guid>https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html</guid>
   <pubDate>Sat, 16 Dec 2023 18:30:00 GMT</pubDate>
-  <media:content url="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/IMG_F4CC52CE7F7F-1.jpeg" medium="image" type="image/jpeg"/>
+  <media:content url="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/IMG_F4CC52CE7F7F-1.jpeg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>
