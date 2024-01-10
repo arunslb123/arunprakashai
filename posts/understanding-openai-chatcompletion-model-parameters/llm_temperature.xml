@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Explained Intuitively</title>
+<link>https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html</link>
+<atom:link href="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.xml" rel="self" type="application/rss+xml"/>
+<description>Details: Dive into the intricacies of LLM token generation with our insightful notebook. We cover key parameters like temperature, top_p, frequency_penalty, and presence_penalty, examining their value ranges and OpenAI&#39;s defaults.We highlight the generation probability using log_probs. Our comprehensive guide includes real examples to demonstrate how these settings impact the token generation process, providing a valuable resource for developers and AI enthusiasts alike</description>
+<image>
+<url>https://arunprakash.ai/IMG_F4CC52CE7F7F-1.jpeg</url>
+<title>Explained Intuitively</title>
+<link>https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html</link>
+</image>
+<generator>quarto-1.3.340</generator>
+<lastBuildDate>Wed, 10 Jan 2024 13:22:47 GMT</lastBuildDate>
+</channel>
+</rss>
