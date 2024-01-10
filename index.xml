@@ -20,6 +20,12 @@
 
 
 
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/travel2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Voyage Vista</figcaption>
+</figure>
+</div>
 <p>Welcome to our tutorial on “Building a Personalised Travel Planner using OpenAI Assistants APIs”. In this blog post, we will guide you through the process of creating “Voyage Vista”, a travel planning tool that uses OpenAI Assistants APIs to bring your dream vacation to life.</p>
 <section id="voyage-vista-your-personal-travel-planner" class="level2">
 <h2 class="anchored" data-anchor-id="voyage-vista-your-personal-travel-planner">Voyage Vista: Your Personal Travel Planner</h2>
@@ -44,12 +50,6 @@
 <li><strong>Messages:</strong> The Messages feature will be used to communicate with users, providing them with real-time updates and responses to their queries.</li>
 </ul>
 <p>By leveraging these features, we aim to create a dynamic, efficient, and user-friendly travel planning tool. In the following sections of this tutorial, we will delve deeper into each of these features and show you how to use them to build your own version of Voyage Vista</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/travel2.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Voyage Vista</figcaption>
-</figure>
-</div>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
@@ -2597,8 +2597,8 @@ No matching items
 </div><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
   <category>llm</category>
   <category>openai</category>
-  <category>function calling</category>
-  <category>openai assistants api</category>
+  <category>function_calling</category>
+  <category>openai_assistants_api</category>
   <category>handson</category>
   <guid>https://www.arunprakash.ai/posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html</guid>
   <pubDate>Tue, 09 Jan 2024 18:30:00 GMT</pubDate>
@@ -5791,7 +5791,7 @@ font-style: inherit;">return</span> third_response</span></code></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling_files/figure-html/e29116e1-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling_files/figure-html/9f8bf52b-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -6077,7 +6077,7 @@ No matching items
 <p>In each parameter, we will explore different range of values and discuss about openai’s default values and recommendations. Then in the final section we will go through <strong>some real examples</strong> to understand how these parameters affect the token generation process.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/3203451c-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/e795b206-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption class="figure-caption">IMG_F4CC52CE7F7F-1.jpeg</figcaption>
 </figure>
 </div>
@@ -6472,7 +6472,7 @@ font-style: inherit;">42</span></span></code></pre></div>
 <p>In the context of OpenAI, tokens are the basic units of text processed by their language models, such as GPT-3. OpenAI employs Byte-Pair Encoding (BPE) for tokenization, which is a method initially designed for text compression. BPE identifies the most frequent pairs of characters or tokens and merges them to form new tokens, thus optimizing the tokenization process for efficiency and effectiveness in representing the text data. This approach allows the model to handle a wide range of vocabulary, including rare words or phrases, by breaking them down into subword units.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/7c2cb178-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/6bc69758-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -7255,7 +7255,7 @@ font-style: inherit;">"Count"</span>)</span>
 </section>
 <section id="openai-recommendations-for-temperature" class="level1">
 <h1>OpenAI Recommendations for Temperature</h1>
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/49e4c7eb-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/49e4c7eb-2-image.png" class="img-fluid" alt="image.png"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/672b6d35-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/672b6d35-2-image.png" class="img-fluid" alt="image.png"></p>
 </section>
 <section id="top-p-nucleus-sampling" class="level1">
 <h1>Top-P (Nucleus Sampling)</h1>
@@ -7790,13 +7790,13 @@ font-style: inherit;">"Count"</span>)</span>
 <h1>OpenAI Recommendations for Top-P</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/a88c6a3e-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/7d224630-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/941bf3d3-1-image-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/a8eab28b-1-image-2.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image-2.png</figcaption>
 </figure>
 </div>
@@ -8031,7 +8031,7 @@ font-style: inherit;">=</span>seed</span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/b8f76f6b-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/0f0778c9-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -8043,7 +8043,7 @@ font-style: inherit;">=</span>seed</span>
 <p>It ranges from -2.0 to 2.0, where positive values discourage repetition by penalizing tokens that occur frequently, and negative values can increase the likelihood of repetition. This helps control the diversity of the generated content and prevent verbatim repetition.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/b612fe9f-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/e86fb64a-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -8221,13 +8221,13 @@ font-style: inherit;">0.5</span></span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/0b3ab88e-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/b60ee24f-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/0eb1e1a9-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/5b146f65-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -8394,13 +8394,13 @@ font-style: inherit;">2</span></span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/060941fe-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/a980e61e-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/11bd729b-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/429e0392-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
