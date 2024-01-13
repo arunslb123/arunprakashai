@@ -8,6 +8,10 @@
     "items": []
   },
   {
+    "listing": "/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html",
+    "items": []
+  },
+  {
     "listing": "/posts/openai-parallel-function-calling-handson-tools/function_calling.html",
     "items": []
   },
@@ -18,6 +22,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html",
       "/posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html",
       "/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html",
       "/posts/openai-parallel-function-calling-handson-tools/function_calling.html",
