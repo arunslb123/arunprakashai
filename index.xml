@@ -10,7 +10,670 @@
 <atom:link href="https://arunprakash.ai/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog about large language models and tools</description>
 <generator>quarto-1.3.340</generator>
-<lastBuildDate>Sat, 13 Jan 2024 18:30:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 19 Jan 2024 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>OpenAI ChatCompletions vs OpenAI Assistants API: A Hands-on Comparison</title>
+  <dc:creator>Arun Prakash</dc:creator>
+  <link>https://arunprakash.ai/posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> json</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> os</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> dotenv <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> load_dotenv</span>
+<span id="cb1-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> openai</span>
+<span id="cb1-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> openai <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> OpenAI</span>
+<span id="cb1-6">client <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> OpenAI()</span>
+<span id="cb1-7">load_dotenv()</span>
+<span id="cb1-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># openai key</span></span>
+<span id="cb1-9">OPENAI_API_KEY <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> os.getenv(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"OPENAI_API_KEY"</span>)</span>
+<span id="cb1-10">openai.api_key <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> OPENAI_API_KEY</span>
+<span id="cb1-11"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> IPython.display <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> display, Markdown</span></code></pre></div>
+</div>
+<section id="api-keys-httpsplatform.openai.comapi-keys" class="level6">
+<h6 class="anchored" data-anchor-id="api-keys-httpsplatform.openai.comapi-keys">API Keys: https://platform.openai.com/api-keys</h6>
+</section>
+<section id="chat-completions-api" class="level1">
+<h1>Chat Completions API</h1>
+<ul>
+<li>Takes a user’s message and a model as inputs</li>
+<li>Generates responses to user inputs</li>
+<li>Messages serve as the fundamental component in Chat Completions API operations</li>
+</ul>
+</section>
+<section id="chat-completion-models-drawbacks" class="level1">
+<h1>Chat Completion Models: Drawbacks</h1>
+<ul>
+<li>No message history tracking</li>
+<li>Lack of support for file inputs (e.g., PDFs, CSVs)</li>
+<li>Challenges with computational tasks</li>
+<li>No management of context windows</li>
+<li>Operate synchronously</li>
+</ul>
+</section>
+<section id="assistants-api" class="level1">
+<h1>Assistants API</h1>
+<ul>
+<li>Manages conversation Threads for Context Maintenance</li>
+<li>Tools: Code Interpreter, Retrieval, Function calling</li>
+<li>Supports file handling</li>
+<li>Asynchronous support</li>
+<li>Can generate graphs, charts, and process various file types</li>
+</ul>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># !pip3 install openai --upgrade</span></span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># openai version</span></span>
+<span id="cb3-2">openai.__version__</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>'1.8.0'</code></pre>
+</div>
+</div>
+</section>
+<section id="no-message-histories-in-chatcompletions" class="level1">
+<h1>1. No Message Histories in ChatCompletions</h1>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">response <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.chat.completions.create(</span>
+<span id="cb5-2">    model<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"gpt-4-1106-preview"</span>,</span>
+<span id="cb5-3">    messages<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[</span>
+<span id="cb5-4">        {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"What's the capital of Japan"</span>},</span>
+<span id="cb5-5">    ],</span>
+<span id="cb5-6">    temperature<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>,</span>
+<span id="cb5-7">    seed<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span id="cb5-8">)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">display(Markdown(response.choices[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].message.content))</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<p>The capital of Japan is Tokyo.</p>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">response <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.chat.completions.create(</span>
+<span id="cb7-2">    model<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"gpt-4-1106-preview"</span>,</span>
+<span id="cb7-3">    messages<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[</span>
+<span id="cb7-4">        {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Tell me something about that city"</span>},</span>
+<span id="cb7-5">    ],</span>
+<span id="cb7-6">    temperature<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>,</span>
+<span id="cb7-7">    seed<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span id="cb7-8">)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">display(Markdown(response.choices[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].message.content))</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<p>I’m sorry, but you didn’t specify which city you’re referring to. Could you please provide the name of the city you’re interested in learning about?</p>
+</div>
+</div>
+</section>
+<section id="no-code-interpreter---computational-tasks" class="level1">
+<h1>No Code Interpreter - Computational Tasks</h1>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">response <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.chat.completions.create(</span>
+<span id="cb9-2">    model<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"gpt-4-1106-preview"</span>,</span>
+<span id="cb9-3">    messages<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[</span>
+<span id="cb9-4">        {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"reverse the string openaichatgpt"</span>},</span>
+<span id="cb9-5">    ],</span>
+<span id="cb9-6">    temperature<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>,</span>
+<span id="cb9-7">    seed<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span id="cb9-8">)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">display(Markdown(response.choices[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].message.content))</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<p>To reverse the string “openaichatgpt”, you would simply reverse the order of the characters to get “tpgtaahcianepo”.</p>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"tpgtahciapeneo"</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"openaichatgpt"</span>[::<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>False</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">response <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.chat.completions.create(</span>
+<span id="cb13-2">    model<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"gpt-4-1106-preview"</span>,</span>
+<span id="cb13-3">    messages<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[</span>
+<span id="cb13-4">        {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"what's todays date?"</span>},</span>
+<span id="cb13-5">    ],</span>
+<span id="cb13-6">    temperature<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>,</span>
+<span id="cb13-7">    seed<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span id="cb13-8">)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">display(Markdown(response.choices[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].message.content))</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<p>As an AI, I don’t have real-time capabilities, so I can’t provide the current date. However, you can easily check the date on your computer, smartphone, or any other device with a calendar function.</p>
+</div>
+</div>
+</section>
+<section id="context-window-handling" class="level1">
+<h1>Context Window Handling</h1>
+</section>
+<section id="synchronous" class="level1">
+<h1>Synchronous</h1>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">response <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.chat.completions.create(</span>
+<span id="cb15-2">    model<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"gpt-4-1106-preview"</span>,</span>
+<span id="cb15-3">    messages<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[</span>
+<span id="cb15-4">        {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"reverse the string openaichatgpt"</span>},</span>
+<span id="cb15-5">    ],</span>
+<span id="cb15-6">    temperature<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>,</span>
+<span id="cb15-7">    seed<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span id="cb15-8">)</span></code></pre></div>
+</div>
+</section>
+<section id="assistants-api-1" class="level1">
+<h1>Assistants API</h1>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">assistant <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.assistants.create(</span>
+<span id="cb16-2">    name<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Python Tutor"</span>,</span>
+<span id="cb16-3">    instructions<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"You are a python tutor teaching someone who has experience in Java"</span>,</span>
+<span id="cb16-4">    tools<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"type"</span>:<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"code_interpreter"</span>}],</span>
+<span id="cb16-5">    model<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"gpt-4-1106-preview"</span></span>
+<span id="cb16-6">)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">assistant</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>Assistant(id='asst_4bTZR8hx96VEvyFca4hnmoe1', created_at=1705686038, description=None, file_ids=[], instructions='You are a python tutor teaching someone who has experience in Java', metadata={}, model='gpt-4-1106-preview', name='Python Tutor', object='assistant', tools=[ToolCodeInterpreter(type='code_interpreter')])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">thread <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.threads.create()</span>
+<span id="cb19-2">thread</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>Thread(id='thread_z12e0BsDI8SfaePTmRMsApXo', created_at=1705686038, metadata={}, object='thread')</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">message <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.threads.messages.create(</span>
+<span id="cb21-2">    thread_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>thread.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span>,</span>
+<span id="cb21-3">    role<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"user"</span>,</span>
+<span id="cb21-4">    content<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"reverse the string openaichatgpt"</span></span>
+<span id="cb21-5">)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">run <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.threads.runs.create(</span>
+<span id="cb22-2">    thread_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>thread.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span>,</span>
+<span id="cb22-3">    assistant_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>assistant.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span>)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(json.dumps(run.model_dump(), indent<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{
+    "id": "run_npuaz95TU2HdDGu3cgRhkOsW",
+    "assistant_id": "asst_4bTZR8hx96VEvyFca4hnmoe1",
+    "cancelled_at": null,
+    "completed_at": null,
+    "created_at": 1705686039,
+    "expires_at": 1705686639,
+    "failed_at": null,
+    "file_ids": [],
+    "instructions": "You are a python tutor teaching someone who has experience in Java",
+    "last_error": null,
+    "metadata": {},
+    "model": "gpt-4-1106-preview",
+    "object": "thread.run",
+    "required_action": null,
+    "started_at": null,
+    "status": "queued",
+    "thread_id": "thread_z12e0BsDI8SfaePTmRMsApXo",
+    "tools": [
+        {
+            "type": "code_interpreter"
+        }
+    ]
+}</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1">run <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.threads.runs.retrieve(</span>
+<span id="cb25-2">  thread_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>thread.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span>,</span>
+<span id="cb25-3">  run_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>run.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span></span>
+<span id="cb25-4">)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1">run.status</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>'in_progress'</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1">messages <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.threads.messages.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>(</span>
+<span id="cb28-2">  thread_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>thread.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span></span>
+<span id="cb28-3">)</span>
+<span id="cb28-4"></span>
+<span id="cb28-5">messages</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>SyncCursorPage[ThreadMessage](data=[ThreadMessage(id='msg_j9CJRJRiYrsfl7pk6a07u72c', assistant_id=None, content=[MessageContentText(text=Text(annotations=[], value='reverse the string openaichatgpt'), type='text')], created_at=1705686038, file_ids=[], metadata={}, object='thread.message', role='user', run_id=None, thread_id='thread_z12e0BsDI8SfaePTmRMsApXo')], object='list', first_id='msg_j9CJRJRiYrsfl7pk6a07u72c', last_id='msg_j9CJRJRiYrsfl7pk6a07u72c', has_more=False)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(json.dumps(messages.model_dump(), indent<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{
+    "data": [
+        {
+            "id": "msg_j9CJRJRiYrsfl7pk6a07u72c",
+            "assistant_id": null,
+            "content": [
+                {
+                    "text": {
+                        "annotations": [],
+                        "value": "reverse the string openaichatgpt"
+                    },
+                    "type": "text"
+                }
+            ],
+            "created_at": 1705686038,
+            "file_ids": [],
+            "metadata": {},
+            "object": "thread.message",
+            "role": "user",
+            "run_id": null,
+            "thread_id": "thread_z12e0BsDI8SfaePTmRMsApXo"
+        }
+    ],
+    "object": "list",
+    "first_id": "msg_j9CJRJRiYrsfl7pk6a07u72c",
+    "last_id": "msg_j9CJRJRiYrsfl7pk6a07u72c",
+    "has_more": false
+}</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1">display(Markdown(messages.data[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].content[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].text.value))</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<p>reverse the string openaichatgpt</p>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1">message <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.threads.messages.create(</span>
+<span id="cb33-2">    thread_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>thread.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span>,</span>
+<span id="cb33-3">    role<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"user"</span>,</span>
+<span id="cb33-4">    content<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"make the previous input as uppercase and tell me the length of the string"</span></span>
+<span id="cb33-5">)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> time</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># new run</span></span>
+<span id="cb35-2">run <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.threads.runs.create(</span>
+<span id="cb35-3">  thread_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>thread.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span>,</span>
+<span id="cb35-4">  assistant_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>assistant.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span>,</span>
+<span id="cb35-5">)</span>
+<span id="cb35-6"></span>
+<span id="cb35-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># wait for run to complete</span></span>
+<span id="cb35-8"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">while</span> run.status <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"queued"</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">or</span> run.status <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"in_progress"</span>:</span>
+<span id="cb35-9">    run <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.threads.runs.retrieve(</span>
+<span id="cb35-10">      thread_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>thread.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span>,</span>
+<span id="cb35-11">      run_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>run.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span></span>
+<span id="cb35-12">    )</span>
+<span id="cb35-13">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(run.status)</span>
+<span id="cb35-14">    time.sleep(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>in_progress
+in_progress
+in_progress
+completed</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1">messages <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> client.beta.threads.messages.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>(</span>
+<span id="cb37-2">    thread_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>thread.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span></span>
+<span id="cb37-3">    )</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1">display(Markdown(messages.data[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].content[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].text.value))</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<p>The reversed string “tpgtahcianepo” in uppercase is “TPGTAHCIANEPO”. The length of this string is 13 characters.</p>
+</div>
+</div>
+
+
+
+</section>
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>llm</category>
+  <category>openai</category>
+  <category>openai_assistants_api</category>
+  <category>chat_completions</category>
+  <category>handson</category>
+  <guid>https://arunprakash.ai/posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html</guid>
+  <pubDate>Fri, 19 Jan 2024 18:30:00 GMT</pubDate>
+  <media:content url="https://arunprakash.ai/posts/chatcompletions-vs-assistants-ai-openai/logo.png" medium="image" type="image/png" height="144" width="144"/>
+</item>
 <item>
   <title>Morning with Jarvis: Craft Your Own News Universe from Social Media and News Digests</title>
   <dc:creator>Arun Prakash</dc:creator>
@@ -59,7 +722,7 @@ font-style: inherit;"># !pip install nest_asyncio</span></span></code></pre></di
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools_files/figure-html/308f6405-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools_files/figure-html/9a6928eb-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -8413,7 +9076,7 @@ font-style: inherit;">return</span> third_response</span></code></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling_files/figure-html/18cd5596-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling_files/figure-html/ecdb00a2-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -8699,7 +9362,7 @@ No matching items
 <p>In each parameter, we will explore different range of values and discuss about openai’s default values and recommendations. Then in the final section we will go through <strong>some real examples</strong> to understand how these parameters affect the token generation process.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/66d11923-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/1f1a2ae9-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption class="figure-caption">IMG_F4CC52CE7F7F-1.jpeg</figcaption>
 </figure>
 </div>
@@ -9094,7 +9757,7 @@ font-style: inherit;">42</span></span></code></pre></div>
 <p>In the context of OpenAI, tokens are the basic units of text processed by their language models, such as GPT-3. OpenAI employs Byte-Pair Encoding (BPE) for tokenization, which is a method initially designed for text compression. BPE identifies the most frequent pairs of characters or tokens and merges them to form new tokens, thus optimizing the tokenization process for efficiency and effectiveness in representing the text data. This approach allows the model to handle a wide range of vocabulary, including rare words or phrases, by breaking them down into subword units.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/e9db4e9d-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/3d7c930b-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -9877,7 +10540,7 @@ font-style: inherit;">"Count"</span>)</span>
 </section>
 <section id="openai-recommendations-for-temperature" class="level1">
 <h1>OpenAI Recommendations for Temperature</h1>
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/333874a9-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/333874a9-2-image.png" class="img-fluid" alt="image.png"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/616bb544-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/616bb544-2-image.png" class="img-fluid" alt="image.png"></p>
 </section>
 <section id="top-p-nucleus-sampling" class="level1">
 <h1>Top-P (Nucleus Sampling)</h1>
@@ -10412,13 +11075,13 @@ font-style: inherit;">"Count"</span>)</span>
 <h1>OpenAI Recommendations for Top-P</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/6915c3db-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/d2b976d2-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/f8897691-1-image-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/4cd0b8cc-1-image-2.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image-2.png</figcaption>
 </figure>
 </div>
@@ -10653,7 +11316,7 @@ font-style: inherit;">=</span>seed</span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/b3319f8c-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/d239cfaa-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -10665,7 +11328,7 @@ font-style: inherit;">=</span>seed</span>
 <p>It ranges from -2.0 to 2.0, where positive values discourage repetition by penalizing tokens that occur frequently, and negative values can increase the likelihood of repetition. This helps control the diversity of the generated content and prevent verbatim repetition.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/a79f35d0-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/cc32358a-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -10843,13 +11506,13 @@ font-style: inherit;">0.5</span></span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/964f4102-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/7522ac08-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/7362d55e-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/2cd48a27-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -11016,13 +11679,13 @@ font-style: inherit;">2</span></span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/356bd99b-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/2078d2de-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/54b7a347-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/fe75b9e5-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
