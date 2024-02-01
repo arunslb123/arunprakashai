@@ -20,12 +20,17 @@
     "items": []
   },
   {
+    "listing": "/posts/ai-assistants-crewai/classroom_crew.html",
+    "items": []
+  },
+  {
     "listing": "/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html",
     "items": []
   },
   {
     "listing": "/index.html",
     "items": [
+      "/posts/ai-assistants-crewai/classroom_crew.html",
       "/posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html",
       "/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html",
       "/posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html",

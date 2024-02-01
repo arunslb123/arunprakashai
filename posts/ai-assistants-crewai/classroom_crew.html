@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.340">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Arun Prakash">
+<meta name="dcterms.date" content="2024-02-02">
+<meta name="description" content="We use crewAI library to develop many agents and make them work together. We build a project where we simulate a classroom with students and teachers. Teacher agent teach a topic, student agents ask questions, then teacher agents incorporate the questions into the topic and teach again.">
+
+<title>Explained Intuitively - crewAI: Simulating a Classroom with CrewAI Agents</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: [],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="classroom_crew.xml"><meta property="og:title" content="Explained Intuitively - crewAI: Simulating a Classroom with CrewAI Agents">
+<meta property="og:description" content="We use crewAI library to develop many agents and make them work together. We build a project where we simulate a classroom with students and teachers. Teacher agent teach a topic, student agents ask questions, then teacher agents incorporate the questions into the topic and teach again.">
+<meta property="og:image" content="https://arunprakash.ai/posts/ai-assistants-crewai/crew.png">
+<meta property="og:site-name" content="Explained Intuitively">
+<meta property="og:image:height" content="2924">
+<meta property="og:image:width" content="5200">
+<meta name="twitter:title" content="Explained Intuitively - crewAI: Simulating a Classroom with CrewAI Agents">
+<meta name="twitter:description" content="We use crewAI library to develop many agents and make them work together. We build a project where we simulate a classroom with students and teachers. Teacher agent teach a topic, student agents ask questions, then teacher agents incorporate the questions into the topic and teach again.">
+<meta name="twitter:image" content="https://arunprakash.ai/posts/ai-assistants-crewai/crew.png">
+<meta name="twitter:image-height" content="2924">
+<meta name="twitter:image-width" content="5200">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://arunprakash.ai/posts/ai-assistants-crewai/classroom_crew.html" />
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Explained Intuitively</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/arunslb123" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/arunprakashml" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">crewAI: Simulating a Classroom with CrewAI Agents</h1>
+                  <div>
+        <div class="description">
+          We use crewAI library to develop many agents and make them work together. We build a project where we simulate a classroom with students and teachers. Teacher agent teach a topic, student agents ask questions, then teacher agents incorporate the questions into the topic and teach again.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">llm</div>
+                <div class="quarto-category">openai</div>
+                <div class="quarto-category">agents</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Arun Prakash </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 2, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+
+
+
+
+<p>I’ve developed several AI Assistants using OpenAI’s API. In one project, I created an assistant that sifts through my social media and a few other websites, capturing screenshots, analyzing content, and preparing personalized news. Every morning, it sends me a voice message and a report on Telegram. In another project, I built a personalized travel planner. This assistant, upon receiving a city I plan to visit, checks its weather, creates a color-coded map, devises a personalized itinerary with an optimized travel path, and compiles a travel guide complete with cultural insights.</p>
+<p>A recurring challenge in these projects was that a single assistant couldn’t handle all the tasks. I had to design specialized assistants: one excelled at creating Word documents, another was adept at recommending places, and so on.</p>
+<p>Upon exploring the Crew Library, I realized that it enables the creation of multiple agents, each with specialized skills, roles, and tools. Importantly, these agents can share a common memory, allowing each to be aware of the others’ actions and progress.</p>
+<p>In this blog post, let’s construct an AI Assistant/Agent to simulate a classroom setting. One agent will act as a teacher, instructing on a topic, while other agents will play the role of students, asking questions. The teacher agent will then incorporate these questions to make the class more engaging and interactive.</p>
+<p><strong>Introduction:</strong> The realm of AI development is constantly evolving, offering innovative ways to utilize technology in everyday tasks. In a recent project, we explored the capabilities of the Crew Library, a powerful tool for creating multiple AI agents, each with specialized skills. This article delves into a fascinating application of the Crew Library: simulating a classroom environment with AI agents.</p>
+<p><strong>Project Overview:</strong> The project aimed to simulate a classroom setting with AI agents acting as a teacher and students. Using the Crew Library, we developed a teacher agent specialized in deep learning and multiple student agents at different comprehension levels: beginner, intermediate, and advanced. This setup allowed for an interactive and engaging educational experience, mimicking a real classroom.</p>
+<p><strong>Implementation:</strong> 1. <strong>Agent Creation:</strong> We began by creating a teacher agent with a role as a deep learning instructor, equipped with goals, a backstory, and the ability to search the internet. The teacher’s primary goal was to teach deep learning to a diverse group of students. Similarly, student agents were created, each with their own goals and backstories corresponding to their understanding levels.</p>
+<ol start="2" type="1">
+<li><p><strong>Tasks and Classroom Crew:</strong> We defined tasks for each agent. The student agents were tasked with asking questions based on their understanding levels, while the teacher agent’s task was to incorporate these questions into a more comprehensive teaching script. We then integrated these agents and tasks into a ‘classroom crew’ using the Crew Library, enabling sequential processing of tasks.</p></li>
+<li><p><strong>Execution and Results:</strong> The classroom simulation was executed, where initially the teacher taught a topic in deep learning. Then, student agents asked questions according to their levels, which the teacher later integrated into a revised teaching script. The Crew Library’s sequential task processing allowed for a smooth flow of the classroom simulation.</p></li>
+<li><p><strong>Display and Analysis:</strong> We utilized IPython’s display and markdown features to present the results. The final output showcased the teacher’s initial lecture, the students’ questions, and the final, enriched teaching script that included answers to these questions.</p></li>
+</ol>
+<p><strong>Conclusion:</strong> This project demonstrated the versatility and potential of the Crew Library in creating interactive and dynamic AI-driven environments. The successful simulation of a classroom setting not only underscores the importance of specialized AI agents in handling diverse tasks but also opens up new possibilities for AI-assisted learning and other applications.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openai</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> OpenAI()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># openai key</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>OPENAI_API_KEY <span class="op">=</span> os.getenv(<span class="st">"OPENAI_API_KEY"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>client.api_key <span class="op">=</span> OPENAI_API_KEY</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install git+https://github.com/joaomdmoura/crewAI.git</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install openai --upgrade</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install crewai --upgrade</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install duckduckgo-search</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.tools <span class="im">import</span> DuckDuckGoSearchRun</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>search_tool <span class="op">=</span> DuckDuckGoSearchRun()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> crewai <span class="im">import</span> Agent, Task, Crew, Process</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"OPENAI_API_KEY"</span>] <span class="op">=</span> OPENAI_API_KEY</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install -U langchain-openai</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_openai.chat_models <span class="im">import</span> ChatOpenAI</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ChatOpenAI(model_name<span class="op">=</span><span class="st">"gpt-4-turbo-preview"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>topic <span class="op">=</span> <span class="st">"Deep Learning"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a classroom with a teacher and 5 students</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>teacher <span class="op">=</span> Agent(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    role<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss"> Teacher'</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    goal<span class="op">=</span><span class="ss">f'Teach </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss"> to a diverse group of students'</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    backstory<span class="op">=</span><span class="ss">f"""You are an experienced teacher specializing in </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ss">    Your goal is to impart knowledge to a class with varying levels of understanding.</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ss">    You enjoy challenges and strive to make complex concepts accessible.You answer students' questions and provide feedback on their understanding."""</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    allow_delegation<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[search_tool],</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    llm<span class="op">=</span>model</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>advanced_student1 <span class="op">=</span> Agent(</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    role<span class="op">=</span><span class="st">'Advanced Level Student'</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    goal<span class="op">=</span><span class="ss">f'Understand advanced concepts in </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    backstory<span class="op">=</span><span class="st">"""You are an advanced level student who excels in grasping complex</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="st">    scientific principles. You enjoy pushing the boundaries of your understanding and</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="st">    asking challenging questions."""</span>,</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    allow_delegation<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[],  <span class="co"># No specific tools for now</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    llm<span class="op">=</span>model</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>advanced_student2 <span class="op">=</span> Agent(</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    role<span class="op">=</span><span class="st">'Advanced Level Student'</span>,</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    goal<span class="op">=</span><span class="ss">f'Understand advanced concepts in </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    backstory<span class="op">=</span><span class="ss">f"""You are another advanced level student who has a keen interest</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="ss">    in the intricate details of </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">. You aim to explore the subject</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="ss">    at an advanced level and may pose challenging questions."""</span>,</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    allow_delegation<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[],</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    llm<span class="op">=</span>model</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>intermediate_student1 <span class="op">=</span> Agent(</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>    role<span class="op">=</span><span class="st">'Intermediate Level Student'</span>,</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>    goal<span class="op">=</span><span class="ss">f'Grasp fundamental concepts in </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>    backstory<span class="op">=</span><span class="ss">f"""You are an intermediate level student with a good understanding of basic</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="ss">    </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss"> principles. Your goal is to </span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="ss">    ask questions that clarify fundamental concepts."""</span>,</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    allow_delegation<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[],</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    llm<span class="op">=</span>model</span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>intermediate_student2 <span class="op">=</span> Agent(</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>    role<span class="op">=</span><span class="st">'Intermediate Level Student'</span>,</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>    goal<span class="op">=</span><span class="ss">f'Grasp fundamental concepts in </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>    backstory<span class="op">=</span><span class="ss">f"""You are another intermediate level student aiming to ask questions to strengthen your grasp</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="ss">    on fundamental </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss"> concepts. """</span>,</span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>    allow_delegation<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[],</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>    llm<span class="op">=</span>model</span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>beginner_student <span class="op">=</span> Agent(</span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>    role<span class="op">=</span><span class="st">'Beginner Level Student'</span>,</span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>    goal<span class="op">=</span><span class="ss">f'Understand basic concepts in </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>    backstory<span class="op">=</span><span class="st">"""You are a beginner student who is working hard to understand</span></span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a><span class="st">    the basic principles of </span><span class="sc">{topic}</span><span class="st">. Your questions may be more basic,</span></span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a><span class="st">    focusing on fundamental concepts."""</span>,</span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>    allow_delegation<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[],</span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>    llm<span class="op">=</span>model</span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create tasks for the students to ask questions</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>question1 <span class="op">=</span> Task(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="ss">f"Ask a challenging question related to advanced </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">. Use the content taught by the teacher to frame your question. Your question can be independent to other students question"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    agent<span class="op">=</span>advanced_student1)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>question2 <span class="op">=</span> Task(</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="ss">f"Ask a challenging question related to advanced </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss"> Use the content taught by the teacher to frame your question. Your question can be independent to other students question"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    agent<span class="op">=</span>advanced_student2</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>question3 <span class="op">=</span> Task(</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="ss">f"Ask an average level question related to fundamental </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss"> Use the content taught by the teacher to frame your question. Your question can be independent to other students question"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    agent<span class="op">=</span>intermediate_student1</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>question4 <span class="op">=</span> Task(</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="ss">f"Ask an average level question related to fundamental </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss"> Use the content taught by the teacher to frame your question. Your question can be independent to other students question"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    agent<span class="op">=</span>intermediate_student2</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>question5 <span class="op">=</span> Task(</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="ss">f"Ask a basic question related to fundamental </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss"> Use the content taught by the teacher to frame your question. Your question can be independent to other students question"</span>,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    agent<span class="op">=</span>beginner_student</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a task for the teacher to answer questions</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>teach1 <span class="op">=</span> Task(</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="ss">f"Write your teaching script for the class. Your main goal is to teach </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">. write 1000-1200 words"</span>,</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    agent<span class="op">=</span>teacher</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>teach2 <span class="op">=</span> Task(</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="ss">f"Now re-write your teaching script based on your earlier script, incorporate the questions asked by the students, and include your answer in your script for maximum engagment.Your main goal is to write the script for the topic </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">, we are just including students relevant question to the topic along with answers for better understanding of the topic. So stick with the topic </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    agent<span class="op">=</span>teacher</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the crew with a sequential process</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>classroom_crew <span class="op">=</span> Crew(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    agents<span class="op">=</span>[teacher, advanced_student1, advanced_student2, intermediate_student1, intermediate_student2, beginner_student],</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    tasks<span class="op">=</span>[teach1, question1, question2, question3, question4, question5, teach2],</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    process<span class="op">=</span> Process.sequential,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Start the class!</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>classroom_result <span class="op">=</span> classroom_crew.kickoff()</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"######################"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classroom_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[DEBUG]: Working Agent: Deep Learning Teacher
+
+[INFO]: Starting Task: Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words
+
+
+&gt; Entering new CrewAgentExecutor chain...
+**Introduction to Deep Learning**
+
+Welcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.
+
+**Understanding the Basics**
+
+Deep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.
+
+At its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.
+
+**Why Deep Learning?**
+
+The "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.
+
+**Key Components of Deep Learning**
+
+1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.
+
+2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.
+
+3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.
+
+4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.
+
+**Challenges and Solutions**
+
+Deep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.
+
+Another challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.
+
+**Ethics and Future Perspectives**
+
+As we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.
+
+Looking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.
+
+**Conclusion**
+
+In this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.
+
+Remember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.
+
+Your journey into deep learning starts now. Embrace the challenges, and let's make the most of this opportunity to learn and grow together. Welcome aboard!Invalid Format: Missing 'Action:' after 'Thought:Do I need to use a tool? No
+Final Answer: **Introduction to Deep Learning**
+
+Welcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.
+
+**Understanding the Basics**
+
+Deep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.
+
+At its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.
+
+**Why Deep Learning?**
+
+The "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.
+
+**Key Components of Deep Learning**
+
+1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.
+
+2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.
+
+3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.
+
+4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.
+
+**Challenges and Solutions**
+
+Deep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.
+
+Another challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.
+
+**Ethics and Future Perspectives**
+
+As we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.
+
+Looking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.
+
+**Conclusion**
+
+In this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.
+
+Remember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.
+
+Your journey into deep learning starts now. Embrace the challenges, and let's make the most of this opportunity to learn and grow together. Welcome aboard!
+
+&gt; Finished chain.
+
+[DEBUG]: [Deep Learning Teacher] Task output: **Introduction to Deep Learning**
+
+Welcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.
+
+**Understanding the Basics**
+
+Deep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.
+
+At its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.
+
+**Why Deep Learning?**
+
+The "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.
+
+**Key Components of Deep Learning**
+
+1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.
+
+2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.
+
+3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.
+
+4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.
+
+**Challenges and Solutions**
+
+Deep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.
+
+Another challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.
+
+**Ethics and Future Perspectives**
+
+As we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.
+
+Looking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.
+
+**Conclusion**
+
+In this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.
+
+Remember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.
+
+Your journey into deep learning starts now. Embrace the challenges, and let's make the most of this opportunity to learn and grow together. Welcome aboard!
+
+
+
+[DEBUG]: Working Agent: Advanced Level Student
+
+[INFO]: Starting Task: Ask a challenging question related to advanced Deep Learning. Use the content taught by the teacher to frame your question. Your question can be independent to other students question
+
+
+&gt; Entering new CrewAgentExecutor chain...
+```
+Thought: Do I need to use a tool? No
+Final Answer: Given the increasing complexity and depth of neural networks, how can we design more efficient algorithms for training these networks that not only reduce computational resources and time but also minimize the environmental impact, considering the growing concerns around the carbon footprint of training large-scale AI models?
+```
+
+&gt; Finished chain.
+
+[DEBUG]: [Advanced Level Student] Task output: Given the increasing complexity and depth of neural networks, how can we design more efficient algorithms for training these networks that not only reduce computational resources and time but also minimize the environmental impact, considering the growing concerns around the carbon footprint of training large-scale AI models?
+```
+
+
+
+[DEBUG]: Working Agent: Advanced Level Student
+
+[INFO]: Starting Task: Ask a challenging question related to advanced Deep Learning Use the content taught by the teacher to frame your question. Your question can be independent to other students question
+
+
+&gt; Entering new CrewAgentExecutor chain...
+Thought: Do I need to use a tool? No
+Final Answer: Given the increasing complexity and depth of neural networks, how can we design more efficient algorithms for training these networks that not only reduce computational resources and time but also minimize the environmental impact, considering the growing concerns around the carbon footprint of training large-scale AI models?
+
+&gt; Finished chain.
+
+[DEBUG]: [Advanced Level Student] Task output: Given the increasing complexity and depth of neural networks, how can we design more efficient algorithms for training these networks that not only reduce computational resources and time but also minimize the environmental impact, considering the growing concerns around the carbon footprint of training large-scale AI models?
+
+
+
+[DEBUG]: Working Agent: Intermediate Level Student
+
+[INFO]: Starting Task: Ask an average level question related to fundamental Deep Learning Use the content taught by the teacher to frame your question. Your question can be independent to other students question
+
+
+&gt; Entering new CrewAgentExecutor chain...
+Thought: Do I need to use a tool? No
+Final Answer: In light of the concerns regarding the environmental impact of training large-scale deep learning models, a fundamental question arises: What are some of the emerging techniques or methodologies in deep learning that are aimed at reducing the computational intensity and, consequently, the carbon footprint of training these models, while still maintaining or enhancing their performance?
+
+&gt; Finished chain.
+
+[DEBUG]: [Intermediate Level Student] Task output: In light of the concerns regarding the environmental impact of training large-scale deep learning models, a fundamental question arises: What are some of the emerging techniques or methodologies in deep learning that are aimed at reducing the computational intensity and, consequently, the carbon footprint of training these models, while still maintaining or enhancing their performance?
+
+
+
+[DEBUG]: Working Agent: Intermediate Level Student
+
+[INFO]: Starting Task: Ask an average level question related to fundamental Deep Learning Use the content taught by the teacher to frame your question. Your question can be independent to other students question
+
+
+&gt; Entering new CrewAgentExecutor chain...
+Thought: Do I need to use a tool? No
+Final Answer: In the quest to address the environmental concerns associated with training deep learning models, what are some of the innovative approaches being adopted to minimize computational demands and carbon emissions without compromising the effectiveness of these models?
+
+&gt; Finished chain.
+
+[DEBUG]: [Intermediate Level Student] Task output: In the quest to address the environmental concerns associated with training deep learning models, what are some of the innovative approaches being adopted to minimize computational demands and carbon emissions without compromising the effectiveness of these models?
+
+
+
+[DEBUG]: Working Agent: Beginner Level Student
+
+[INFO]: Starting Task: Ask a basic question related to fundamental Deep Learning Use the content taught by the teacher to frame your question. Your question can be independent to other students question
+
+
+&gt; Entering new CrewAgentExecutor chain...
+Thought: Do I need to use a tool? No
+Final Answer: In addressing environmental concerns related to deep learning model training, several innovative approaches are being adopted. One fundamental approach is the development and use of more efficient algorithms that require less computational power, thereby reducing energy consumption. Another approach is the utilization of model pruning and quantization techniques, which streamline models by removing unnecessary parameters or reducing the precision of the calculations, making them less resource-intensive without significantly affecting performance. Additionally, there's a growing trend towards using renewable energy sources for powering data centers where these models are trained, further minimizing the carbon footprint associated with deep learning. Lastly, transfer learning is also gaining popularity as it allows developers to leverage pre-trained models on new tasks with minimal additional training required, significantly cutting down on the resources and energy needed for training models from scratch.
+
+&gt; Finished chain.
+
+[DEBUG]: [Beginner Level Student] Task output: In addressing environmental concerns related to deep learning model training, several innovative approaches are being adopted. One fundamental approach is the development and use of more efficient algorithms that require less computational power, thereby reducing energy consumption. Another approach is the utilization of model pruning and quantization techniques, which streamline models by removing unnecessary parameters or reducing the precision of the calculations, making them less resource-intensive without significantly affecting performance. Additionally, there's a growing trend towards using renewable energy sources for powering data centers where these models are trained, further minimizing the carbon footprint associated with deep learning. Lastly, transfer learning is also gaining popularity as it allows developers to leverage pre-trained models on new tasks with minimal additional training required, significantly cutting down on the resources and energy needed for training models from scratch.
+
+
+
+[DEBUG]: Working Agent: Deep Learning Teacher
+
+[INFO]: Starting Task: Now re-write your teaching script based on your earlier script, incorporate the questions asked by the students, and include your answer in your script for maximum engagment.Your main goal is to write the script for the topic Deep Learning, we are just including students relevant question to the topic along with answers for better understanding of the topic. So stick with the topic Deep Learning
+
+
+&gt; Entering new CrewAgentExecutor chain...
+### Deep Learning: A Comprehensive Introduction with Student Queries Integrated
+
+Welcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.
+
+#### The Essence of Deep Learning
+
+At its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain's functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.
+
+A student once asked, "Why do we need multiple layers in neural networks?" The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.
+
+#### Key Components and Challenges
+
+Let's break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.
+
+However, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.
+
+#### Addressing Environmental Concerns
+
+A pertinent question from a student highlighted a growing concern: "How does deep learning impact the environment?" Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.
+
+#### Ethical Considerations and Future Potential
+
+As we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.
+
+#### Continuous Learning and Exploration
+
+In conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.
+
+Remember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let's embark on this exciting journey together, ready to learn, question, and innovate.
+
+---
+
+This script integrates the essence of deep learning with answers to students' queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.Invalid Format: Missing 'Action:' after 'Thought:Thought: Do I need to use a tool? No
+Final Answer: Deep Learning: A Comprehensive Introduction with Student Queries Integrated
+
+Welcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.
+
+#### The Essence of Deep Learning
+
+At its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain's functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.
+
+A student once asked, "Why do we need multiple layers in neural networks?" The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.
+
+#### Key Components and Challenges
+
+Let's break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.
+
+However, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.
+
+#### Addressing Environmental Concerns
+
+A pertinent question from a student highlighted a growing concern: "How does deep learning impact the environment?" Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.
+
+#### Ethical Considerations and Future Potential
+
+As we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.
+
+#### Continuous Learning and Exploration
+
+In conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.
+
+Remember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let's embark on this exciting journey together, ready to learn, question, and innovate.
+
+---
+
+This script integrates the essence of deep learning with answers to students' queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.
+
+&gt; Finished chain.
+
+[DEBUG]: [Deep Learning Teacher] Task output: Deep Learning: A Comprehensive Introduction with Student Queries Integrated
+
+Welcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.
+
+#### The Essence of Deep Learning
+
+At its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain's functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.
+
+A student once asked, "Why do we need multiple layers in neural networks?" The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.
+
+#### Key Components and Challenges
+
+Let's break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.
+
+However, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.
+
+#### Addressing Environmental Concerns
+
+A pertinent question from a student highlighted a growing concern: "How does deep learning impact the environment?" Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.
+
+#### Ethical Considerations and Future Potential
+
+As we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.
+
+#### Continuous Learning and Exploration
+
+In conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.
+
+Remember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let's embark on this exciting journey together, ready to learn, question, and innovate.
+
+---
+
+This script integrates the essence of deep learning with answers to students' queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.
+
+
+######################
+Deep Learning: A Comprehensive Introduction with Student Queries Integrated
+
+Welcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.
+
+#### The Essence of Deep Learning
+
+At its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain's functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.
+
+A student once asked, "Why do we need multiple layers in neural networks?" The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.
+
+#### Key Components and Challenges
+
+Let's break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.
+
+However, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.
+
+#### Addressing Environmental Concerns
+
+A pertinent question from a student highlighted a growing concern: "How does deep learning impact the environment?" Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.
+
+#### Ethical Considerations and Future Potential
+
+As we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.
+
+#### Continuous Learning and Exploration
+
+In conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.
+
+Remember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let's embark on this exciting journey together, ready to learn, question, and innovate.
+
+---
+
+This script integrates the essence of deep learning with answers to students' queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>classroom_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>'Deep Learning: A Comprehensive Introduction with Student Queries Integrated\n\nWelcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.\n\n#### The Essence of Deep Learning\n\nAt its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain\'s functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.\n\nA student once asked, "Why do we need multiple layers in neural networks?" The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.\n\n#### Key Components and Challenges\n\nLet\'s break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.\n\nHowever, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.\n\n#### Addressing Environmental Concerns\n\nA pertinent question from a student highlighted a growing concern: "How does deep learning impact the environment?" Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.\n\n#### Ethical Considerations and Future Potential\n\nAs we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.\n\n#### Continuous Learning and Exploration\n\nIn conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.\n\nRemember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let\'s embark on this exciting journey together, ready to learn, question, and innovate.\n\n---\n\nThis script integrates the essence of deep learning with answers to students\' queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.'</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(classroom_crew.tasks[<span class="dv">0</span>].output.result))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><strong>Introduction to Deep Learning</strong></p>
+<p>Welcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.</p>
+<p><strong>Understanding the Basics</strong></p>
+<p>Deep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.</p>
+<p>At its core, a neural network consists of layers of nodes, or “neurons,” each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.</p>
+<p><strong>Why Deep Learning?</strong></p>
+<p>The “deep” in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.</p>
+<p><strong>Key Components of Deep Learning</strong></p>
+<ol type="1">
+<li><p><strong>Data</strong>: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.</p></li>
+<li><p><strong>Neural Networks</strong>: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.</p></li>
+<li><p><strong>Activation Functions</strong>: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.</p></li>
+<li><p><strong>Backpropagation and Gradient Descent</strong>: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.</p></li>
+</ol>
+<p><strong>Challenges and Solutions</strong></p>
+<p>Deep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.</p>
+<p>Another challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.</p>
+<p><strong>Ethics and Future Perspectives</strong></p>
+<p>As we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.</p>
+<p>Looking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.</p>
+<p><strong>Conclusion</strong></p>
+<p>In this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.</p>
+<p>Remember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.</p>
+<p>Your journey into deep learning starts now. Embrace the challenges, and let’s make the most of this opportunity to learn and grow together. Welcome aboard!</p>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(<span class="ss">f"</span><span class="sc">{</span>classroom_result<span class="sc">}</span><span class="ss">"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p>Deep Learning: A Comprehensive Introduction with Student Queries Integrated</p>
+<p>Welcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.</p>
+<section id="the-essence-of-deep-learning" class="level4">
+<h4 class="anchored" data-anchor-id="the-essence-of-deep-learning">The Essence of Deep Learning</h4>
+<p>At its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain’s functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.</p>
+<p>A student once asked, “Why do we need multiple layers in neural networks?” The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.</p>
+</section>
+<section id="key-components-and-challenges" class="level4">
+<h4 class="anchored" data-anchor-id="key-components-and-challenges">Key Components and Challenges</h4>
+<p>Let’s break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.</p>
+<p>However, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.</p>
+</section>
+<section id="addressing-environmental-concerns" class="level4">
+<h4 class="anchored" data-anchor-id="addressing-environmental-concerns">Addressing Environmental Concerns</h4>
+<p>A pertinent question from a student highlighted a growing concern: “How does deep learning impact the environment?” Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.</p>
+</section>
+<section id="ethical-considerations-and-future-potential" class="level4">
+<h4 class="anchored" data-anchor-id="ethical-considerations-and-future-potential">Ethical Considerations and Future Potential</h4>
+<p>As we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.</p>
+</section>
+<section id="continuous-learning-and-exploration" class="level4">
+<h4 class="anchored" data-anchor-id="continuous-learning-and-exploration">Continuous Learning and Exploration</h4>
+<p>In conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.</p>
+<p>Remember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let’s embark on this exciting journey together, ready to learn, question, and innovate.</p>
+<hr>
+<p>This script integrates the essence of deep learning with answers to students’ queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.</p>
+</section>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>classroom_crew.tasks[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>Task(description='Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words', agent=Agent(id=UUID('3cc87ddc-6687-4da0-aa99-2c8fac74074f'), role='Deep Learning Teacher', goal='Teach Deep Learning to a diverse group of students', backstory="You are an experienced teacher specializing in Deep Learning.\n    Your goal is to impart knowledge to a class with varying levels of understanding.\n    You enjoy challenges and strive to make complex concepts accessible.You answer students' questions and provide feedback on their understanding.", max_rpm=None, memory=True, verbose=True, allow_delegation=False, tools=[DuckDuckGoSearchRun()], max_iter=15, agent_executor=CrewAgentExecutor(memory=ConversationSummaryMemory(llm=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy=''), chat_memory=ChatMessageHistory(messages=[HumanMessage(content='Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words'), AIMessage(content='**Introduction to Deep Learning**\n\nWelcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.\n\n**Understanding the Basics**\n\nDeep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.\n\nAt its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.\n\n**Why Deep Learning?**\n\nThe "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.\n\n**Key Components of Deep Learning**\n\n1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.\n\n2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.\n\n3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.\n\n4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.\n\n**Challenges and Solutions**\n\nDeep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.\n\nAnother challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.\n\n**Ethics and Future Perspectives**\n\nAs we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.\n\nLooking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.\n\n**Conclusion**\n\nIn this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.\n\nRemember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.\n\nYour journey into deep learning starts now. Embrace the challenges, and let\'s make the most of this opportunity to learn and grow together. Welcome aboard!'), HumanMessage(content="Now re-write your teaching script based on your earlier script, incorporate the questions asked by the students, and include your answer in your script for maximum engagment.Your main goal is to write the script for the topic Deep Learning, we are just including students relevant question to the topic along with answers for better understanding of the topic. So stick with the topic Deep Learning\nThis is the context you're working with:\nIn addressing environmental concerns related to deep learning model training, several innovative approaches are being adopted. One fundamental approach is the development and use of more efficient algorithms that require less computational power, thereby reducing energy consumption. Another approach is the utilization of model pruning and quantization techniques, which streamline models by removing unnecessary parameters or reducing the precision of the calculations, making them less resource-intensive without significantly affecting performance. Additionally, there's a growing trend towards using renewable energy sources for powering data centers where these models are trained, further minimizing the carbon footprint associated with deep learning. Lastly, transfer learning is also gaining popularity as it allows developers to leverage pre-trained models on new tasks with minimal additional training required, significantly cutting down on the resources and energy needed for training models from scratch."), AIMessage(content='Deep Learning: A Comprehensive Introduction with Student Queries Integrated\n\nWelcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.\n\n#### The Essence of Deep Learning\n\nAt its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain\'s functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.\n\nA student once asked, "Why do we need multiple layers in neural networks?" The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.\n\n#### Key Components and Challenges\n\nLet\'s break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.\n\nHowever, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.\n\n#### Addressing Environmental Concerns\n\nA pertinent question from a student highlighted a growing concern: "How does deep learning impact the environment?" Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.\n\n#### Ethical Considerations and Future Potential\n\nAs we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.\n\n#### Continuous Learning and Exploration\n\nIn conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.\n\nRemember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let\'s embark on this exciting journey together, ready to learn, question, and innovate.\n\n---\n\nThis script integrates the essence of deep learning with answers to students\' queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.')]), input_key='input', buffer="The AI's teaching script for a class on Deep Learning now includes the integration of student queries for a more engaging and comprehensive overview. It addresses the basics of deep learning, the importance of artificial neural networks, and the significance of hierarchical data processing for tasks like image recognition. The script discusses key components such as data, neural networks, activation functions, backpropagation, and gradient descent, along with challenges like overfitting and the need for large datasets. Solutions to these challenges, including dropout, regularization, transfer learning, and unsupervised learning, are presented. Furthermore, it addresses environmental concerns associated with deep learning, such as the carbon footprint of model training and strategies to mitigate it, including energy-efficient algorithms, renewable energy usage in data centers, model pruning, quantization, and transfer learning. Ethical considerations, the potential of deep learning in various fields, and the importance of continuous learning and exploration in this rapidly evolving field are also highlighted. The script aims to make deep learning accessible and engaging, encouraging students to interact, ask questions, and explore the subject deeply.", memory_key='chat_history'), verbose=True, agent=RunnableAgent(runnable={
+  input: RunnableLambda(...),
+  tools: RunnableLambda(...),
+  tool_names: RunnableLambda(...),
+  agent_scratchpad: RunnableLambda(...),
+  chat_history: RunnableLambda(lambda x: x['chat_history'])
+}
+| PromptTemplate(input_variables=['agent_scratchpad', 'chat_history', 'input', 'tool_names', 'tools'], partial_variables={'goal': 'Teach Deep Learning to a diverse group of students', 'role': 'Deep Learning Teacher', 'backstory': "You are an experienced teacher specializing in Deep Learning.\n    Your goal is to impart knowledge to a class with varying levels of understanding.\n    You enjoy challenges and strive to make complex concepts accessible.You answer students' questions and provide feedback on their understanding."}, template='You are {role}.\n{backstory}\n\nYour personal goal is: {goal}TOOLS:\n------\nYou have access to only the following tools:\n\n{tools}\n\nTo use a tool, please use the exact following format:\n\n```\nThought: Do I need to use a tool? Yes\nAction: the action to take, should be one of [{tool_names}], just the name.\nAction Input: the input to the action\nObservation: the result of the action\n```\n\nWhen you have a response for your task, or if you do not need to use a tool, you MUST use the format:\n\n```\nThought: Do I need to use a tool? No\nFinal Answer: [your response here]This is the summary of your work so far:\n{chat_history}Begin! This is VERY important to you, your job depends on it!\n\nCurrent Task: {input}\n{agent_scratchpad}')
+| RunnableBinding(bound=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy=''), kwargs={'stop': ['\nObservation']})
+| CrewAgentOutputParser(tools_handler=&lt;crewai.agents.tools_handler.ToolsHandler object at 0x12751c5d0&gt;, cache=&lt;crewai.agents.cache.cache_handler.CacheHandler object at 0x12751cf10&gt;, i18n=I18N(language='en'))), tools=[DuckDuckGoSearchRun()], handle_parsing_errors=True, iterations=1, request_within_rpm_limit=&lt;bound method RPMController.check_or_wait of RPMController(max_rpm=None, logger=&lt;crewai.utilities.logger.Logger object at 0x104dd1050&gt;)&gt;, force_answer_max_iterations=13), tools_handler=&lt;crewai.agents.tools_handler.ToolsHandler object at 0x12751c5d0&gt;, cache_handler=&lt;crewai.agents.cache.cache_handler.CacheHandler object at 0x12751cf10&gt;, i18n=I18N(language='en'), llm=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy='')), tools=[DuckDuckGoSearchRun()], output=TaskOutput(description='Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words', summary='Write your teaching script for the class. Your main goal...', result='**Introduction to Deep Learning**\n\nWelcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.\n\n**Understanding the Basics**\n\nDeep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.\n\nAt its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.\n\n**Why Deep Learning?**\n\nThe "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.\n\n**Key Components of Deep Learning**\n\n1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.\n\n2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.\n\n3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.\n\n4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.\n\n**Challenges and Solutions**\n\nDeep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.\n\nAnother challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.\n\n**Ethics and Future Perspectives**\n\nAs we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.\n\nLooking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.\n\n**Conclusion**\n\nIn this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.\n\nRemember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.\n\nYour journey into deep learning starts now. Embrace the challenges, and let\'s make the most of this opportunity to learn and grow together. Welcome aboard!'), id=UUID('b517c52e-72bc-4fcc-bef3-d8c6f228df52'))</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>classroom_crew.tasks[<span class="dv">0</span>].model_dump()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>{'description': 'Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words',
+ 'agent': {'id': UUID('3cc87ddc-6687-4da0-aa99-2c8fac74074f'),
+  'role': 'Deep Learning Teacher',
+  'goal': 'Teach Deep Learning to a diverse group of students',
+  'backstory': "You are an experienced teacher specializing in Deep Learning.\n    Your goal is to impart knowledge to a class with varying levels of understanding.\n    You enjoy challenges and strive to make complex concepts accessible.You answer students' questions and provide feedback on their understanding.",
+  'max_rpm': None,
+  'memory': True,
+  'verbose': True,
+  'allow_delegation': False,
+  'tools': [DuckDuckGoSearchRun()],
+  'max_iter': 15,
+  'agent_executor': CrewAgentExecutor(memory=ConversationSummaryMemory(llm=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy=''), chat_memory=ChatMessageHistory(messages=[HumanMessage(content='Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words'), AIMessage(content='**Introduction to Deep Learning**\n\nWelcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.\n\n**Understanding the Basics**\n\nDeep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.\n\nAt its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.\n\n**Why Deep Learning?**\n\nThe "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.\n\n**Key Components of Deep Learning**\n\n1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.\n\n2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.\n\n3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.\n\n4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.\n\n**Challenges and Solutions**\n\nDeep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.\n\nAnother challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.\n\n**Ethics and Future Perspectives**\n\nAs we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.\n\nLooking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.\n\n**Conclusion**\n\nIn this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.\n\nRemember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.\n\nYour journey into deep learning starts now. Embrace the challenges, and let\'s make the most of this opportunity to learn and grow together. Welcome aboard!'), HumanMessage(content="Now re-write your teaching script based on your earlier script, incorporate the questions asked by the students, and include your answer in your script for maximum engagment.Your main goal is to write the script for the topic Deep Learning, we are just including students relevant question to the topic along with answers for better understanding of the topic. So stick with the topic Deep Learning\nThis is the context you're working with:\nIn addressing environmental concerns related to deep learning model training, several innovative approaches are being adopted. One fundamental approach is the development and use of more efficient algorithms that require less computational power, thereby reducing energy consumption. Another approach is the utilization of model pruning and quantization techniques, which streamline models by removing unnecessary parameters or reducing the precision of the calculations, making them less resource-intensive without significantly affecting performance. Additionally, there's a growing trend towards using renewable energy sources for powering data centers where these models are trained, further minimizing the carbon footprint associated with deep learning. Lastly, transfer learning is also gaining popularity as it allows developers to leverage pre-trained models on new tasks with minimal additional training required, significantly cutting down on the resources and energy needed for training models from scratch."), AIMessage(content='Deep Learning: A Comprehensive Introduction with Student Queries Integrated\n\nWelcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.\n\n#### The Essence of Deep Learning\n\nAt its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain\'s functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.\n\nA student once asked, "Why do we need multiple layers in neural networks?" The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.\n\n#### Key Components and Challenges\n\nLet\'s break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.\n\nHowever, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.\n\n#### Addressing Environmental Concerns\n\nA pertinent question from a student highlighted a growing concern: "How does deep learning impact the environment?" Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.\n\n#### Ethical Considerations and Future Potential\n\nAs we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.\n\n#### Continuous Learning and Exploration\n\nIn conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.\n\nRemember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let\'s embark on this exciting journey together, ready to learn, question, and innovate.\n\n---\n\nThis script integrates the essence of deep learning with answers to students\' queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.')]), input_key='input', buffer="The AI's teaching script for a class on Deep Learning now includes the integration of student queries for a more engaging and comprehensive overview. It addresses the basics of deep learning, the importance of artificial neural networks, and the significance of hierarchical data processing for tasks like image recognition. The script discusses key components such as data, neural networks, activation functions, backpropagation, and gradient descent, along with challenges like overfitting and the need for large datasets. Solutions to these challenges, including dropout, regularization, transfer learning, and unsupervised learning, are presented. Furthermore, it addresses environmental concerns associated with deep learning, such as the carbon footprint of model training and strategies to mitigate it, including energy-efficient algorithms, renewable energy usage in data centers, model pruning, quantization, and transfer learning. Ethical considerations, the potential of deep learning in various fields, and the importance of continuous learning and exploration in this rapidly evolving field are also highlighted. The script aims to make deep learning accessible and engaging, encouraging students to interact, ask questions, and explore the subject deeply.", memory_key='chat_history'), verbose=True, agent=RunnableAgent(runnable={
+    input: RunnableLambda(...),
+    tools: RunnableLambda(...),
+    tool_names: RunnableLambda(...),
+    agent_scratchpad: RunnableLambda(...),
+    chat_history: RunnableLambda(lambda x: x['chat_history'])
+  }
+  | PromptTemplate(input_variables=['agent_scratchpad', 'chat_history', 'input', 'tool_names', 'tools'], partial_variables={'goal': 'Teach Deep Learning to a diverse group of students', 'role': 'Deep Learning Teacher', 'backstory': "You are an experienced teacher specializing in Deep Learning.\n    Your goal is to impart knowledge to a class with varying levels of understanding.\n    You enjoy challenges and strive to make complex concepts accessible.You answer students' questions and provide feedback on their understanding."}, template='You are {role}.\n{backstory}\n\nYour personal goal is: {goal}TOOLS:\n------\nYou have access to only the following tools:\n\n{tools}\n\nTo use a tool, please use the exact following format:\n\n```\nThought: Do I need to use a tool? Yes\nAction: the action to take, should be one of [{tool_names}], just the name.\nAction Input: the input to the action\nObservation: the result of the action\n```\n\nWhen you have a response for your task, or if you do not need to use a tool, you MUST use the format:\n\n```\nThought: Do I need to use a tool? No\nFinal Answer: [your response here]This is the summary of your work so far:\n{chat_history}Begin! This is VERY important to you, your job depends on it!\n\nCurrent Task: {input}\n{agent_scratchpad}')
+  | RunnableBinding(bound=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy=''), kwargs={'stop': ['\nObservation']})
+  | CrewAgentOutputParser(tools_handler=&lt;crewai.agents.tools_handler.ToolsHandler object at 0x12751c5d0&gt;, cache=&lt;crewai.agents.cache.cache_handler.CacheHandler object at 0x12751cf10&gt;, i18n=I18N(language='en'))), tools=[DuckDuckGoSearchRun()], handle_parsing_errors=True, iterations=1, request_within_rpm_limit=&lt;bound method RPMController.check_or_wait of RPMController(max_rpm=None, logger=&lt;crewai.utilities.logger.Logger object at 0x104dd1050&gt;)&gt;, force_answer_max_iterations=13),
+  'tools_handler': &lt;crewai.agents.tools_handler.ToolsHandler at 0x12751c5d0&gt;,
+  'cache_handler': &lt;crewai.agents.cache.cache_handler.CacheHandler at 0x12751cf10&gt;,
+  'i18n': {'language': 'en'},
+  'llm': ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy='')},
+ 'tools': [DuckDuckGoSearchRun()],
+ 'output': {'description': 'Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words',
+  'summary': 'Write your teaching script for the class. Your main goal...',
+  'result': '**Introduction to Deep Learning**\n\nWelcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.\n\n**Understanding the Basics**\n\nDeep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.\n\nAt its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.\n\n**Why Deep Learning?**\n\nThe "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.\n\n**Key Components of Deep Learning**\n\n1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.\n\n2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.\n\n3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.\n\n4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.\n\n**Challenges and Solutions**\n\nDeep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.\n\nAnother challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.\n\n**Ethics and Future Perspectives**\n\nAs we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.\n\nLooking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.\n\n**Conclusion**\n\nIn this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.\n\nRemember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.\n\nYour journey into deep learning starts now. Embrace the challenges, and let\'s make the most of this opportunity to learn and grow together. Welcome aboard!'},
+ 'id': UUID('b517c52e-72bc-4fcc-bef3-d8c6f228df52')}</code></pre>
+</div>
+</div>
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
