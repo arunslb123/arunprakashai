@@ -1,9 +1,5 @@
 [
   {
-    "listing": "/posts/anthropic-messages-api-streaming-python/messages_api_streaming.html",
-    "items": []
-  },
-  {
     "listing": "/posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html",
     "items": []
   },
@@ -32,14 +28,8 @@
     "items": []
   },
   {
-    "listing": "/posts/anthropic-claude3-messages-api-python/messages_api.html",
-    "items": []
-  },
-  {
     "listing": "/index.html",
     "items": [
-      "/posts/anthropic-messages-api-streaming-python/messages_api_streaming.html",
-      "/posts/anthropic-claude3-messages-api-python/messages_api.html",
       "/posts/ai-assistants-crewai/classroom_crew.html",
       "/posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html",
       "/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html",

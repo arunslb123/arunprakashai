@@ -10,1125 +10,7 @@
 <atom:link href="https://arunprakash.ai/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog about large language models and tools</description>
 <generator>quarto-1.3.340</generator>
-<lastBuildDate>Thu, 21 Mar 2024 14:00:00 GMT</lastBuildDate>
-<item>
-  <title>Anthropic Claude3: Messages API with Streaming</title>
-  <dc:creator>Arun Prakash</dc:creator>
-  <link>https://arunprakash.ai/posts/anthropic-messages-api-streaming-python/messages_api_streaming.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># !pip install anthropic --upgrade</span></span></code></pre></div>
-</div>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> os</span>
-<span id="cb2-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> dotenv <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> load_dotenv</span>
-<span id="cb2-3"></span>
-<span id="cb2-4">load_dotenv()</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>True</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">api_key <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> os.getenv(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"ANTHROPIC_API_KEY"</span>)</span></code></pre></div>
-</div>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> anthropic</span>
-<span id="cb5-2"></span>
-<span id="cb5-3">client <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> anthropic.Anthropic(</span>
-<span id="cb5-4">    <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># defaults to os.environ.get("ANTHROPIC_API_KEY")</span></span>
-<span id="cb5-5">    api_key<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>api_key,</span>
-<span id="cb5-6">)</span></code></pre></div>
-</div>
-<section id="without-streaming" class="level1">
-<h1>Without Streaming</h1>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb6-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb6-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb6-4">    temperature<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.0</span>,</span>
-<span id="cb6-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb6-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb6-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top places to visit in Sydney"</span>}</span>
-<span id="cb6-8">    ]</span>
-<span id="cb6-9">)</span>
-<span id="cb6-10"></span>
-<span id="cb6-11"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(message.content)</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[ContentBlock(text="Here are some of the top places to visit in Sydney, Australia:\n\n1. Sydney Opera House - This iconic building is a UNESCO World Heritage site and a must-see attraction.\n\n2. Sydney Harbour Bridge - Take a walk across the bridge or participate in a guided climb for stunning views of the city and harbor.\n\n3. Bondi Beach - One of Australia's most famous beaches, known for its golden sand, surfing, and vibrant beach culture.\n\n4. The Rocks - A historic neighborhood with cobblestone streets, colonial buildings, museums, and markets.\n\n5. Darling Harbour - A waterfront precinct with restaurants, shops, and attractions like the SEA LIFE Sydney Aquarium and the Australian National Maritime Museum.\n\n6. Royal Botanic Garden Sydney - A beautiful park featuring diverse plant collections, harbor views, and a colony of flying foxes.\n\n7. Taronga Zoo - Located on the shores of Sydney Harbour, this zoo is home to a wide variety of native Australian and exotic animals.\n\n8. Manly Beach - Take a ferry from Circular Quay to Manly to enjoy the beach, walk along the Manly Corso, and visit the Manly SEA LIFE Sanctuary.\n\n9. Queen Victoria Building (QVB) - A historic shopping center with intricate Romanesque architecture and high-end boutiques.\n\n10. Blue Mountains National Park - Located about 1.5 hours from Sydney, this stunning park offers hiking trails, waterfalls, and the famous Three Sisters rock formation.", type='text')]</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> IPython.display <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> display, HTML, Markdown</span></code></pre></div>
-</div>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are some of the top places to visit in Sydney, Australia:</p>
-<ol type="1">
-<li><p>Sydney Opera House - This iconic building is a UNESCO World Heritage site and a must-see attraction.</p></li>
-<li><p>Sydney Harbour Bridge - Take a walk across the bridge or participate in a guided climb for stunning views of the city and harbor.</p></li>
-<li><p>Bondi Beach - One of Australia’s most famous beaches, known for its golden sand, surfing, and vibrant beach culture.</p></li>
-<li><p>The Rocks - A historic neighborhood with cobblestone streets, colonial buildings, museums, and markets.</p></li>
-<li><p>Darling Harbour - A waterfront precinct with restaurants, shops, and attractions like the SEA LIFE Sydney Aquarium and the Australian National Maritime Museum.</p></li>
-<li><p>Royal Botanic Garden Sydney - A beautiful park featuring diverse plant collections, harbor views, and a colony of flying foxes.</p></li>
-<li><p>Taronga Zoo - Located on the shores of Sydney Harbour, this zoo is home to a wide variety of native Australian and exotic animals.</p></li>
-<li><p>Manly Beach - Take a ferry from Circular Quay to Manly to enjoy the beach, walk along the Manly Corso, and visit the Manly SEA LIFE Sanctuary.</p></li>
-<li><p>Queen Victoria Building (QVB) - A historic shopping center with intricate Romanesque architecture and high-end boutiques.</p></li>
-<li><p>Blue Mountains National Park - Located about 1.5 hours from Sydney, this stunning park offers hiking trails, waterfalls, and the famous Three Sisters rock formation.</p></li>
-</ol>
-</div>
-</div>
-<p>It took ~22 seconds to process the output</p>
-</section>
-<section id="with-streaming" class="level1">
-<h1>With Streaming</h1>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">with</span> client.messages.stream(</span>
-<span id="cb10-2">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1024</span>,</span>
-<span id="cb10-3">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb10-4">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top places to visit in Sydney"</span>}</span>
-<span id="cb10-5">    ],</span>
-<span id="cb10-6">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb10-7">) <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> stream:</span>
-<span id="cb10-8">  <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">for</span> text <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">in</span> stream.text_stream:</span>
-<span id="cb10-9">      <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(text, end<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">""</span>, flush<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>)</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Here are some of the top places to visit in Sydney, Australia:
-
-1. Sydney Opera House - This iconic building is a UNESCO World Heritage site and a must-see attraction.
-
-2. Sydney Harbour Bridge - Climb the bridge for stunning views of the city or walk across it for free.
-
-3. Bondi Beach - One of Australia's most famous beaches, known for its surf, sand, and cafes.
-
-4. The Rocks - A historic neighborhood with cobblestone streets, markets, and museums.
-
-5. Royal Botanic Garden Sydney - A beautiful park with stunning views of the harbor and city skyline.
-
-6. Taronga Zoo - A world-class zoo with a wide variety of animals and stunning views of the city.
-
-7. Darling Harbour - A waterfront precinct with restaurants, bars, and entertainment venues.
-
-8. Sydney Tower Eye - The tallest structure in Sydney, offering panoramic views of the city.
-
-9. Manly Beach - A popular beach town that can be reached by ferry from Circular Quay.
-
-10. Blue Mountains National Park - A stunning national park with hiking trails, waterfalls, and scenic lookouts, located just outside the city.
-
-These are just a few of the many attractions Sydney has to offer. The city is also known for its diverse food scene, vibrant nightlife, and cultural events throughout the year.</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">type</span>(stream)</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>anthropic.lib.streaming._messages.MessageStream</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">[f <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">for</span> f <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">in</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">dir</span>(stream) <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">not</span> f.startswith(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"_"</span>)]</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>['close',
- 'current_message_snapshot',
- 'get_final_message',
- 'get_final_text',
- 'on_content_block',
- 'on_end',
- 'on_exception',
- 'on_message',
- 'on_stream_event',
- 'on_text',
- 'on_timeout',
- 'response',
- 'text_stream',
- 'until_done']</code></pre>
-</div>
-</div>
-<p>When you receive data from a server using Server-Sent Events (SSE), the server sends events to your application. Each event has a specific name and some associated data in JSON format. The event name tells you what kind of event it is, and the JSON data provides more details about that event.</p>
-<p>Here’s a step-by-step explanation of how the events flow:</p>
-<ol type="1">
-<li><p>First, you’ll receive a <code>message_start</code> event. This event includes a <code>Message</code> object, but the <code>content</code> of the message will be empty at this point. It’s like a placeholder for the message that will be filled in later.</p></li>
-<li><p>Next, you’ll receive a series of content blocks. Each content block represents a part of the message’s content. The content blocks come in three stages:</p>
-<ul>
-<li><code>content_block_start</code>: This event indicates the start of a new content block.</li>
-<li><code>content_block_delta</code>: You might receive one or more of these events. They contain the actual content of the block.</li>
-<li><code>content_block_stop</code>: This event marks the end of the content block.</li>
-</ul>
-<p>Each content block has an <code>index</code> number that tells you its position in the final <code>Message</code> object’s <code>content</code> array.</p></li>
-<li><p>After receiving all the content blocks, you’ll receive one or more <code>message_delta</code> events. These events indicate changes or updates to the overall <code>Message</code> object.</p></li>
-<li><p>Finally, you’ll receive a <code>message_stop</code> event. This event signifies that the server has finished sending the complete message.</p></li>
-</ol>
-<p>So, in summary, the server sends events to your application, piece by piece, to gradually build up the complete message. It starts with a <code>message_start</code> event, followed by content blocks, <code>message_delta</code> events for updates, and ends with a <code>message_stop</code> event.</p>
-<p>By following this event flow, your application can receive and process the message data from the server in a structured way, even if the message is sent in multiple parts.</p>
-
-
-
-</section>
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
-  <category>llm</category>
-  <category>claude3</category>
-  <category>messages-api</category>
-  <guid>https://arunprakash.ai/posts/anthropic-messages-api-streaming-python/messages_api_streaming.html</guid>
-  <pubDate>Thu, 21 Mar 2024 14:00:00 GMT</pubDate>
-  <media:content url="https://arunprakash.ai/posts/anthropic-messages-api-streaming-python/streaming.png" medium="image" type="image/png" height="81" width="144"/>
-</item>
-<item>
-  <title>Anthropic Claude3: Messages API with Multimodal Input</title>
-  <dc:creator>Arun Prakash</dc:creator>
-  <link>https://arunprakash.ai/posts/anthropic-claude3-messages-api-python/messages_api.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<p>The Claude 3 family represents Anthropic’s latest, most advanced AI models, offering state-of-the-art performance, versatility, and ease of use for open-ended conversation, idea collaboration, coding, and text processing.</p>
-<ul>
-<li><p>The family includes three models:</p>
-<ul>
-<li>Claude 3 Opus (most powerful)</li>
-<li>Claude 3 Sonnet (balanced intelligence and speed)<br>
-</li>
-<li>Claude 3 Haiku (fastest and most compact)</li>
-</ul></li>
-<li><p>Key features of Claude 3 models:</p>
-<ul>
-<li>Improved multilingual capabilities (e.g.&nbsp;Spanish, Japanese)</li>
-<li>Visual input processing for documents, web UIs, image metadata</li>
-<li>Enhanced steerability for greater control and predictability</li>
-<li>Periodic updates to expand capabilities while maintaining version stability</li>
-</ul></li>
-<li><p>The visual processing capabilities allow extracting insights from docs, analyzing charts/graphs/photos, generating image metadata and more.</p></li>
-<li><p>Claude 3 models are designed to be easy to use and steer, providing developers with more control to achieve high-quality, predictable results. Model updates will be version-controlled to ensure existing workflows aren’t disrupted.</p></li>
-</ul>
-<section id="installation" class="level2">
-<h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<div class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># !pip install anthropic --upgrade</span></span></code></pre></div>
-</div>
-<div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> os</span>
-<span id="cb2-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> dotenv <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> load_dotenv</span>
-<span id="cb2-3"></span>
-<span id="cb2-4">load_dotenv()</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
-<pre><code>True</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">api_key <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> os.getenv(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"ANTHROPIC_API_KEY"</span>)</span></code></pre></div>
-</div>
-</section>
-<section id="messages-api" class="level1">
-<h1>Messages API</h1>
-<div class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> anthropic</span>
-<span id="cb5-2"></span>
-<span id="cb5-3">client <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> anthropic.Anthropic(</span>
-<span id="cb5-4">    <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># defaults to os.environ.get("ANTHROPIC_API_KEY")</span></span>
-<span id="cb5-5">    api_key<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>api_key,</span>
-<span id="cb5-6">)</span>
-<span id="cb5-7"></span>
-<span id="cb5-8">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb5-9">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb5-10">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb5-11">    temperature<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.0</span>,</span>
-<span id="cb5-12">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb5-13">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb5-14">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top places to visit in Sydney"</span>}</span>
-<span id="cb5-15">    ]</span>
-<span id="cb5-16">)</span>
-<span id="cb5-17"></span>
-<span id="cb5-18"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(message.content)</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[ContentBlock(text="Here are some of the top places to visit in Sydney, Australia:\n\n1. Sydney Opera House - This iconic building is a UNESCO World Heritage site and a must-see attraction.\n\n2. Sydney Harbour Bridge - Take a walk across the bridge or participate in a guided climb for stunning views of the city and harbor.\n\n3. Bondi Beach - One of Australia's most famous beaches, known for its golden sand, surfing, and vibrant beach culture.\n\n4. The Rocks - A historic neighborhood with cobblestone streets, museums, galleries, and markets.\n\n5. Darling Harbour - A waterfront precinct with restaurants, shops, and attractions like the SEA LIFE Sydney Aquarium and the Australian National Maritime Museum.\n\n6. Royal Botanic Garden Sydney - A beautiful oasis in the heart of the city, with diverse plant collections and stunning harbor views.\n\n7. Taronga Zoo - Located on the shores of Sydney Harbour, this zoo is home to a wide variety of native Australian and exotic animals.\n\n8. Queen Victoria Building (QVB) - A historic shopping center with over 200 high-end stores, cafes, and restaurants.\n\n9. Manly Beach - Take a ferry from Circular Quay to Manly for a day of swimming, sunbathing, and exploring the charming beachside town.\n\n10. Blue Mountains National Park - Located just outside Sydney, this stunning park offers hiking trails, waterfalls, and the famous Three Sisters rock formation.", type='text')]</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> IPython.display <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> display, HTML, Markdown</span></code></pre></div>
-</div>
-<div class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are some of the top places to visit in Sydney, Australia:</p>
-<ol type="1">
-<li><p>Sydney Opera House - This iconic building is a UNESCO World Heritage site and a must-see attraction.</p></li>
-<li><p>Sydney Harbour Bridge - Take a walk across the bridge or participate in a guided climb for stunning views of the city and harbor.</p></li>
-<li><p>Bondi Beach - One of Australia’s most famous beaches, known for its golden sand, surfing, and vibrant beach culture.</p></li>
-<li><p>The Rocks - A historic neighborhood with cobblestone streets, museums, galleries, and markets.</p></li>
-<li><p>Darling Harbour - A waterfront precinct with restaurants, shops, and attractions like the SEA LIFE Sydney Aquarium and the Australian National Maritime Museum.</p></li>
-<li><p>Royal Botanic Garden Sydney - A beautiful oasis in the heart of the city, with diverse plant collections and stunning harbor views.</p></li>
-<li><p>Taronga Zoo - Located on the shores of Sydney Harbour, this zoo is home to a wide variety of native Australian and exotic animals.</p></li>
-<li><p>Queen Victoria Building (QVB) - A historic shopping center with over 200 high-end stores, cafes, and restaurants.</p></li>
-<li><p>Manly Beach - Take a ferry from Circular Quay to Manly for a day of swimming, sunbathing, and exploring the charming beachside town.</p></li>
-<li><p>Blue Mountains National Park - Located just outside Sydney, this stunning park offers hiking trails, waterfalls, and the famous Three Sisters rock formation.</p></li>
-</ol>
-</div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://arunprakash.ai/posts/anthropic-claude3-messages-api-python/messages_api_files/figure-html/79183b49-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
-</figure>
-</div>
-</section>
-<section id="claude-3-sonnet" class="level1">
-<h1>Claude 3 Sonnet</h1>
-<div class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb9-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-sonnet-20240229"</span>,</span>
-<span id="cb9-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb9-4">    temperature<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.0</span>,</span>
-<span id="cb9-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb9-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb9-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top places to visit in Sydney"</span>}</span>
-<span id="cb9-8">    ]</span>
-<span id="cb9-9">)</span>
-<span id="cb9-10"></span>
-<span id="cb9-11"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(message.content)</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[ContentBlock(text="Here are some of the top places to visit in Sydney, Australia:\n\n1. Sydney Opera House: This iconic UNESCO World Heritage Site is a must-see with its distinctive sail-like design and excellent performances.\n\n2. Sydney Harbour Bridge: Climb to the top of this steel arch bridge for breathtaking views or just admire it from the ground.\n\n3. Bondi Beach: One of Australia's most famous beaches, known for its great surfing, coastal walk, and lively atmosphere.\n\n4. The Rocks: This historic district offers a glimpse into Sydney's past with its cobblestone streets, museums, galleries, and lively markets.\n\n5. Darling Harbour: A popular waterfront area with restaurants, shops, attractions like the SEA LIFE Sydney Aquarium and Chinese Garden of Friendship.\n\n6. Royal Botanic Garden: Sprawling gardens right next to the Sydney Opera House, perfect for a stroll or picnic.\n\n7. Taronga Zoo: This zoo set on shores of Sydney Harbour is home to Australian wildlife like kangaroos and koalas.\n\n8. Manly Beach: Catch a ferry across the harbor to this laid-back beach suburb with great surfing and scenic walks.\n\n9. Sydney Tower Eye: Get 360-degree panoramic views from the observation deck of this tall tower.\n\n10. The Grounds of Alexandria: A charming outdoor precinct with gardens, cafes, markets and more in an old industrial area.", type='text')]</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are some of the top places to visit in Sydney, Australia:</p>
-<ol type="1">
-<li><p>Sydney Opera House: This iconic UNESCO World Heritage Site is a must-see with its distinctive sail-like design and excellent performances.</p></li>
-<li><p>Sydney Harbour Bridge: Climb to the top of this steel arch bridge for breathtaking views or just admire it from the ground.</p></li>
-<li><p>Bondi Beach: One of Australia’s most famous beaches, known for its great surfing, coastal walk, and lively atmosphere.</p></li>
-<li><p>The Rocks: This historic district offers a glimpse into Sydney’s past with its cobblestone streets, museums, galleries, and lively markets.</p></li>
-<li><p>Darling Harbour: A popular waterfront area with restaurants, shops, attractions like the SEA LIFE Sydney Aquarium and Chinese Garden of Friendship.</p></li>
-<li><p>Royal Botanic Garden: Sprawling gardens right next to the Sydney Opera House, perfect for a stroll or picnic.</p></li>
-<li><p>Taronga Zoo: This zoo set on shores of Sydney Harbour is home to Australian wildlife like kangaroos and koalas.</p></li>
-<li><p>Manly Beach: Catch a ferry across the harbor to this laid-back beach suburb with great surfing and scenic walks.</p></li>
-<li><p>Sydney Tower Eye: Get 360-degree panoramic views from the observation deck of this tall tower.</p></li>
-<li><p>The Grounds of Alexandria: A charming outdoor precinct with gardens, cafes, markets and more in an old industrial area.</p></li>
-</ol>
-</div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://arunprakash.ai/posts/anthropic-claude3-messages-api-python/messages_api_files/figure-html/541e69af-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://arunprakash.ai/posts/anthropic-claude3-messages-api-python/messages_api_files/figure-html/40c7d6df-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
-</figure>
-</div>
-<p>https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf</p>
-</section>
-<section id="messages-api-parameters" class="level1">
-<h1>Messages API Parameters</h1>
-<p>Create a Message - Send a list of input messages with text and/or image content in a specific format - The model will generate the next message in the conversation based on the input - The Messages API is suitable for single queries or multi-turn conversations without maintaining state</p>
-<p>Required Body Parameters - <code>model</code>: A string specifying the AI model that will process your prompt - <code>messages</code>: An array of message objects representing the conversation history - <code>max_tokens</code>: An integer specifying the maximum number of tokens to generate in the response</p>
-<p>Message Format - Each input message must have a <code>role</code> (either <code>"user"</code> or <code>"assistant"</code>) and <code>content</code> - You can send a single <code>"user"</code> message or multiple alternating <code>"user"</code> and <code>"assistant"</code> messages - The first message must always have the <code>"user"</code> role - If the last message has the <code>"assistant"</code> role, the model will continue directly from the content in that message</p>
-<p>Content Format - Message <code>content</code> can be a simple string or an array of content blocks - Each content block must have a <code>type</code> (e.g., <code>"text"</code> or <code>"image"</code>) - Using a string for <code>content</code> is the same as using an array with one <code>"text"</code> content block</p>
-<p>Examples Single <code>"user"</code> message:</p>
-<pre><code>[{"role": "user", "content": "What are the top 5 must-visit places in Sydney, Australia?"}]</code></pre>
-<p>Multiple conversation turns:</p>
-<pre><code>[
-  {"role": "user", "content": "I'm planning a trip to Sydney. What should I see there?"},
-  {"role": "assistant", "content": "Some top attractions in Sydney include the Opera House, Bondi Beach, Harbor Bridge, Taronga Zoo, and the Royal Botanic Garden. What kind of activities interest you?"},
-  {"role": "user", "content": "I love outdoor activities and beautiful views. Any recommendations?"}
-]</code></pre>
-<p>Partially-filled response:</p>
-<pre><code>[
-  {"role": "user", "content": "What's the best way to see the Sydney Opera House?"},
-  {"role": "assistant", "content": "To get the most out of your visit to the Sydney Opera House, I recommend"}
-]</code></pre>
-<p>Image content (supported in Claude 3 models and above):</p>
-<pre><code>{"role": "user", "content": [
-  {
-    "type": "image", 
-    "source": {
-      "type": "base64",
-      "media_type": "image/jpeg",
-      "data": "/9j/4AAQSkZJRg..."
-    }
-  },
-  {"type": "text", "text": "Can you identify this famous Sydney landmark in the image?"}
-]}</code></pre>
-</section>
-<section id="max_tokens" class="level1">
-<h1>max_tokens</h1>
-<div class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb16-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-sonnet-20240229"</span>,</span>
-<span id="cb16-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">100</span>,</span>
-<span id="cb16-4">    temperature<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.0</span>,</span>
-<span id="cb16-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb16-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb16-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top resources to learn python"</span>}</span>
-<span id="cb16-8">    ]</span>
-<span id="cb16-9">)</span>
-<span id="cb16-10"></span>
-<span id="cb16-11">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are some of the top resources to learn Python:</p>
-<ol type="1">
-<li><p><strong>Official Python Documentation</strong>: The official Python documentation (https://docs.python.org/) is a comprehensive resource that covers everything from the basics to advanced topics. It’s a great reference for learning the language and its standard library.</p></li>
-<li><p><strong>Python for Everybody</strong> (Coursera): This is a free online course offered by the University of Michigan on Coursera. It’s designed for beginners and covers the</p></li>
-</ol>
-</div>
-</div>
-</section>
-<section id="stop_sequences" class="level1">
-<h1>stop_sequences</h1>
-<div class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb17-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-sonnet-20240229"</span>,</span>
-<span id="cb17-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb17-4">    temperature<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.0</span>,</span>
-<span id="cb17-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb17-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb17-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top 10 places to visit in Sydney"</span>}</span>
-<span id="cb17-8">    ],</span>
-<span id="cb17-9">    stop_sequences<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"5."</span>]</span>
-<span id="cb17-10">)</span>
-<span id="cb17-11"></span>
-<span id="cb17-12">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are the top 10 places to visit in Sydney, Australia:</p>
-<ol type="1">
-<li><p>Sydney Opera House - This iconic UNESCO World Heritage Site is a must-see with its distinctive sail-like design and excellent performances.</p></li>
-<li><p>Sydney Harbour Bridge - Climb to the top of this steel arch bridge for breathtaking views or just admire it from the ground.</p></li>
-<li><p>Bondi Beach - One of Australia’s most famous beaches, known for its great surfing, coastal walk, and lively atmosphere.</p></li>
-<li><p>The Rocks - This historic district offers a glimpse into Sydney’s past with its cobblestone streets, museums, galleries, and lively markets.</p></li>
-</ol>
-</div>
-</div>
-</section>
-<section id="temperature" class="level1">
-<h1>temperature</h1>
-<ul>
-<li><p>Amount of randomness injected into the response.</p></li>
-<li><p>Defaults to 1.0. Ranges from 0.0 to 1.0. Use temperature closer to 0.0 for analytical / multiple choice, and closer to 1.0 for creative and generative tasks.</p></li>
-<li><p>Note that even with temperature of 0.0, the results will not be fully deterministic.</p></li>
-</ul>
-<div class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb18-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb18-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb18-4">    temperature<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.0</span>,</span>
-<span id="cb18-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert python programmer"</span>,</span>
-<span id="cb18-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb18-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top 10 places to visit in Sydney with marketing slogan for each place"</span>}</span>
-<span id="cb18-8">    ],</span>
-<span id="cb18-9">)</span>
-<span id="cb18-10"></span>
-<span id="cb18-11">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each place:</p>
-<ol type="1">
-<li><p>Sydney Opera House Slogan: “Experience the iconic symbol of Australia’s cultural heart.”</p></li>
-<li><p>Sydney Harbour Bridge Slogan: “Climb to the top for breathtaking views and unforgettable memories.”</p></li>
-<li><p>Bondi Beach Slogan: “Dive into the quintessential Aussie beach lifestyle at Bondi.”</p></li>
-<li><p>Taronga Zoo Slogan: “Discover the wonders of Australian wildlife with a view like no other.”</p></li>
-<li><p>The Rocks Slogan: “Step back in time and explore the birthplace of modern Sydney.”</p></li>
-<li><p>Royal Botanic Garden Slogan: “Immerse yourself in a lush oasis in the heart of the city.”</p></li>
-<li><p>Darling Harbour Slogan: “Indulge in a vibrant waterfront playground for all ages.”</p></li>
-<li><p>Blue Mountains National Park Slogan: “Escape to a world of natural beauty and adventure, just a stone’s throw from Sydney.”</p></li>
-<li><p>Manly Beach Slogan: “Ride the waves and soak up the laid-back charm of this iconic seaside suburb.”</p></li>
-<li><p>Sydney Tower Eye Slogan: “Elevate your Sydney experience with 360-degree views from the city’s highest point.”</p></li>
-</ol>
-</div>
-</div>
-<div class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb19-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb19-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb19-4">    temperature<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1.0</span>,</span>
-<span id="cb19-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb19-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb19-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top 10 places to visit in Sydney with marketing slogan for each place"</span>}</span>
-<span id="cb19-8">    ],</span>
-<span id="cb19-9">)</span>
-<span id="cb19-10"></span>
-<span id="cb19-11">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each:</p>
-<ol type="1">
-<li><p>Sydney Opera House Slogan: “Experience the heart of Sydney’s cultural scene”</p></li>
-<li><p>Sydney Harbour Bridge Slogan: “Climb to the top for unforgettable views”</p></li>
-<li><p>Bondi Beach Slogan: “Surf, sun, and sand: The ultimate Aussie beach experience”</p></li>
-<li><p>Taronga Zoo Slogan: “Discover Australia’s unique wildlife with a view”</p></li>
-<li><p>The Rocks Slogan: “Step back in time and explore Sydney’s historic heart”</p></li>
-<li><p>Royal Botanic Garden Slogan: “Escape to an oasis of tranquility in the city”</p></li>
-<li><p>Darling Harbour Slogan: “Entertainment, dining, and fun for the whole family”</p></li>
-<li><p>Blue Mountains National Park Slogan: “Immerse yourself in nature’s breathtaking beauty”</p></li>
-<li><p>Sydney Tower Eye Slogan: “See Sydney from a new perspective”</p></li>
-<li><p>Manly Beach Slogan: “Take a ferry ride to paradise”</p></li>
-</ol>
-<p>These slogans highlight the unique features and experiences each location offers, enticing visitors to explore and enjoy the best of Sydney.</p>
-</div>
-</div>
-</section>
-<section id="top_p" class="level1">
-<h1>top_p</h1>
-<p>Use nucleus sampling.</p>
-<p>In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by top_p.&nbsp;You should either alter temperature or top_p, but not both.</p>
-<p>Recommended for advanced use cases only. You usually only need to use temperature.</p>
-<div class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb20-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb20-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb20-4">    top_p<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.2</span>,</span>
-<span id="cb20-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb20-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb20-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top 10 places to visit in Sydney with marketing slogan for each place"</span>}</span>
-<span id="cb20-8">    ],</span>
-<span id="cb20-9">)</span>
-<span id="cb20-10"></span>
-<span id="cb20-11">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each:</p>
-<ol type="1">
-<li><p>Sydney Opera House Slogan: “Experience the iconic symbol of Australia’s cultural heart”</p></li>
-<li><p>Sydney Harbour Bridge Slogan: “Climb to the top for unforgettable views of the city”</p></li>
-<li><p>Bondi Beach Slogan: “Soak up the sun, surf, and laid-back lifestyle at Australia’s most famous beach”</p></li>
-<li><p>The Rocks Slogan: “Discover Sydney’s historic heart and vibrant entertainment precinct”</p></li>
-<li><p>Taronga Zoo Slogan: “Get up close with Australia’s unique wildlife in a stunning harbourside setting”</p></li>
-<li><p>Royal Botanic Garden Slogan: “Immerse yourself in a lush oasis in the heart of the city”</p></li>
-<li><p>Darling Harbour Slogan: “Indulge in waterfront dining, entertainment, and family fun”</p></li>
-<li><p>Blue Mountains National Park Slogan: “Escape to a world of natural wonders and breathtaking landscapes”</p></li>
-<li><p>Manly Beach Slogan: “Ride the ferry to Sydney’s premier seaside destination”</p></li>
-<li><p>Queen Victoria Building (QVB) Slogan: “Shop in style at Sydney’s most elegant and historic shopping arcade”</p></li>
-</ol>
-</div>
-</div>
-<div class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb21-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb21-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb21-4">    top_p<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.9</span>,</span>
-<span id="cb21-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb21-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb21-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top 10 places to visit in Sydney with marketing slogan for each place"</span>}</span>
-<span id="cb21-8">    ],</span>
-<span id="cb21-9">)</span>
-<span id="cb21-10"></span>
-<span id="cb21-11">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each place:</p>
-<ol type="1">
-<li><p>Sydney Opera House - “Experience the iconic masterpiece that defines Sydney’s skyline.”</p></li>
-<li><p>Sydney Harbour Bridge - “Climb to the top and witness the city from a breathtaking perspective.”</p></li>
-<li><p>Bondi Beach - “Dive into the heart of Sydney’s beach culture and soak up the sun.”</p></li>
-<li><p>The Rocks - “Step back in time and explore the birthplace of modern Sydney.”</p></li>
-<li><p>Royal Botanic Garden Sydney - “Immerse yourself in a lush oasis in the heart of the city.”</p></li>
-<li><p>Taronga Zoo Sydney - “Embark on a wildlife adventure with stunning harbor views.”</p></li>
-<li><p>Darling Harbour - “Indulge in a waterfront paradise of entertainment, dining, and leisure.”</p></li>
-<li><p>Sydney Tower Eye - “Elevate your senses and take in the city’s panoramic views from above.”</p></li>
-<li><p>Manly Beach - “Escape to a coastal getaway just a ferry ride away from the city center.”</p></li>
-<li><p>Museum of Contemporary Art Australia - “Discover the cutting edge of Australian and international art in a historic setting.”</p></li>
-</ol>
-</div>
-</div>
-</section>
-<section id="top_k" class="level1">
-<h1>top_k</h1>
-<p>Only sample from the top K options for each subsequent token.</p>
-<p>Used to remove “long tail” low probability responses.</p>
-<p>Recommended for advanced use cases only. You usually only need to use temperature.</p>
-<div class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb22-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb22-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb22-4">    top_k<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">5</span>,</span>
-<span id="cb22-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb22-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb22-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top 10 places to visit in Sydney with marketing slogan for each place"</span>}</span>
-<span id="cb22-8">    ],</span>
-<span id="cb22-9">)</span>
-<span id="cb22-10"></span>
-<span id="cb22-11">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each place:</p>
-<ol type="1">
-<li><p>Sydney Opera House Slogan: “Experience the iconic symbol of Australia’s cultural heart”</p></li>
-<li><p>Sydney Harbour Bridge Slogan: “Climb to the top for breathtaking views of the city”</p></li>
-<li><p>Bondi Beach Slogan: “Surf, sun, and sand: the ultimate Aussie beach experience”</p></li>
-<li><p>Taronga Zoo Slogan: “Discover the wonders of Australian wildlife with a view”</p></li>
-<li><p>The Rocks Slogan: “Step back in time and explore Sydney’s historic heart”</p></li>
-<li><p>Royal Botanic Garden Slogan: “Immerse yourself in a green oasis in the heart of the city”</p></li>
-<li><p>Darling Harbour Slogan: “Dine, shop, and play at Sydney’s vibrant waterfront precinct”</p></li>
-<li><p>Museum of Contemporary Art Australia Slogan: “Ignite your creativity at Sydney’s cutting-edge art museum”</p></li>
-<li><p>Manly Beach Slogan: “Escape the city and embrace the laid-back beach lifestyle”</p></li>
-<li><p>Blue Mountains National Park Slogan: “Adventure awaits in the rugged beauty of the Blue Mountains”</p></li>
-</ol>
-</div>
-</div>
-<div class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb23-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb23-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb23-4">    top_k<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">100</span>,</span>
-<span id="cb23-5">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb23-6">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb23-7">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top 10 places to visit in Sydney with marketing slogan for each place"</span>}</span>
-<span id="cb23-8">    ],</span>
-<span id="cb23-9">)</span>
-<span id="cb23-10"></span>
-<span id="cb23-11">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each place:</p>
-<ol type="1">
-<li><p>Sydney Opera House - “Experience the harmony of architecture and the arts.”</p></li>
-<li><p>Sydney Harbour Bridge - “Climb to the top for unforgettable views.”</p></li>
-<li><p>Bondi Beach - “Surf, sun, and sand: the ultimate Aussie beach experience.”</p></li>
-<li><p>Taronga Zoo - “Discover the wonders of wildlife with a view like no other.”</p></li>
-<li><p>The Rocks - “Step back in time and explore Sydney’s historic heart.”</p></li>
-<li><p>Darling Harbour - “Entertainment, dining, and adventure all in one place.”</p></li>
-<li><p>Royal Botanic Garden - “Immerse yourself in the beauty of nature in the city’s oasis.”</p></li>
-<li><p>Sydney Tower Eye - “Reach new heights and see Sydney from a different perspective.”</p></li>
-<li><p>Manly Beach - “Escape the city and embrace the laid-back beach lifestyle.”</p></li>
-<li><p>Blue Mountains National Park - “Explore the rugged beauty of the great outdoors, just a stone’s throw from the city.”</p></li>
-</ol>
-</div>
-</div>
-</section>
-<section id="putting-it-all-together" class="level1">
-<h1>Putting it all together</h1>
-<div class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1">message <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> client.messages.create(</span>
-<span id="cb24-2">    model<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"claude-3-opus-20240229"</span>,</span>
-<span id="cb24-3">    max_tokens<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb24-4">    top_k<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1000</span>,</span>
-<span id="cb24-5">    top_p<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1.0</span>,</span>
-<span id="cb24-6">    temperature<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>,</span>
-<span id="cb24-7">    system<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"You are an expert travel guide"</span>,</span>
-<span id="cb24-8">    messages<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[</span>
-<span id="cb24-9">        {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"role"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"user"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Top 10 places to visit in Sydney with marketing slogan for each place"</span>}</span>
-<span id="cb24-10">    ],</span>
-<span id="cb24-11">)</span>
-<span id="cb24-12"></span>
-<span id="cb24-13">display(Markdown(message.content[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].text))</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<ol type="1">
-<li><p>Sydney Opera House - “Experience the iconic wonder of architecture and the arts”</p></li>
-<li><p>Bondi Beach - “Soak up the sun, surf, and style at Australia’s most famous beach”</p></li>
-<li><p>Sydney Harbour Bridge - “Climb to the top for unforgettable views of the city and beyond”</p></li>
-<li><p>The Rocks - “Discover the historic heart of Sydney, where the past meets the present”</p></li>
-<li><p>Taronga Zoo - “Embark on a wildlife adventure with breathtaking harbour views”</p></li>
-<li><p>Royal Botanic Garden - “Immerse yourself in a lush oasis in the heart of the city”</p></li>
-<li><p>Darling Harbour - “Indulge in waterfront dining, entertainment, and family fun”</p></li>
-<li><p>Blue Mountains - “Escape to a world of natural wonders, just a stone’s throw from the city”</p></li>
-<li><p>Manly Beach - “Ride the ferry to paradise and experience the laid-back coastal lifestyle”</p></li>
-<li><p>Sydney Tower Eye - “Elevate your perspective and see the city from new heights”</p></li>
-</ol>
-</div>
-</div>
-
-
-
-</section>
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
-  <category>llm</category>
-  <category>claude3</category>
-  <category>messages-api</category>
-  <guid>https://arunprakash.ai/posts/anthropic-claude3-messages-api-python/messages_api.html</guid>
-  <pubDate>Thu, 21 Mar 2024 14:00:00 GMT</pubDate>
-  <media:content url="https://arunprakash.ai/posts/anthropic-claude3-messages-api-python/messages_api.png" medium="image" type="image/png" height="81" width="144"/>
-</item>
+<lastBuildDate>Thu, 01 Feb 2024 14:00:00 GMT</lastBuildDate>
 <item>
   <title>crewAI: Simulating a Classroom with CrewAI Agents</title>
   <dc:creator>Arun Prakash</dc:creator>
@@ -2226,15 +1108,59 @@ font-style: inherit;">"</span>))</span></code></pre></div>
 </section>
 </div>
 </div>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><span class="co" style="color: #5E5E5E;
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">classroom_crew.tasks[<span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;"># classroom_crew.tasks[0]</span></span></code></pre></div>
+font-style: inherit;">0</span>]</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>Task(description='Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words', agent=Agent(id=UUID('3cc87ddc-6687-4da0-aa99-2c8fac74074f'), role='Deep Learning Teacher', goal='Teach Deep Learning to a diverse group of students', backstory="You are an experienced teacher specializing in Deep Learning.\n    Your goal is to impart knowledge to a class with varying levels of understanding.\n    You enjoy challenges and strive to make complex concepts accessible.You answer students' questions and provide feedback on their understanding.", max_rpm=None, memory=True, verbose=True, allow_delegation=False, tools=[DuckDuckGoSearchRun()], max_iter=15, agent_executor=CrewAgentExecutor(memory=ConversationSummaryMemory(llm=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy=''), chat_memory=ChatMessageHistory(messages=[HumanMessage(content='Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words'), AIMessage(content='**Introduction to Deep Learning**\n\nWelcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.\n\n**Understanding the Basics**\n\nDeep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.\n\nAt its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.\n\n**Why Deep Learning?**\n\nThe "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.\n\n**Key Components of Deep Learning**\n\n1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.\n\n2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.\n\n3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.\n\n4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.\n\n**Challenges and Solutions**\n\nDeep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.\n\nAnother challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.\n\n**Ethics and Future Perspectives**\n\nAs we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.\n\nLooking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.\n\n**Conclusion**\n\nIn this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.\n\nRemember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.\n\nYour journey into deep learning starts now. Embrace the challenges, and let\'s make the most of this opportunity to learn and grow together. Welcome aboard!'), HumanMessage(content="Now re-write your teaching script based on your earlier script, incorporate the questions asked by the students, and include your answer in your script for maximum engagment.Your main goal is to write the script for the topic Deep Learning, we are just including students relevant question to the topic along with answers for better understanding of the topic. So stick with the topic Deep Learning\nThis is the context you're working with:\nIn addressing environmental concerns related to deep learning model training, several innovative approaches are being adopted. One fundamental approach is the development and use of more efficient algorithms that require less computational power, thereby reducing energy consumption. Another approach is the utilization of model pruning and quantization techniques, which streamline models by removing unnecessary parameters or reducing the precision of the calculations, making them less resource-intensive without significantly affecting performance. Additionally, there's a growing trend towards using renewable energy sources for powering data centers where these models are trained, further minimizing the carbon footprint associated with deep learning. Lastly, transfer learning is also gaining popularity as it allows developers to leverage pre-trained models on new tasks with minimal additional training required, significantly cutting down on the resources and energy needed for training models from scratch."), AIMessage(content='Deep Learning: A Comprehensive Introduction with Student Queries Integrated\n\nWelcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.\n\n#### The Essence of Deep Learning\n\nAt its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain\'s functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.\n\nA student once asked, "Why do we need multiple layers in neural networks?" The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.\n\n#### Key Components and Challenges\n\nLet\'s break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.\n\nHowever, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.\n\n#### Addressing Environmental Concerns\n\nA pertinent question from a student highlighted a growing concern: "How does deep learning impact the environment?" Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.\n\n#### Ethical Considerations and Future Potential\n\nAs we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.\n\n#### Continuous Learning and Exploration\n\nIn conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.\n\nRemember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let\'s embark on this exciting journey together, ready to learn, question, and innovate.\n\n---\n\nThis script integrates the essence of deep learning with answers to students\' queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.')]), input_key='input', buffer="The AI's teaching script for a class on Deep Learning now includes the integration of student queries for a more engaging and comprehensive overview. It addresses the basics of deep learning, the importance of artificial neural networks, and the significance of hierarchical data processing for tasks like image recognition. The script discusses key components such as data, neural networks, activation functions, backpropagation, and gradient descent, along with challenges like overfitting and the need for large datasets. Solutions to these challenges, including dropout, regularization, transfer learning, and unsupervised learning, are presented. Furthermore, it addresses environmental concerns associated with deep learning, such as the carbon footprint of model training and strategies to mitigate it, including energy-efficient algorithms, renewable energy usage in data centers, model pruning, quantization, and transfer learning. Ethical considerations, the potential of deep learning in various fields, and the importance of continuous learning and exploration in this rapidly evolving field are also highlighted. The script aims to make deep learning accessible and engaging, encouraging students to interact, ask questions, and explore the subject deeply.", memory_key='chat_history'), verbose=True, agent=RunnableAgent(runnable={
+  input: RunnableLambda(...),
+  tools: RunnableLambda(...),
+  tool_names: RunnableLambda(...),
+  agent_scratchpad: RunnableLambda(...),
+  chat_history: RunnableLambda(lambda x: x['chat_history'])
+}
+| PromptTemplate(input_variables=['agent_scratchpad', 'chat_history', 'input', 'tool_names', 'tools'], partial_variables={'goal': 'Teach Deep Learning to a diverse group of students', 'role': 'Deep Learning Teacher', 'backstory': "You are an experienced teacher specializing in Deep Learning.\n    Your goal is to impart knowledge to a class with varying levels of understanding.\n    You enjoy challenges and strive to make complex concepts accessible.You answer students' questions and provide feedback on their understanding."}, template='You are {role}.\n{backstory}\n\nYour personal goal is: {goal}TOOLS:\n------\nYou have access to only the following tools:\n\n{tools}\n\nTo use a tool, please use the exact following format:\n\n```\nThought: Do I need to use a tool? Yes\nAction: the action to take, should be one of [{tool_names}], just the name.\nAction Input: the input to the action\nObservation: the result of the action\n```\n\nWhen you have a response for your task, or if you do not need to use a tool, you MUST use the format:\n\n```\nThought: Do I need to use a tool? No\nFinal Answer: [your response here]This is the summary of your work so far:\n{chat_history}Begin! This is VERY important to you, your job depends on it!\n\nCurrent Task: {input}\n{agent_scratchpad}')
+| RunnableBinding(bound=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy=''), kwargs={'stop': ['\nObservation']})
+| CrewAgentOutputParser(tools_handler=&lt;crewai.agents.tools_handler.ToolsHandler object at 0x12751c5d0&gt;, cache=&lt;crewai.agents.cache.cache_handler.CacheHandler object at 0x12751cf10&gt;, i18n=I18N(language='en'))), tools=[DuckDuckGoSearchRun()], handle_parsing_errors=True, iterations=1, request_within_rpm_limit=&lt;bound method RPMController.check_or_wait of RPMController(max_rpm=None, logger=&lt;crewai.utilities.logger.Logger object at 0x104dd1050&gt;)&gt;, force_answer_max_iterations=13), tools_handler=&lt;crewai.agents.tools_handler.ToolsHandler object at 0x12751c5d0&gt;, cache_handler=&lt;crewai.agents.cache.cache_handler.CacheHandler object at 0x12751cf10&gt;, i18n=I18N(language='en'), llm=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy='')), tools=[DuckDuckGoSearchRun()], output=TaskOutput(description='Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words', summary='Write your teaching script for the class. Your main goal...', result='**Introduction to Deep Learning**\n\nWelcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.\n\n**Understanding the Basics**\n\nDeep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.\n\nAt its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.\n\n**Why Deep Learning?**\n\nThe "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.\n\n**Key Components of Deep Learning**\n\n1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.\n\n2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.\n\n3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.\n\n4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.\n\n**Challenges and Solutions**\n\nDeep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.\n\nAnother challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.\n\n**Ethics and Future Perspectives**\n\nAs we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.\n\nLooking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.\n\n**Conclusion**\n\nIn this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.\n\nRemember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.\n\nYour journey into deep learning starts now. Embrace the challenges, and let\'s make the most of this opportunity to learn and grow together. Welcome aboard!'), id=UUID('b517c52e-72bc-4fcc-bef3-d8c6f228df52'))</code></pre>
 </div>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><span class="co" style="color: #5E5E5E;
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">classroom_crew.tasks[<span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;"># classroom_crew.tasks[0].model_dump()</span></span></code></pre></div>
+font-style: inherit;">0</span>].model_dump()</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>{'description': 'Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words',
+ 'agent': {'id': UUID('3cc87ddc-6687-4da0-aa99-2c8fac74074f'),
+  'role': 'Deep Learning Teacher',
+  'goal': 'Teach Deep Learning to a diverse group of students',
+  'backstory': "You are an experienced teacher specializing in Deep Learning.\n    Your goal is to impart knowledge to a class with varying levels of understanding.\n    You enjoy challenges and strive to make complex concepts accessible.You answer students' questions and provide feedback on their understanding.",
+  'max_rpm': None,
+  'memory': True,
+  'verbose': True,
+  'allow_delegation': False,
+  'tools': [DuckDuckGoSearchRun()],
+  'max_iter': 15,
+  'agent_executor': CrewAgentExecutor(memory=ConversationSummaryMemory(llm=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy=''), chat_memory=ChatMessageHistory(messages=[HumanMessage(content='Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words'), AIMessage(content='**Introduction to Deep Learning**\n\nWelcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.\n\n**Understanding the Basics**\n\nDeep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.\n\nAt its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.\n\n**Why Deep Learning?**\n\nThe "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.\n\n**Key Components of Deep Learning**\n\n1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.\n\n2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.\n\n3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.\n\n4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.\n\n**Challenges and Solutions**\n\nDeep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.\n\nAnother challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.\n\n**Ethics and Future Perspectives**\n\nAs we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.\n\nLooking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.\n\n**Conclusion**\n\nIn this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.\n\nRemember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.\n\nYour journey into deep learning starts now. Embrace the challenges, and let\'s make the most of this opportunity to learn and grow together. Welcome aboard!'), HumanMessage(content="Now re-write your teaching script based on your earlier script, incorporate the questions asked by the students, and include your answer in your script for maximum engagment.Your main goal is to write the script for the topic Deep Learning, we are just including students relevant question to the topic along with answers for better understanding of the topic. So stick with the topic Deep Learning\nThis is the context you're working with:\nIn addressing environmental concerns related to deep learning model training, several innovative approaches are being adopted. One fundamental approach is the development and use of more efficient algorithms that require less computational power, thereby reducing energy consumption. Another approach is the utilization of model pruning and quantization techniques, which streamline models by removing unnecessary parameters or reducing the precision of the calculations, making them less resource-intensive without significantly affecting performance. Additionally, there's a growing trend towards using renewable energy sources for powering data centers where these models are trained, further minimizing the carbon footprint associated with deep learning. Lastly, transfer learning is also gaining popularity as it allows developers to leverage pre-trained models on new tasks with minimal additional training required, significantly cutting down on the resources and energy needed for training models from scratch."), AIMessage(content='Deep Learning: A Comprehensive Introduction with Student Queries Integrated\n\nWelcome to our deep learning module, an exciting and dynamic field that stands at the forefront of artificial intelligence (AI). Deep learning gives machines an ability akin to human perception, enabling them to recognize patterns and make decisions in ways that were unimaginable just a few decades ago. As we embark on this journey together, our goal is to demystify deep learning, making it accessible to all, regardless of your prior understanding.\n\n#### The Essence of Deep Learning\n\nAt its core, deep learning is a subset of machine learning. It leverages artificial neural networks to mimic the human brain\'s functionality, thereby processing data in complex, layered manners. This hierarchical approach allows deep learning models to tackle tasks of increasing sophistication, from recognizing handwritten digits to understanding natural language and beyond.\n\nA student once asked, "Why do we need multiple layers in neural networks?" The answer lies in the power of hierarchy. Just as the human brain processes information in stages (from simple to complex), deep learning models use layers to learn increasingly abstract representations. This is crucial for tasks like image recognition, where initial layers may detect edges, while deeper layers may identify more complex shapes or objects.\n\n#### Key Components and Challenges\n\nLet\'s break down the essential components of deep learning: data, neural networks, activation functions, backpropagation, and gradient descent. Each plays a pivotal role in the learning process, with data being the fuel for training our models. Activation functions introduce non-linearity, allowing for complex decision-making, while backpropagation and gradient descent are the mechanisms through which models learn from their mistakes, continuously improving their accuracy.\n\nHowever, deep learning is not without its challenges. Overfitting, the need for vast amounts of data, and significant computational resources are among the hurdles we face. Solutions such as dropout and regularization help combat overfitting by making our models more robust. Meanwhile, the advent of transfer learning and unsupervised learning techniques has made it easier to train models with less data and computational power.\n\n#### Addressing Environmental Concerns\n\nA pertinent question from a student highlighted a growing concern: "How does deep learning impact the environment?" Indeed, the computational demands of training sophisticated models have a carbon footprint. To mitigate this, the field is moving towards more energy-efficient algorithms and utilizing renewable energy sources for data centers. Techniques like model pruning and quantization reduce the computational load without compromising performance significantly. Furthermore, transfer learning emerges as a sustainable practice, leveraging existing models to reduce the resources required for new tasks.\n\n#### Ethical Considerations and Future Potential\n\nAs we delve deeper into deep learning, ethical considerations must guide our exploration. The potential for bias, privacy implications, and the responsible use of AI are topics we must engage with critically. Looking ahead, the possibilities are boundless. From revolutionizing medicine with predictive diagnostics to tackling climate change through advanced modeling, deep learning holds the promise of significant societal impacts.\n\n#### Continuous Learning and Exploration\n\nIn conclusion, deep learning is a field marked by rapid evolution and profound potential. As your guide, I encourage you to embrace curiosity, engage with challenges, and explore the myriad applications of deep learning. Together, we can navigate the complexities of this fascinating field, unlocking new knowledge and innovative solutions for the betterment of society.\n\nRemember, the journey into deep learning is one of continuous learning and discovery. Your engagement, questions, and insights enrich our collective understanding and drive the field forward. So, let\'s embark on this exciting journey together, ready to learn, question, and innovate.\n\n---\n\nThis script integrates the essence of deep learning with answers to students\' queries, aiming to foster an engaging and informative learning environment. By addressing real-world concerns and emphasizing continuous exploration, we prepare students for the dynamic and evolving field of deep learning.')]), input_key='input', buffer="The AI's teaching script for a class on Deep Learning now includes the integration of student queries for a more engaging and comprehensive overview. It addresses the basics of deep learning, the importance of artificial neural networks, and the significance of hierarchical data processing for tasks like image recognition. The script discusses key components such as data, neural networks, activation functions, backpropagation, and gradient descent, along with challenges like overfitting and the need for large datasets. Solutions to these challenges, including dropout, regularization, transfer learning, and unsupervised learning, are presented. Furthermore, it addresses environmental concerns associated with deep learning, such as the carbon footprint of model training and strategies to mitigate it, including energy-efficient algorithms, renewable energy usage in data centers, model pruning, quantization, and transfer learning. Ethical considerations, the potential of deep learning in various fields, and the importance of continuous learning and exploration in this rapidly evolving field are also highlighted. The script aims to make deep learning accessible and engaging, encouraging students to interact, ask questions, and explore the subject deeply.", memory_key='chat_history'), verbose=True, agent=RunnableAgent(runnable={
+    input: RunnableLambda(...),
+    tools: RunnableLambda(...),
+    tool_names: RunnableLambda(...),
+    agent_scratchpad: RunnableLambda(...),
+    chat_history: RunnableLambda(lambda x: x['chat_history'])
+  }
+  | PromptTemplate(input_variables=['agent_scratchpad', 'chat_history', 'input', 'tool_names', 'tools'], partial_variables={'goal': 'Teach Deep Learning to a diverse group of students', 'role': 'Deep Learning Teacher', 'backstory': "You are an experienced teacher specializing in Deep Learning.\n    Your goal is to impart knowledge to a class with varying levels of understanding.\n    You enjoy challenges and strive to make complex concepts accessible.You answer students' questions and provide feedback on their understanding."}, template='You are {role}.\n{backstory}\n\nYour personal goal is: {goal}TOOLS:\n------\nYou have access to only the following tools:\n\n{tools}\n\nTo use a tool, please use the exact following format:\n\n```\nThought: Do I need to use a tool? Yes\nAction: the action to take, should be one of [{tool_names}], just the name.\nAction Input: the input to the action\nObservation: the result of the action\n```\n\nWhen you have a response for your task, or if you do not need to use a tool, you MUST use the format:\n\n```\nThought: Do I need to use a tool? No\nFinal Answer: [your response here]This is the summary of your work so far:\n{chat_history}Begin! This is VERY important to you, your job depends on it!\n\nCurrent Task: {input}\n{agent_scratchpad}')
+  | RunnableBinding(bound=ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy=''), kwargs={'stop': ['\nObservation']})
+  | CrewAgentOutputParser(tools_handler=&lt;crewai.agents.tools_handler.ToolsHandler object at 0x12751c5d0&gt;, cache=&lt;crewai.agents.cache.cache_handler.CacheHandler object at 0x12751cf10&gt;, i18n=I18N(language='en'))), tools=[DuckDuckGoSearchRun()], handle_parsing_errors=True, iterations=1, request_within_rpm_limit=&lt;bound method RPMController.check_or_wait of RPMController(max_rpm=None, logger=&lt;crewai.utilities.logger.Logger object at 0x104dd1050&gt;)&gt;, force_answer_max_iterations=13),
+  'tools_handler': &lt;crewai.agents.tools_handler.ToolsHandler at 0x12751c5d0&gt;,
+  'cache_handler': &lt;crewai.agents.cache.cache_handler.CacheHandler at 0x12751cf10&gt;,
+  'i18n': {'language': 'en'},
+  'llm': ChatOpenAI(client=&lt;openai.resources.chat.completions.Completions object at 0x125e1cf50&gt;, async_client=&lt;openai.resources.chat.completions.AsyncCompletions object at 0x127581710&gt;, model_name='gpt-4-turbo-preview', openai_api_key='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', openai_proxy='')},
+ 'tools': [DuckDuckGoSearchRun()],
+ 'output': {'description': 'Write your teaching script for the class. Your main goal is to teach Deep Learning. write 1000-1200 words',
+  'summary': 'Write your teaching script for the class. Your main goal...',
+  'result': '**Introduction to Deep Learning**\n\nWelcome, everyone. As we embark on this journey together into the world of deep learning, I want you to remember one thing: deep learning is not just a set of algorithms or an accumulation of complex mathematical formulas; it is a way to give machines a semblance of understanding, akin to the way we, humans, perceive the world.\n\n**Understanding the Basics**\n\nDeep learning is a subset of machine learning, which in turn falls under the broader umbrella of artificial intelligence (AI). The key idea behind deep learning is to mimic the way the human brain processes information. This is achieved through structures called artificial neural networks, which are inspired by the biological neural networks in our brains.\n\nAt its core, a neural network consists of layers of nodes, or "neurons," each of which performs simple computations. When these neurons are interconnected and layered, they can process complex data, learn patterns, and make predictions or decisions based on input data.\n\n**Why Deep Learning?**\n\nThe "deep" in deep learning refers to the use of multiple layers in neural networks. This depth allows the model to learn hierarchical representations of data. In simpler terms, deep learning models can learn from raw data by building increasingly sophisticated features through its layers. This capability has revolutionized fields such as image and speech recognition, natural language processing, and even autonomous driving.\n\n**Key Components of Deep Learning**\n\n1. **Data**: Deep learning models require large amounts of data to learn effectively. This data serves as the foundation upon which these models build their understanding.\n\n2. **Neural Networks**: At the heart of deep learning are neural networks, which are designed to mimic the way human brains operate. These networks consist of input layers, hidden layers, and output layers.\n\n3. **Activation Functions**: Activation functions help decide whether a neuron should be activated or not. They introduce non-linearity into the network, enabling it to learn complex patterns.\n\n4. **Backpropagation and Gradient Descent**: These are algorithms used for training neural networks. Backpropagation helps in adjusting the weights of the network based on the error rate, while gradient descent is a way to minimize the error by iteratively moving towards the minimum of a loss function.\n\n**Challenges and Solutions**\n\nDeep learning, while powerful, comes with its set of challenges. Overfitting, where a model learns the noise in the training data instead of the actual pattern, can lead to poor performance on unseen data. Techniques such as dropout, regularization, and data augmentation are used to combat this.\n\nAnother challenge is the requirement for large amounts of labeled data and computational resources. Transfer learning and unsupervised learning are some of the strategies used to address these issues.\n\n**Ethics and Future Perspectives**\n\nAs we develop increasingly capable deep learning models, ethical considerations become paramount. Issues such as bias in AI, privacy concerns, and the impact on employment need careful consideration and proactive measures.\n\nLooking ahead, the future of deep learning is incredibly promising. From enhancing medical diagnoses to improving environmental protection efforts, the potential applications are vast and impactful. However, achieving these outcomes requires not just technical skills, but also a thoughtful approach to the ethical implications of our work.\n\n**Conclusion**\n\nIn this class, we will dive deeper into each of these topics, unraveling the complexities and uncovering the potentials of deep learning. Through lectures, hands-on projects, and discussions, you will gain a comprehensive understanding of deep learning and how it can be applied to solve real-world problems.\n\nRemember, the field of deep learning is evolving rapidly, and continuous learning is key. Stay curious, be open to making mistakes, and learn from them. Together, we will explore the fascinating world of deep learning, and I am here to guide you every step of the way.\n\nYour journey into deep learning starts now. Embrace the challenges, and let\'s make the most of this opportunity to learn and grow together. Welcome aboard!'},
+ 'id': UUID('b517c52e-72bc-4fcc-bef3-d8c6f228df52')}</code></pre>
+</div>
 </div>
 
 
@@ -2966,7 +1892,7 @@ font-style: inherit;"># !pip install nest_asyncio</span></span></code></pre></di
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools_files/figure-html/66407e62-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools_files/figure-html/65a861ae-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -11320,7 +10246,7 @@ font-style: inherit;">return</span> third_response</span></code></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling_files/figure-html/af975f72-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/openai-parallel-function-calling-handson-tools/function_calling_files/figure-html/43a85800-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -11606,7 +10532,7 @@ No matching items
 <p>In each parameter, we will explore different range of values and discuss about openai’s default values and recommendations. Then in the final section we will go through <strong>some real examples</strong> to understand how these parameters affect the token generation process.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/05227601-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/5ac31576-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption class="figure-caption">IMG_F4CC52CE7F7F-1.jpeg</figcaption>
 </figure>
 </div>
@@ -12001,7 +10927,7 @@ font-style: inherit;">42</span></span></code></pre></div>
 <p>In the context of OpenAI, tokens are the basic units of text processed by their language models, such as GPT-3. OpenAI employs Byte-Pair Encoding (BPE) for tokenization, which is a method initially designed for text compression. BPE identifies the most frequent pairs of characters or tokens and merges them to form new tokens, thus optimizing the tokenization process for efficiency and effectiveness in representing the text data. This approach allows the model to handle a wide range of vocabulary, including rare words or phrases, by breaking them down into subword units.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/f47bde72-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/ad1114a6-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -12784,7 +11710,7 @@ font-style: inherit;">"Count"</span>)</span>
 </section>
 <section id="openai-recommendations-for-temperature" class="level1">
 <h1>OpenAI Recommendations for Temperature</h1>
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/68e297fb-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/68e297fb-2-image.png" class="img-fluid" alt="image.png"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/146ac0ae-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/146ac0ae-2-image.png" class="img-fluid" alt="image.png"></p>
 </section>
 <section id="top-p-nucleus-sampling" class="level1">
 <h1>Top-P (Nucleus Sampling)</h1>
@@ -13319,13 +12245,13 @@ font-style: inherit;">"Count"</span>)</span>
 <h1>OpenAI Recommendations for Top-P</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/e105f39b-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/0d938091-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/8916a148-1-image-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/2c135e7d-1-image-2.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image-2.png</figcaption>
 </figure>
 </div>
@@ -13560,7 +12486,7 @@ font-style: inherit;">=</span>seed</span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/75b26339-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/e1859645-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -13572,7 +12498,7 @@ font-style: inherit;">=</span>seed</span>
 <p>It ranges from -2.0 to 2.0, where positive values discourage repetition by penalizing tokens that occur frequently, and negative values can increase the likelihood of repetition. This helps control the diversity of the generated content and prevent verbatim repetition.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/84fe44a0-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/5072bf4d-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -13750,13 +12676,13 @@ font-style: inherit;">0.5</span></span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/42a96367-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/beb86ae4-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/f91a3efd-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/4c669a14-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -13923,13 +12849,13 @@ font-style: inherit;">2</span></span>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/2d116f15-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/2da7a423-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/57b37015-1-image.png" class="img-fluid figure-img"></p>
+<p><img src="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature_files/figure-html/5be1f14d-1-image.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
