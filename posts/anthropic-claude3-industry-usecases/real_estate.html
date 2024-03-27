@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.340">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Arun Prakash">
+<meta name="dcterms.date" content="2024-03-28">
+<meta name="description" content="Explore how AI can revolutionize the real estate industry through automated property appraisals and personalized event newsletters. Learn to leverage Anthropic’s Claude model to generate comprehensive appraisals and engaging newsletters, and build an interactive Streamlit app to showcase these AI-powered functionalities.">
+
+<title>Explained Intuitively - Claude3 + Python: Automate Real Industry Workflows Like a Pro</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: [],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="real_estate.xml"><meta property="og:title" content="Explained Intuitively - Claude3 + Python: Automate Real Industry Workflows Like a Pro">
+<meta property="og:description" content="Explore how AI can revolutionize the real estate industry through automated property appraisals and personalized event newsletters. Learn to leverage Anthropic’s Claude model to generate comprehensive appraisals and engaging newsletters, and build an interactive Streamlit app to showcase these AI-powered functionalities.">
+<meta property="og:image" content="https://arunprakash.ai/posts/anthropic-claude3-industry-usecases/industry_yt.jpg">
+<meta property="og:site-name" content="Explained Intuitively">
+<meta name="twitter:title" content="Explained Intuitively - Claude3 + Python: Automate Real Industry Workflows Like a Pro">
+<meta name="twitter:description" content="Explore how AI can revolutionize the real estate industry through automated property appraisals and personalized event newsletters. Learn to leverage Anthropic’s Claude model to generate comprehensive appraisals and engaging newsletters, and build an interactive Streamlit app to showcase these AI-powered functionalities.">
+<meta name="twitter:image" content="https://arunprakash.ai/posts/anthropic-claude3-industry-usecases/industry_yt.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://arunprakash.ai/posts/anthropic-claude3-industry-usecases/real_estate.html" />
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Explained Intuitively</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/arunslb123" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/arunprakashml" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-right">
+      <h1 class="title">Claude3 + Python: Automate Real Industry Workflows Like a Pro</h1>
+                  <div>
+        <div class="description">
+          Explore how AI can revolutionize the real estate industry through automated property appraisals and personalized event newsletters. Learn to leverage Anthropic’s Claude model to generate comprehensive appraisals and engaging newsletters, and build an interactive Streamlit app to showcase these AI-powered functionalities.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">ai</div>
+                <div class="quarto-category">real-estate</div>
+                <div class="quarto-category">property-appraisal</div>
+                <div class="quarto-category">newsletter-generation</div>
+                <div class="quarto-category">streamlit</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Arun Prakash </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 28, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#project-1-property-appraisal" id="toc-project-1-property-appraisal" class="nav-link active" data-scroll-target="#project-1-property-appraisal">Project 1: Property Appraisal</a></li>
+  <li><a href="#project-2-property-appraisal-with-a-house-images" id="toc-project-2-property-appraisal-with-a-house-images" class="nav-link" data-scroll-target="#project-2-property-appraisal-with-a-house-images">Project 2: Property Appraisal with a house images</a></li>
+  <li><a href="#project-3-creating-newsletters-with-property-details-for-events" id="toc-project-3-creating-newsletters-with-property-details-for-events" class="nav-link" data-scroll-target="#project-3-creating-newsletters-with-property-details-for-events">Project 3: Creating newsletters with property details for events</a></li>
+  <li><a href="#streamlit-app" id="toc-streamlit-app" class="nav-link" data-scroll-target="#streamlit-app">Streamlit App</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+
+
+
+
+<p>In this project, we will explore how artificial intelligence can be leveraged to streamline and enhance various aspects of the real estate industry. We will focus on two key areas: property appraisal and event newsletter generation.</p>
+<p>Through this project, you will learn:</p>
+<ol type="1">
+<li><strong>Property Appraisal with AI</strong>:
+<ul>
+<li>How to utilize AI models like Anthropic’s Claude to generate detailed and comprehensive property appraisals based on textual descriptions.</li>
+<li>Techniques for incorporating visual information by processing and encoding property images to provide more context to the AI model.</li>
+<li>Adapting the AI-generated appraisals to suit specific markets, such as the Australian real estate market.</li>
+</ul></li>
+<li><strong>Event Newsletter Generation with AI</strong>:
+<ul>
+<li>Leveraging AI to create engaging and personalized newsletters for real estate events.</li>
+<li>Techniques for structuring prompts to guide the AI model in generating event-specific content, including catchy marketing slogans for featured properties.</li>
+<li>Customizing the newsletter generation process to highlight the unique features of each property in relation to the event theme.</li>
+</ul></li>
+<li><strong>Streamlit App Development</strong>:
+<ul>
+<li>Building an interactive web application using the Streamlit framework to showcase the AI-powered property appraisal and newsletter generation functionalities.</li>
+<li>Designing a user-friendly interface that allows users to input property descriptions, upload images, and generate appraisals and newsletters with ease.</li>
+<li>Integrating the AI models seamlessly into the Streamlit app for a smooth user experience.</li>
+</ul></li>
+</ol>
+<p>By the end of this project, you will have gained practical knowledge and hands-on experience in applying AI techniques to automate and enhance property appraisal and event newsletter creation. You will also have developed a functional Streamlit app that demonstrates the power of AI in the real estate domain.</p>
+<p>Let’s dive in and explore how AI can revolutionize the way we approach property appraisal and event marketing in the real estate industry!</p>
+<section id="project-1-property-appraisal" class="level1">
+<h1>Project 1: Property Appraisal</h1>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install anthropic --upgrade</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Install required libraries</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install streamlit</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install anthropic</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install python-dotenv</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install Pillow</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load API keys from .env file</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>anthropic.api_key <span class="op">=</span> os.getenv(<span class="st">"ANTHROPIC_API_KEY"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> anthropic.Anthropic()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> summarize_text(text):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> anthropic</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> <span class="ss">f"Please provide a detailed (approx 1000 words) and comprehensive property appraisal suitable for the Australian market based on the following information, using placeholders for the values:</span><span class="ch">\n\n</span><span class="sc">{</span>text<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate a summary using Claude model</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> client.messages.create(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        system<span class="op">=</span><span class="st">"You are an intelligent property appraiser with expertise in the Australian real estate market. Your goal is to write detailed and comprehensive property appraisals."</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        max_tokens<span class="op">=</span><span class="dv">4000</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">=</span>[</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>property_description <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">This property is a modern, two-story residential home located in a quiet, suburban neighborhood in Melbourne, Australia.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st"> Built in 2015, it features 4 bedrooms, 2 bathrooms, and an open-plan living area.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st"> The 180 sq. m. house sits on a 600 sq. m. lot with a landscaped garden, a patio, and a single-car garage.</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>appraisal <span class="op">=</span> summarize_text(property_description)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(appraisal)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Message(id='msg_01A2Pg1wCV6R72Y9LuBFCi3U', content=[ContentBlock(text="Property Appraisal Report\n\nSubject Property: Modern Two-Story Residential Home\nLocation: [Address], Melbourne, Australia\n\nIntroduction:\nThe purpose of this appraisal is to estimate the market value of the subject property, a modern, two-story residential home located in a quiet, suburban neighborhood in Melbourne, Australia. The appraisal is based on a thorough inspection of the property, an analysis of comparable properties in the area, and a consideration of current market conditions.\n\nProperty Description:\nThe subject property is a well-maintained, two-story residential home built in 2015. The house features a contemporary design with a rendered brick exterior and a tiled roof. The property offers a total living area of approximately 180 square meters (1,938 square feet) and is situated on a generous 600 square meter (6,458 square feet) lot.\n\nThe ground floor comprises an open-plan living area that seamlessly combines the living room, dining room, and kitchen. The modern kitchen features high-quality appliances, ample storage space, and a breakfast bar. The living area has large windows that allow for an abundance of natural light and provide views of the landscaped garden. A sliding glass door leads to the patio, perfect for outdoor entertaining.\n\nThe upper floor consists of four well-appointed bedrooms and two bathrooms. The master bedroom features a walk-in closet and an en-suite bathroom with a double vanity, a shower, and a bathtub. The remaining three bedrooms are served by a shared bathroom with a shower and a single vanity. All bedrooms have built-in wardrobes and carpet flooring.\n\nAdditional features of the property include:\n- Ducted air conditioning throughout the house\n- High ceilings (2.7 meters) on both floors\n- Double-glazed windows for improved energy efficiency\n- Hardwood flooring in the living areas and tiles in the wet areas\n- A single-car garage with internal access to the house\n- A landscaped front and rear garden with mature trees and shrubs\n- A paved patio area perfect for outdoor dining and entertaining\n\nNeighborhood Analysis:\nThe subject property is located in a well-established, quiet suburban neighborhood in Melbourne. The area is characterized by similar modern, single-family homes on medium to large-sized lots. The neighborhood has well-maintained streets, sidewalks, and streetlights. It is conveniently located near schools, parks, shopping centers, and public transportation, making it an attractive location for families and professionals.\n\nMarket Analysis:\nThe Melbourne residential property market has shown resilience and steady growth over the past few years, despite the challenges posed by the COVID-19 pandemic. Low interest rates, government incentives, and a strong demand for housing have contributed to the market's stability. The suburb in which the subject property is located has experienced a moderate increase in median house prices over the past 12 months, with a growing demand for modern, well-maintained homes.\n\nComparable Sales:\nThe following comparable sales were selected based on their similarity to the subject property in terms of location, size, age, and condition:\n\n1. [Address], Melbourne - A modern, two-story home with 4 bedrooms, 2 bathrooms, and a total living area of 185 sq. m. on a 580 sq. m. lot. Sold for $[X] in [Month, Year].\n\n2. [Address], Melbourne - A 2016-built, two-story home with 4 bedrooms, 2 bathrooms, and a total living area of 175 sq. m. on a 610 sq. m. lot. Sold for $[Y] in [Month, Year].\n\n3. [Address], Melbourne - A modern, two-story home with 4 bedrooms, 2 bathrooms, and a total living area of 190 sq. m. on a 595 sq. m. lot. Sold for $[Z] in [Month, Year].\n\nValuation:\nBased on the analysis of the subject property, the neighborhood, the current market conditions, and the comparable sales, the estimated market value of the subject property as of [Date] is:\n\n$[Estimated Market Value]\n\nThis value estimate is subject to the following assumptions and limiting conditions:\n1. The appraiser has inspected the property, but no structural or mechanical tests were conducted.\n2. The appraiser assumes no responsibility for hidden defects or non-apparent conditions of the property.\n3. The information provided by the client and other sources is assumed to be accurate and reliable.\n4. This appraisal is for the sole use of the client and intended users and should not be relied upon by any other party.\n\nConclusion:\nThe subject property is a well-maintained, modern two-story residential home in a desirable suburban neighborhood in Melbourne. Its features, location, and condition make it an attractive option for potential buyers in the current market. The estimated market value of $[Estimated Market Value] reflects the property's characteristics and is supported by the analysis of comparable sales and market trends.\n\nAppraiser:\n[Appraiser's Name]\n[Appraiser's Certification/License Number]\n[Appraisal Company Name]", type='text')], model='claude-3-opus-20240229', role='assistant', stop_reason='end_turn', stop_sequence=None, type='message', usage=Usage(input_tokens=170, output_tokens=1154))</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># display using markdown</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Markdown</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary in markdown format</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>display(Markdown(appraisal.content[<span class="dv">0</span>].text))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p>Property Appraisal Report</p>
+<p>Property Description: The subject property is a contemporary, two-story residential dwelling situated in a tranquil, suburban neighborhood in Melbourne, Australia. Constructed in 2015, this well-maintained home offers a comfortable living space for a family or individuals seeking a modern lifestyle. The property features 4 bedrooms, 2 bathrooms, and an open-plan living area, providing ample space for both relaxation and entertainment. With a total living area of 180 square meters (1,938 square feet), the house sits on a generous 600 square meter (6,458 square feet) lot, which includes a beautifully landscaped garden, a patio, and a single-car garage.</p>
+<p>Location and Neighborhood: The property is located in a desirable suburban area of Melbourne, known for its safety, convenience, and family-friendly atmosphere. The neighborhood is characterized by well-maintained homes, manicured lawns, and tree-lined streets, creating a pleasant and visually appealing environment. The area is served by reputable schools, both primary and secondary, making it an ideal location for families with school-aged children. Additionally, the property is in close proximity to local amenities such as shopping centers, restaurants, parks, and recreational facilities, ensuring a convenient and enjoyable lifestyle for residents.</p>
+<p>Accessibility and Transportation: The property benefits from excellent accessibility and transportation links. It is situated within easy reach of major roads and highways, providing convenient access to Melbourne’s central business district and other key areas of the city. Public transportation options, including bus and train services, are readily available, offering an alternative and sustainable mode of travel for commuters. The nearby train station is located within a 10-minute walk from the property, while bus stops are conveniently placed throughout the neighborhood.</p>
+<p>Property Condition and Features: The two-story residential home is in excellent condition, having been well-maintained since its construction in 2015. The exterior of the property features a modern and attractive design, with a combination of brick and rendered finishes, complemented by large windows that allow for ample natural light to enter the home. The landscaped garden, which is well-established and thoughtfully designed, provides a pleasant outdoor space for relaxation and entertaining. The patio area is perfect for alfresco dining and enjoying the mild Melbourne climate.</p>
+<p>Inside, the open-plan living area creates a spacious and inviting atmosphere, ideal for family gatherings and entertaining guests. The living area seamlessly connects to the modern, well-appointed kitchen, which features high-quality appliances, ample storage space, and a breakfast bar for casual dining. The kitchen’s layout and finishes make it both functional and visually appealing.</p>
+<p>The home offers 4 bedrooms, providing comfortable accommodation for a family or guests. The master bedroom is generously sized and includes a private en-suite bathroom and built-in wardrobes, offering a luxurious and convenient space for the homeowners. The remaining bedrooms are well-proportioned and feature built-in wardrobes, ensuring ample storage space for occupants.</p>
+<p>The two bathrooms in the property are modern and well-maintained, with high-quality fixtures and fittings. The family bathroom services the three additional bedrooms, while the en-suite bathroom attached to the master bedroom provides added privacy and convenience.</p>
+<p>The property also includes a single-car garage, providing secure parking for one vehicle and additional storage space for household items. The garage is accessible from the main house, offering a convenient and sheltered entry point.</p>
+<p>Market Analysis and Comparable Sales: To determine the market value of the subject property, a thorough analysis of recent sales of similar properties in the area has been conducted. The following comparable sales have been identified:</p>
+<ol type="1">
+<li>[Address], sold for $[X] in [Month, Year]
+<ul>
+<li>Similar in size, age, and condition</li>
+<li>4 bedrooms, 2 bathrooms, single-car garage</li>
+<li>190 sq. m. house on a 580 sq. m. lot</li>
+</ul></li>
+<li>[Address], sold for $[Y] in [Month, Year]
+<ul>
+<li>Comparable location and neighborhood</li>
+<li>4 bedrooms, 2 bathrooms, single-car garage</li>
+<li>175 sq. m. house on a 610 sq. m. lot</li>
+</ul></li>
+<li>[Address], sold for $[Z] in [Month, Year]
+<ul>
+<li>Similar age and condition</li>
+<li>4 bedrooms, 2 bathrooms, double-car garage</li>
+<li>185 sq. m. house on a 595 sq. m. lot</li>
+</ul></li>
+</ol>
+<p>Based on these comparable sales and taking into account the subject property’s unique features, location, and condition, the estimated market value of the property is between $[A] and $[B].</p>
+<p>Conclusion: The subject property, a modern two-story residential home in a desirable Melbourne suburb, presents an excellent opportunity for potential buyers seeking a well-maintained, spacious, and conveniently located family home. With its 4 bedrooms, 2 bathrooms, open-plan living area, and attractive outdoor spaces, the property offers a comfortable and contemporary living environment. Its proximity to schools, amenities, and transportation links further enhances its appeal and value.</p>
+<p>Considering the property’s features, condition, location, and recent comparable sales in the area, the estimated market value of the property is between $[A] and $[B]. This valuation reflects the property’s desirability and its potential to provide a high quality of life for its occupants in a sought-after Melbourne neighborhood.</p>
+</div>
+</div>
+</section>
+<section id="project-2-property-appraisal-with-a-house-images" class="level1">
+<h1>Project 2: Property Appraisal with a house images</h1>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> display_images_side_by_side(image_paths):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    html <span class="op">=</span> <span class="st">"&lt;div style='display: flex; justify-content: space-between;'&gt;"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> path <span class="kw">in</span> image_paths:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        html <span class="op">+=</span> <span class="ss">f"&lt;img src='</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">' style='width: 30%; height: auto;'&gt;"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    html <span class="op">+=</span> <span class="st">"&lt;/div&gt;"</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    display(HTML(html))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>image_paths <span class="op">=</span> [</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"front_view.webp"</span>,<span class="st">"side_view.webp"</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>display_images_side_by_side(image_paths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div style="display: flex; justify-content: space-between;"><img src="front_view.webp" style="width: 30%; height: auto;"><img src="side_view.webp" style="width: 30%; height: auto;"></div>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Markdown, Image</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> base64</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image <span class="im">as</span> PILImage</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load API keys from .env file</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>anthropic.api_key <span class="op">=</span> os.getenv(<span class="st">"ANTHROPIC_API_KEY"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> appraise_property(description, image_paths):</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Read and encode the images</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    encoded_images <span class="op">=</span> []</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> path <span class="kw">in</span> image_paths:</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(path, <span class="st">"rb"</span>) <span class="im">as</span> image_file:</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>            image <span class="op">=</span> PILImage.<span class="bu">open</span>(image_file)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Convert the image to PNG format</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>            png_image <span class="op">=</span> io.BytesIO()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>            image.save(png_image, <span class="bu">format</span><span class="op">=</span><span class="st">"PNG"</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>            png_image.seek(<span class="dv">0</span>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>            encoded_image <span class="op">=</span> base64.b64encode(png_image.read()).decode(<span class="st">"utf-8"</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>            encoded_images.append(encoded_image)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construct the prompt with description and images</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> <span class="ss">f"Please provide a detailed (approx 1000 words), use placeholders for the values, and comprehensive property appraisal suitable for the Australian market based on the following information and images:</span><span class="ch">\n\n</span><span class="ss">Description:</span><span class="ch">\n</span><span class="sc">{</span>description<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Images:</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create the content array with text and image blocks</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    content <span class="op">=</span> [{<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: prompt}]</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, encoded_image <span class="kw">in</span> <span class="bu">enumerate</span>(encoded_images, start<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>        content.append({<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: <span class="ss">f"Image </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">:"</span>})</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        content.append({</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"type"</span>: <span class="st">"image"</span>,</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>            <span class="st">"source"</span>: {</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>                <span class="st">"type"</span>: <span class="st">"base64"</span>,</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>                <span class="st">"media_type"</span>: <span class="st">"image/png"</span>, </span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>                <span class="st">"data"</span>: encoded_image</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate appraisal using Claude model</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> anthropic.Anthropic().messages.create(</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>        system<span class="op">=</span><span class="st">"You are an intelligent property appraiser working for a real estate firm. You are an expert at property appraisal. Your goal is to write detailed and comprehensive property appraisals."</span>,</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>        max_tokens<span class="op">=</span><span class="dv">4000</span>,</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: content}]</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response.content[<span class="dv">0</span>].text</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage</span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>property_description <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="st">This property is a modern, two-story residential home located in a quiet, suburban neighborhood in Melbourne, Australia.</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="st"> Built in 2015, it features 4 bedrooms, 2 bathrooms, and an open-plan living area.</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="st"> The 180 sq. m. house sits on a 600 sq. m. lot with a landscaped garden, a patio, and a single-car garage.</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>image_paths <span class="op">=</span> [</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"front_view.webp"</span>,<span class="st">"side_view.webp"</span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>appraisal <span class="op">=</span> appraise_property(property_description, image_paths)</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the appraisal in markdown format</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>display(Markdown(appraisal))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p>Property Appraisal Report</p>
+<p>Property Overview: The subject property is a contemporary, two-story residential home situated in a tranquil, suburban neighborhood in Melbourne, Australia. Constructed in 2015, this [PROPERTY_AGE]-year-old home offers 4 bedrooms, 2 bathrooms, and an open-plan living area. The house, measuring approximately 180 sq. m., is positioned on a generous 600 sq. m. lot that features a well-maintained landscaped garden, a patio, and a single-car garage.</p>
+<p>Exterior: The home boasts a striking, modern architectural design with clean lines and a blend of materials, including wood, brick, and glass. The exterior showcases warm, earthy tones, complemented by expansive windows that allow ample natural light to flood the interior spaces. The landscaped garden is meticulously maintained, offering a serene and inviting outdoor environment. The patio, accessible from the living area, provides an ideal space for outdoor entertaining and relaxation. The single-car garage offers secure parking and additional storage space.</p>
+<p>Interior: The open-plan living area is the heart of the home, seamlessly connecting the kitchen, dining, and living spaces. This layout creates a sense of spaciousness and facilitates a smooth flow between the various functional areas. The interior features a contemporary, neutral color palette, with high-quality finishes and modern fixtures throughout.</p>
+<p>The kitchen is well-appointed with sleek, modern cabinetry, premium appliances, and ample counter space, making it ideal for both everyday cooking and entertaining. The living room is designed to maximize comfort and style, with large windows that offer picturesque views of the surrounding landscape.</p>
+<p>The home features 4 bedrooms, providing comfortable accommodation for a family or guests. The master bedroom likely includes an en-suite bathroom and built-in wardrobes, offering a private retreat for the homeowners. The remaining bedrooms are well-proportioned and can easily accommodate various furniture configurations.</p>
+<p>The 2 bathrooms in the home are expected to feature contemporary tiling, modern fixtures, and ample storage space, ensuring both functionality and style.</p>
+<p>Location: The property’s location in a quiet, suburban neighborhood in Melbourne is a significant asset. Melbourne, being one of Australia’s most livable cities, offers a wide range of amenities, including excellent schools, shopping centers, recreational facilities, and public transportation. The home’s proximity to these amenities, combined with its peaceful setting, makes it an attractive option for families and professionals alike.</p>
+<p>Market Analysis: The Melbourne property market has demonstrated resilience and consistent growth over the past several years. Despite the challenges posed by the COVID-19 pandemic, the market has remained stable, with a steady demand for quality housing. The median house price in Melbourne as of [CURRENT_DATE] is approximately [MEDIAN_HOUSE_PRICE], indicating a healthy market conditions.</p>
+<p>Properties similar to the subject home, featuring modern architecture, open-plan living, and a desirable location, have been in high demand. Comparable sales in the area range from [COMPARABLE_SALE_RANGE], depending on the specific location, lot size, and condition of the property.</p>
+<p>Valuation: Based on the property’s features, location, and current market conditions, the estimated value of the subject property is [ESTIMATED_VALUE]. This valuation takes into account the home’s modern design, spacious living areas, desirable location, and the overall demand for similar properties in the Melbourne market.</p>
+<p>Conclusion: The subject property presents an excellent opportunity for homebuyers seeking a modern, well-appointed home in a sought-after Melbourne neighborhood. Its contemporary design, open-plan living, and attractive outdoor spaces make it well-suited for a range of buyers, from families to professionals. With the Melbourne property market demonstrating consistent growth and demand, this home is expected to maintain its value and provide a solid investment opportunity for prospective buyers.</p>
+</div>
+</div>
+</section>
+<section id="project-3-creating-newsletters-with-property-details-for-events" class="level1">
+<h1>Project 3: Creating newsletters with property details for events</h1>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Markdown</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load API keys from .env file</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>anthropic.api_key <span class="op">=</span> os.getenv(<span class="st">"ANTHROPIC_API_KEY"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_event_newsletter(event, properties):</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construct the prompt with event and property details</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> <span class="ss">f"Create a newsletter for the </span><span class="sc">{</span>event<span class="sc">}</span><span class="ss"> event, featuring the following properties:</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, (name, description) <span class="kw">in</span> <span class="bu">enumerate</span>(properties, start<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        prompt <span class="op">+=</span> <span class="ss">f"Property </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\n</span><span class="ss">Description: </span><span class="sc">{</span>description<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">+=</span> <span class="ss">f"For each property, generate a catchy marketing slogan related to the </span><span class="sc">{</span>event<span class="sc">}</span><span class="ss"> event. The newsletter should be engaging and highlight the unique features of each property in relation to the event., aim 300 words for each property"</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate newsletter using Claude model</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> anthropic.Anthropic().messages.create(</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        system<span class="op">=</span><span class="st">"You are a creative marketing assistant specializing in real estate. Your goal is to write engaging newsletters featuring properties for specific events, including catchy marketing slogans."</span>,</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>        max_tokens<span class="op">=</span><span class="dv">4000</span>,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}]</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response.content[<span class="dv">0</span>].text</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>event <span class="op">=</span> <span class="st">"Summer Festival"</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>properties <span class="op">=</span> [</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"123 Main St"</span>, <span class="st">"A beautiful, spacious property with a large backyard, perfect for summer gatherings and outdoor activities."</span>),</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"456 Oak Ave"</span>, <span class="st">"A charming, intimate property ideal for a quiet summer retreat with loved ones."</span>),</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"789 Elm Rd"</span>, <span class="st">"A luxurious property with stunning views, offering a serene setting for an unforgettable summer celebration."</span>)</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>newsletter <span class="op">=</span> create_event_newsletter(event, properties)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the newsletter in markdown format</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>display(Markdown(newsletter))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p>🌞🏡 Summer Festival Special: Discover Your Dream Home! 🏡🌞</p>
+<p>Welcome to our Summer Festival newsletter, where we showcase three incredible properties that will make your summer unforgettable. Whether you’re looking for the perfect venue for a lively gathering or a tranquil retreat, we have the ideal home for you. Get ready to fall in love with these stunning properties and imagine the endless possibilities for your summer celebrations!</p>
+<p>🌿 Property 1: 123 Main St - Your Backyard Oasis Awaits! 🌿 Slogan: “Where Summer Memories Bloom: 123 Main St”</p>
+<p>Step into a world of endless summer fun at 123 Main St! This beautiful and spacious property boasts a large backyard that’s perfect for hosting unforgettable summer gatherings and engaging in exciting outdoor activities. Imagine the laughter and joy as your friends and family come together for a sizzling barbecue, a refreshing pool party, or a friendly game of volleyball on the lush lawn. The expansive outdoor space offers ample room for setting up tents, creating cozy seating areas, and even organizing a mini summer festival right in your own backyard. Inside, the property features a bright and airy layout, with plenty of space for your guests to mingle and relax. The well-appointed kitchen is perfect for preparing delicious summer treats, while the comfortable bedrooms provide a peaceful retreat after a day filled with fun in the sun. Don’t miss the opportunity to make 123 Main St the backdrop for your most memorable summer moments!</p>
+<p>🌼 Property 2: 456 Oak Ave - Your Intimate Summer Sanctuary 🌼 Slogan: “Where Serenity Meets Summer: 456 Oak Ave”</p>
+<p>Discover a charming and intimate summer retreat at 456 Oak Ave. This delightful property is the perfect escape for those seeking a peaceful and relaxing summer getaway with their loved ones. Nestled in a quiet neighborhood, surrounded by mature oak trees, this home offers a serene atmosphere that will instantly put you at ease. The cozy interior features a warm and inviting living room, where you can gather with your nearest and dearest for heartfelt conversations and cherished moments. The well-equipped kitchen is ideal for preparing intimate summer dinners, while the inviting bedrooms provide a restful haven after a day of gentle summer activities. Step outside and you’ll find a lovely garden, complete with a charming patio where you can savor your morning coffee, enjoy a good book, or simply bask in the peace and tranquility of your surroundings. 456 Oak Ave is the perfect choice for those who want to create intimate and lasting summer memories in a serene and welcoming setting.</p>
+<p>🌺 Property 3: 789 Elm Rd - Where Luxury Meets Summer Splendor 🌺 Slogan: “Elevate Your Summer at 789 Elm Rd: Where Celebrations Shine!”</p>
+<p>Indulge in the epitome of luxury and sophistication at 789 Elm Rd, a property that promises an unforgettable summer celebration. This stunning home offers breathtaking views that will leave you in awe, providing the perfect backdrop for your summer festivities. The expansive living areas are designed for entertaining, with elegant furnishings, high ceilings, and abundant natural light that creates an atmosphere of grandeur and opulence. The gourmet kitchen is a chef’s dream, equipped with top-of-the-line appliances and ample space for crafting sumptuous summer dishes. Step outside onto the sprawling terrace and you’ll be greeted by a panoramic vista that stretches as far as the eye can see. This is the ideal setting for hosting lavish summer soirées, where your guests can mingle, dance, and raise a toast to the beauty of the season. The luxurious bedrooms offer a haven of comfort and style, ensuring that you and your guests can retreat in ultimate comfort after a night of celebration. 789 Elm Rd is the epitome of summer luxury, offering an unparalleled setting for creating memories that will shine brightly for years to come.</p>
+<p>Don’t wait – make this Summer Festival one to remember by choosing one of these incredible properties as your dream home or event venue. Contact us today to schedule a viewing and let us help you turn your summer dreams into reality!</p>
+</div>
+</div>
+</section>
+<section id="streamlit-app" class="level1">
+<h1>Streamlit App</h1>
+<p>Create a file named app.py, copy the next cell content, and run the following command in your terminal to start the Streamlit app:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">streamlit</span> run app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> base64</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image <span class="im">as</span> PILImage</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load API keys from .env file</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>anthropic.api_key <span class="op">=</span> os.getenv(<span class="st">"ANTHROPIC_API_KEY"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> summarize_text(text):</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> anthropic</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> <span class="ss">f"Please provide a detailed ( approx 1000 words) and comprehensive property appraisal suitable for the Australian market based on the following information, use placeholders for the values :</span><span class="ch">\n\n</span><span class="sc">{</span>text<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate a summary using Claude model</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> anthropic.Anthropic().messages.create(</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>        system<span class="op">=</span><span class="st">"You are an intelligent property appraiser with expertise in the Australian real estate market. Your goal is to write detailed and comprehensive property appraisals."</span>,</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        max_tokens<span class="op">=</span><span class="dv">4000</span>,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}],</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assuming the response structure contains a 'text' field with the summary</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> appraise_property(description, image_paths):</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Read and encode the images</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    encoded_images <span class="op">=</span> []</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> path <span class="kw">in</span> image_paths:</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(path, <span class="st">"rb"</span>) <span class="im">as</span> image_file:</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>            image <span class="op">=</span> PILImage.<span class="bu">open</span>(image_file)</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Convert the image to PNG format</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>            png_image <span class="op">=</span> io.BytesIO()</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>            image.save(png_image, <span class="bu">format</span><span class="op">=</span><span class="st">"PNG"</span>)</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>            png_image.seek(<span class="dv">0</span>)</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>            encoded_image <span class="op">=</span> base64.b64encode(png_image.read()).decode(<span class="st">"utf-8"</span>)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>            encoded_images.append(encoded_image)</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construct the prompt with description and images</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> <span class="ss">f"Please provide a detailed (approx 1000 words), use placeholders for the values, and comprehensive property appraisal suitable for the Australian market based on the following information and images:</span><span class="ch">\n\n</span><span class="ss">Description:</span><span class="ch">\n</span><span class="sc">{</span>description<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create the content array with text and image blocks</span></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>    content <span class="op">=</span> [{<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: prompt}]</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, encoded_image <span class="kw">in</span> <span class="bu">enumerate</span>(encoded_images, start<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>        content.append({<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: <span class="ss">f"Image </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">:"</span>})</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>        content.append(</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>                <span class="st">"type"</span>: <span class="st">"image"</span>,</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>                <span class="st">"source"</span>: {</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"type"</span>: <span class="st">"base64"</span>,</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"media_type"</span>: <span class="st">"image/png"</span>,</span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"data"</span>: encoded_image,</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>                },</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate appraisal using Claude model</span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> anthropic.Anthropic().messages.create(</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>        system<span class="op">=</span><span class="st">"You are an intelligent property appraiser with expertise in the Australian real estate market. Your goal is to write detailed and comprehensive property appraisals."</span>,</span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>        max_tokens<span class="op">=</span><span class="dv">4000</span>,</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: content}],</span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response.content[<span class="dv">0</span>].text</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_event_newsletter(event, properties):</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construct the prompt with event and property details</span></span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> <span class="ss">f"Create a newsletter for the </span><span class="sc">{</span>event<span class="sc">}</span><span class="ss"> event, featuring the following properties:</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, (name, description) <span class="kw">in</span> <span class="bu">enumerate</span>(properties, start<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>        prompt <span class="op">+=</span> <span class="ss">f"Property </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\n</span><span class="ss">Description: </span><span class="sc">{</span>description<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">+=</span> <span class="ss">f"For each property, generate a catchy marketing slogan related to the </span><span class="sc">{</span>event<span class="sc">}</span><span class="ss"> event. The newsletter should be engaging and highlight the unique features of each property in relation to the event., aim 300 words for each property"</span></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate newsletter using Claude model</span></span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> anthropic.Anthropic().messages.create(</span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>        system<span class="op">=</span><span class="st">"You are a creative marketing assistant specializing in real estate. Your goal is to write engaging newsletters featuring properties for specific events, including catchy marketing slogans."</span>,</span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>        max_tokens<span class="op">=</span><span class="dv">4000</span>,</span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}],</span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response.content[<span class="dv">0</span>].text</span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>    st.set_page_config(layout<span class="op">=</span><span class="st">"wide"</span>)</span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a>    st.title(<span class="st">"Property Appraisal and Newsletter Generator"</span>)</span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a>    project <span class="op">=</span> st.radio(</span>
+<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Select a project"</span>,</span>
+<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"Property Appraisal"</span>, <span class="st">"Property Appraisal with Images"</span>, <span class="st">"Event Newsletter"</span>),</span>
+<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a>    proj1_val <span class="op">=</span> <span class="st">"""This property is a residential home located in a neighborhood. </span></span>
+<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a><span class="st">It features bedrooms, bathrooms, and a living area.</span></span>
+<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a><span class="st">The house sits on a lot with a garden, a deck, and a garage."""</span></span>
+<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a>    proj3_val <span class="op">=</span> <span class="st">"""("Property 1", "A spacious property with a large backyard, perfect for family gatherings."),</span></span>
+<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a><span class="st">        ("Property 2", "An intimate property ideal for a quiet retreat with loved ones."),</span></span>
+<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a><span class="st">        ("Property 3", "A luxurious property with stunning views, offering a serene setting for an unforgettable celebration.")</span></span>
+<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a><span class="st">    ]"""</span></span>
+<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> project <span class="op">==</span> <span class="st">"Property Appraisal"</span>:</span>
+<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a>        st.header(<span class="st">"Project 1: Property Appraisal"</span>)</span>
+<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a>        property_description <span class="op">=</span> st.text_area(<span class="st">"Enter property description"</span>, value<span class="op">=</span>proj1_val)</span>
+<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> st.button(<span class="st">"Generate Appraisal"</span>):</span>
+<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a>            appraisal <span class="op">=</span> summarize_text(property_description)</span>
+<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a>            st.markdown(appraisal.content[<span class="dv">0</span>].text)</span>
+<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> project <span class="op">==</span> <span class="st">"Property Appraisal with Images"</span>:</span>
+<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a>        st.header(<span class="st">"Project 2: Property Appraisal with Images"</span>)</span>
+<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a>        property_description <span class="op">=</span> st.text_area(<span class="st">"Enter property description"</span>, value<span class="op">=</span>proj1_val)</span>
+<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a>        uploaded_images <span class="op">=</span> st.file_uploader(</span>
+<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Upload property images"</span>,</span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a>            <span class="bu">type</span><span class="op">=</span>[<span class="st">"png"</span>, <span class="st">"jpg"</span>, <span class="st">"jpeg"</span>],</span>
+<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a>            accept_multiple_files<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> st.button(<span class="st">"Generate Appraisal"</span>):</span>
+<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> uploaded_images:</span>
+<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a>                image_paths <span class="op">=</span> []</span>
+<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> uploaded_image <span class="kw">in</span> uploaded_images:</span>
+<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a>                    image <span class="op">=</span> PILImage.<span class="bu">open</span>(uploaded_image)</span>
+<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a>                    image_path <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>uploaded_image<span class="sc">.</span>name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a>                    image.save(image_path)</span>
+<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a>                    image_paths.append(image_path)</span>
+<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a>                    st.image(image, caption<span class="op">=</span>uploaded_image.name, use_column_width<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a>                appraisal <span class="op">=</span> appraise_property(property_description, image_paths)</span>
+<span id="cb13-137"><a href="#cb13-137" aria-hidden="true" tabindex="-1"></a>                st.markdown(appraisal)</span>
+<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a>                st.warning(<span class="st">"Please upload at least one image."</span>)</span>
+<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> project <span class="op">==</span> <span class="st">"Event Newsletter"</span>:</span>
+<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a>        st.header(<span class="st">"Project 3: Event Newsletter"</span>)</span>
+<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a>        event <span class="op">=</span> st.text_input(<span class="st">"Enter event name"</span>, value<span class="op">=</span><span class="st">"Summer Festival"</span>)</span>
+<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a>        num_properties <span class="op">=</span> st.number_input(</span>
+<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Number of properties"</span>, min_value<span class="op">=</span><span class="dv">1</span>, max_value<span class="op">=</span><span class="dv">10</span>, value<span class="op">=</span><span class="dv">3</span>, step<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a>        properties <span class="op">=</span> []</span>
+<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_properties):</span>
+<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a>            st.subheader(<span class="ss">f"Property </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a>            name <span class="op">=</span> st.text_input(<span class="ss">f"Enter property name </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>, value<span class="op">=</span><span class="ss">f"Property </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a>            description <span class="op">=</span> st.text_area(<span class="ss">f"Enter property description </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>, value<span class="op">=</span><span class="ss">f"A beautiful property perfect for the </span><span class="sc">{</span>event<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a>            properties.append((name, description))</span>
+<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> st.button(<span class="st">"Generate Newsletter"</span>):</span>
+<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a>            newsletter <span class="op">=</span> create_event_newsletter(event, properties)</span>
+<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a>            st.markdown(newsletter)</span>
+<span id="cb13-156"><a href="#cb13-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-157"><a href="#cb13-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a>    main()</span>
+<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+
+</section>
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
