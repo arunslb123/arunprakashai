@@ -1,6 +1,18 @@
 [
   {
-    "listing": "/posts/anthropic-messages-api-streaming-python/messages_api_streaming.html",
+    "listing": "/posts/anthropic-claude3-messages-images-claude3/messages_api_images.html",
+    "items": []
+  },
+  {
+    "listing": "/posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html",
+    "items": []
+  },
+  {
+    "listing": "/posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html",
+    "items": []
+  },
+  {
+    "listing": "/posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html",
     "items": []
   },
   {
@@ -38,7 +50,10 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/anthropic-messages-api-streaming-python/messages_api_streaming.html",
+      "/posts/anthropic-claude3-messages-images-claude3/messages_api_images.html",
+      "/posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html",
+      "/posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html",
+      "/posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html",
       "/posts/anthropic-claude3-messages-api-python/messages_api.html",
       "/posts/ai-assistants-crewai/classroom_crew.html",
       "/posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html",
