@@ -28,6 +28,10 @@
     "items": []
   },
   {
+    "listing": "/posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html",
+    "items": []
+  },
+  {
     "listing": "/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html",
     "items": []
   },
@@ -54,6 +58,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html",
       "/posts/anthropic-claude3-industry-usecases/real_estate.html",
       "/posts/anthropic-claude3-messages-images-claude3/messages_api_images.html",
       "/posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html",
