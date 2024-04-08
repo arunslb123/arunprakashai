@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,15 +60,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -84,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -93,39 +97,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: [],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
 
 <script type="text/javascript">
@@ -136,17 +113,44 @@ gtag('js', new Date());
 gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="../../styles.css">
-<link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="llm_temperature.xml"><meta property="og:title" content="Explained Intuitively - Understanding OpenAI ChatCompletion Model Parameters">
+<meta property="og:title" content="Explained Intuitively - Understanding OpenAI ChatCompletion Model Parameters">
 <meta property="og:description" content="Details: Dive into the intricacies of LLM token generation with our insightful notebook. We cover key parameters like temperature, top_p, frequency_penalty, and presence_penalty, examining their value ranges and OpenAI’s defaults.We highlight the generation probability using log_probs. Our comprehensive guide includes real examples to demonstrate how these settings impact the token generation process, providing a valuable resource for developers and AI enthusiasts alike">
 <meta property="og:image" content="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/IMG_F4CC52CE7F7F-1.jpeg">
-<meta property="og:site-name" content="Explained Intuitively">
+<meta property="og:site_name" content="Explained Intuitively">
 <meta name="twitter:title" content="Explained Intuitively - Understanding OpenAI ChatCompletion Model Parameters">
 <meta name="twitter:description" content="Details: Dive into the intricacies of LLM token generation with our insightful notebook. We cover key parameters like temperature, top_p, frequency_penalty, and presence_penalty, examining their value ranges and OpenAI’s defaults.We highlight the generation probability using log_probs. Our comprehensive guide includes real examples to demonstrate how these settings impact the token generation process, providing a valuable resource for developers and AI enthusiasts alike">
 <meta name="twitter:image" content="https://arunprakash.ai/posts/understanding-openai-chatcompletion-model-parameters/IMG_F4CC52CE7F7F-1.jpeg">
@@ -157,10 +161,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Explained Intuitively</span>
     </a>
@@ -172,23 +176,23 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arunslb123" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/arunslb123"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/arunprakashml" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/arunprakashml"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -210,7 +214,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-right">
 
       <div>
       <div class="quarto-title-meta-heading">Author</div>
@@ -232,7 +236,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -281,12 +285,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </ul>
 </nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+
 
 
 
@@ -301,12 +306,12 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>In each parameter, we will explore different range of values and discuss about openai’s default values and recommendations. Then in the final section we will go through <strong>some real examples</strong> to understand how these parameters affect the token generation process.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/ea581418-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption class="figure-caption">IMG_F4CC52CE7F7F-1.jpeg</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-2-1-IMG_F4CC52CE7F7F-1.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>IMG_F4CC52CE7F7F-1.jpeg</figcaption>
 </figure>
 </div>
 <p>I have written two helper functions <code>highlight_openai_response</code> and <code>highlight</code> for highlighting the probabilities of the tokens generated by the model. Less probable tokens are highlighted in white and more probable tokens are highlighted in green.</p>
-<div class="cell" data-execution_count="52">
+<div id="cell-4" class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">What is machine learning? Explain it to a five year old.</span></span>
@@ -317,7 +322,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="2">
+<div id="cell-5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.colors <span class="im">as</span> mcolors</span>
@@ -383,19 +388,19 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Display the HTML string</span></span>
 <span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    display(HTML(html_string))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="3">
+<div id="cell-6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>highlight(<span class="st">"Hello I am Arun"</span>, [<span class="fl">0.9</span>, <span class="fl">0.8</span>, <span class="fl">0.6</span>, <span class="fl">0.4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="font-family: inherit; white-space: pre-wrap; word-break: break-all;"><span style="background-color: #178b17; color: black;">Hello</span><span style="background-color: #178b17; color: black;"> </span><span style="background-color: #2f972f; color: black;">I</span><span style="background-color: #2f972f; color: black;"> </span><span style="background-color: #5eae5e; color: black;">am</span><span style="background-color: #5eae5e; color: black;"> </span><span style="background-color: #8dc58d; color: black;">Arun</span><span style="background-color: #8dc58d; color: black;"> </span></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="4">
+<div id="cell-7" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"OPENAI_API_KEY"</span>] <span class="op">=</span> os.getenv(<span class="st">"OPENAI_API_KEY"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="5">
+<div id="cell-8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> OpenAI, __version__</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"OpenAI version: </span><span class="sc">{</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> OpenAI()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -403,7 +408,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>OpenAI version: 1.5.0</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="6">
+<div id="cell-9" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">42</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="tokens" class="level1">
@@ -412,8 +417,8 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>In the context of OpenAI, tokens are the basic units of text processed by their language models, such as GPT-3. OpenAI employs Byte-Pair Encoding (BPE) for tokenization, which is a method initially designed for text compression. BPE identifies the most frequent pairs of characters or tokens and merges them to form new tokens, thus optimizing the tokenization process for efficiency and effectiveness in representing the text data. This approach allows the model to handle a wide range of vocabulary, including rare words or phrases, by breaking them down into subword units.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/f2f2e377-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-11-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>source https://platform.openai.com/tokenizer</p>
@@ -435,19 +440,19 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 \]</span></p>
 <p>Here, <span class="math inline">\(P(w_i)\)</span> is the original probability of the word <span class="math inline">\(w_i\)</span>, <span class="math inline">\(T\)</span> is the temperature, <span class="math inline">\(P'(w_i)\)</span> is the adjusted probability of the word, and <span class="math inline">\(V\)</span> is the vocabulary size (the total number of words over which the probabilities are distributed). This equation shows how each original probability <span class="math inline">\(P(w_i)\)</span> is raised to the power of the reciprocal of the temperature, and then normalized by dividing by the sum of all such adjusted probabilities to ensure that the adjusted probabilities sum to 1.</p>
-<div class="cell" data-execution_count="7">
+<div id="cell-16" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.15</span><span class="op">**</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">1.9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>0.368437494723581</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="8">
+<div id="cell-17" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.15</span><span class="op">**</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">0.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>0.06652540281931184</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="9">
+<div id="cell-18" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Base probabilities for 20 words</span></span>
@@ -488,6 +493,7 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 <span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
+<div>
 <div>
 
 
@@ -690,7 +696,8 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="10">
+</div>
+<div id="cell-19" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"base_probability"</span>].<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>1.0</code></pre>
@@ -700,7 +707,7 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 <p>For example, <code>word0</code> has its probability decreased from 0.19 to about 0.11, while <code>word19</code> has its probability slightly increased from 0.01 to about 0.024. This adjustment serves to flatten the probability distribution, making the model less certain and more explorative in its word choices.</p>
 <p>The adjusted probabilities are also normalized, as their sum should equal 1 to represent a valid probability distribution. This adjustment allows for a less deterministic and more varied text generation, which can be useful for generating more diverse and creative text outputs.</p>
 <p>The temperature adjustment has effectively reduced the likelihood of the most probable word being selected and increased the likelihood of less probable words, thus adding variability to the text generation process.</p>
-<div class="cell" data-execution_count="11">
+<div id="cell-21" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the probabilities</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
@@ -713,12 +720,16 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="llm_temperature_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="llm_temperature_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="temperature-0-deterministic" class="level3">
 <h3 class="anchored" data-anchor-id="temperature-0-deterministic">Temperature : 0( Deterministic)</h3>
-<div class="cell" data-execution_count="12">
+<div id="cell-23" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -731,13 +742,13 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  seed<span class="op">=</span>seed</span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="13">
+<div id="cell-24" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response.choices[<span class="dv">0</span>].message.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Machine learning is like having a super smart robot friend that can learn things on its own. Just like how you learn new things by practicing and trying different things, machine learning is when a computer program learns from lots of examples and gets better at doing a task. For example, if you show the robot friend lots of pictures of cats and dogs, it can learn to tell the difference between them. It's like magic, but really it's just the computer using math and patterns to figure things out.</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="14">
+<div id="cell-25" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>response.choices[<span class="dv">0</span>].logprobs.content[:<span class="dv">5</span>] <span class="co"># first 5 tokens</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>[ChatCompletionTokenLogprob(token='Machine', bytes=[77, 97, 99, 104, 105, 110, 101], logprob=-0.001537835, top_logprobs=[]),
@@ -747,28 +758,32 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
  ChatCompletionTokenLogprob(token=' having', bytes=[32, 104, 97, 118, 105, 110, 103], logprob=-1.0659788, top_logprobs=[])]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="15">
+<div id="cell-26" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> []</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="16">
+<div id="cell-27" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> res <span class="kw">in</span> response.choices[<span class="dv">0</span>].logprobs.content:</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    probs.append(np.exp(res.logprob))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="17">
+<div id="cell-28" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.hist(probs)<span class="op">;</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Probability"</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Count"</span>)</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="llm_temperature_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="llm_temperature_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="18">
+</div>
+<div id="cell-29" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>response.system_fingerprint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="19">
+<div id="cell-30" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>highlight_openai_response(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="font-family: inherit; white-space: pre-wrap; word-break: break-all;"><span style="background-color: #008000; color: black;">Machine</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">learning</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">is</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #3f9f3f; color: black;">like</span><span style="background-color: #3f9f3f; color: black;"> </span><span style="background-color: #9acb9a; color: black;">having</span><span style="background-color: #9acb9a; color: black;"> </span><span style="background-color: #008000; color: black;">a</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #8fc68f; color: black;">super</span><span style="background-color: #8fc68f; color: black;"> </span><span style="background-color: #108810; color: black;">smart</span><span style="background-color: #108810; color: black;"> </span><span style="background-color: #63b163; color: black;">robot</span><span style="background-color: #63b163; color: black;"> </span><span style="background-color: #1e8f1e; color: black;">friend</span><span style="background-color: #1e8f1e; color: black;"> </span><span style="background-color: #72b872; color: black;">that</span><span style="background-color: #72b872; color: black;"> </span><span style="background-color: #2a952a; color: black;">can</span><span style="background-color: #2a952a; color: black;"> </span><span style="background-color: #018001; color: black;">learn</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #61af61; color: black;">things</span><span style="background-color: #61af61; color: black;"> </span><span style="background-color: #65b265; color: black;">on</span><span style="background-color: #65b265; color: black;"> </span><span style="background-color: #008000; color: black;">its</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">own.</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #198c19; color: black;">Just</span><span style="background-color: #198c19; color: black;"> </span><span style="background-color: #5cad5c; color: black;">like</span><span style="background-color: #5cad5c; color: black;"> </span><span style="background-color: #008000; color: black;">how</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #8dc58d; color: black;">you</span><span style="background-color: #8dc58d; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">learn</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #028102; color: black;">new</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #399c39; color: black;">things</span><span style="background-color: #399c39; color: black;"> </span><span style="background-color: #038103; color: black;">by</span><span style="background-color: #038103; color: black;"> </span><span style="background-color: #279327; color: black;">practicing</span><span style="background-color: #279327; color: black;"> </span><span style="background-color: #53a953; color: black;">and</span><span style="background-color: #53a953; color: black;"> </span><span style="background-color: #46a246; color: black;">trying</span><span style="background-color: #46a246; color: black;"> </span><span style="background-color: #40a040; color: black;">different</span><span style="background-color: #40a040; color: black;"> </span><span style="background-color: #41a041; color: black;">things,</span><span style="background-color: #41a041; color: black;"> </span><span style="background-color: #43a143; color: black;">machine</span><span style="background-color: #43a143; color: black;"> </span><span style="background-color: #008000; color: black;">learning</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #369b36; color: black;">is</span><span style="background-color: #369b36; color: black;"> </span><span style="background-color: #008000; color: black;">when</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #70b770; color: black;">a</span><span style="background-color: #70b770; color: black;"> </span><span style="background-color: #349a34; color: black;">computer</span><span style="background-color: #349a34; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">program</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #028102; color: black;">learns</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #48a348; color: black;">from</span><span style="background-color: #48a348; color: black;"> </span><span style="background-color: #4ba54a; color: black;">lots</span><span style="background-color: #4ba54a; color: black;"> </span><span style="background-color: #96c996; color: black;">of</span><span style="background-color: #96c996; color: black;"> </span><span style="background-color: #359a35; color: black;">examples</span><span style="background-color: #359a35; color: black;"> </span><span style="background-color: #2b952b; color: black;">and</span><span style="background-color: #2b952b; color: black;"> </span><span style="background-color: #3f9f3f; color: black;">gets</span><span style="background-color: #3f9f3f; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">better</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #1e8f1e; color: black;">at</span><span style="background-color: #1e8f1e; color: black;"> </span><span style="background-color: #0d860d; color: black;">doing</span><span style="background-color: #0d860d; color: black;"> </span><span style="background-color: #0c860c; color: black;">a</span><span style="background-color: #0c860c; color: black;"> </span><span style="background-color: #1b8d1b; color: black;">task.</span><span style="background-color: #1b8d1b; color: black;"> </span><span style="background-color: #6db56d; color: black;">For</span><span style="background-color: #6db56d; color: black;"> </span><span style="background-color: #349934; color: black;">example,</span><span style="background-color: #349934; color: black;"> </span><span style="background-color: #70b770; color: black;">if</span><span style="background-color: #70b770; color: black;"> </span><span style="background-color: #84c084; color: black;">you</span><span style="background-color: #84c084; color: black;"> </span><span style="background-color: #008000; color: black;">show</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">the</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #50a750; color: black;">robot</span><span style="background-color: #50a750; color: black;"> </span><span style="background-color: #3d9e3d; color: black;">friend</span><span style="background-color: #3d9e3d; color: black;"> </span><span style="background-color: #2d962d; color: black;">lots</span><span style="background-color: #2d962d; color: black;"> </span><span style="background-color: #339933; color: black;">of</span><span style="background-color: #339933; color: black;"> </span><span style="background-color: #84c184; color: black;">pictures</span><span style="background-color: #84c184; color: black;"> </span><span style="background-color: #168b16; color: black;">of</span><span style="background-color: #168b16; color: black;"> </span><span style="background-color: #379b37; color: black;">cats</span><span style="background-color: #379b37; color: black;"> </span><span style="background-color: #008000; color: black;">and</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">dogs,</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">it</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #51a851; color: black;">can</span><span style="background-color: #51a851; color: black;"> </span><span style="background-color: #118811; color: black;">learn</span><span style="background-color: #118811; color: black;"> </span><span style="background-color: #0f870f; color: black;">to</span><span style="background-color: #0f870f; color: black;"> </span><span style="background-color: #369b36; color: black;">tell</span><span style="background-color: #369b36; color: black;"> </span><span style="background-color: #018001; color: black;">the</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #1a8d1a; color: black;">difference</span><span style="background-color: #1a8d1a; color: black;"> </span><span style="background-color: #078407; color: black;">between</span><span style="background-color: #078407; color: black;"> </span><span style="background-color: #088408; color: black;">them.</span><span style="background-color: #088408; color: black;"> </span><span style="background-color: #098509; color: black;">It's</span><span style="background-color: #098509; color: black;"> </span><span style="background-color: #269226; color: black;">like</span><span style="background-color: #269226; color: black;"> </span><span style="background-color: #008000; color: black;">magic,</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #038103; color: black;">but</span><span style="background-color: #038103; color: black;"> </span><span style="background-color: #078407; color: black;">really</span><span style="background-color: #078407; color: black;"> </span><span style="background-color: #66b266; color: black;">it's</span><span style="background-color: #66b266; color: black;"> </span><span style="background-color: #65b265; color: black;">just</span><span style="background-color: #65b265; color: black;"> </span><span style="background-color: #68b368; color: black;">the</span><span style="background-color: #68b368; color: black;"> </span><span style="background-color: #49a449; color: black;">computer</span><span style="background-color: #49a449; color: black;"> </span><span style="background-color: #8fc68f; color: black;">using</span><span style="background-color: #8fc68f; color: black;"> </span><span style="background-color: #70b770; color: black;">math</span><span style="background-color: #70b770; color: black;"> </span><span style="background-color: #2f972f; color: black;">and</span><span style="background-color: #2f972f; color: black;"> </span><span style="background-color: #62b062; color: black;">patterns</span><span style="background-color: #62b062; color: black;"> </span><span style="background-color: #078407; color: black;">to</span><span style="background-color: #078407; color: black;"> </span><span style="background-color: #018001; color: black;">figure</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #0a850a; color: black;">things</span><span style="background-color: #0a850a; color: black;"> </span><span style="background-color: #7abc7a; color: black;">out.</span><span style="background-color: #7abc7a; color: black;"> </span></pre>
@@ -778,7 +793,7 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 </section>
 <section id="high-temperature-more-randomness" class="level1">
 <h1>High Temperature ( More Randomness)</h1>
-<div class="cell" data-execution_count="20">
+<div id="cell-32" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -791,13 +806,13 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  seed<span class="op">=</span>seed</span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="21">
+<div id="cell-33" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>highlight_openai_response(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="font-family: inherit; white-space: pre-wrap; word-break: break-all;"><span style="background-color: #008000; color: black;">Machine</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">learning</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">is</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #c4e0c4; color: black;">when</span><span style="background-color: #c4e0c4; color: black;"> </span><span style="background-color: #eaf2ea; color: black;">computer</span><span style="background-color: #eaf2ea; color: black;"> </span><span style="background-color: #068306; color: black;">programs</span><span style="background-color: #068306; color: black;"> </span><span style="background-color: #a1cfa1; color: black;">can</span><span style="background-color: #a1cfa1; color: black;"> </span><span style="background-color: #048204; color: black;">learn</span><span style="background-color: #048204; color: black;"> </span><span style="background-color: #56aa56; color: black;">and</span><span style="background-color: #56aa56; color: black;"> </span><span style="background-color: #c8e2c8; color: black;">improve</span><span style="background-color: #c8e2c8; color: black;"> </span><span style="background-color: #96c996; color: black;">by</span><span style="background-color: #96c996; color: black;"> </span><span style="background-color: #008000; color: black;">themselves.</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000;"> </span><br><span style="background-color: #008000;"> </span><br><span style="background-color: #a0cea0; color: black;">Imagine</span><span style="background-color: #a0cea0; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">you</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #219021; color: black;">have</span><span style="background-color: #219021; color: black;"> </span><span style="background-color: #048204; color: black;">a</span><span style="background-color: #048204; color: black;"> </span><span style="background-color: #038103; color: black;">puzzle</span><span style="background-color: #038103; color: black;"> </span><span style="background-color: #008000; color: black;">toy</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">with</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">pictures</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #7dbd7d; color: black;">on</span><span style="background-color: #7dbd7d; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">it.</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #a6d2a6; color: black;">At</span><span style="background-color: #a6d2a6; color: black;"> </span><span style="background-color: #0b850b; color: black;">first</span><span style="background-color: #0b850b; color: black;"> </span><span style="background-color: #369b36; color: black;">it's</span><span style="background-color: #369b36; color: black;"> </span><span style="background-color: #339933; color: black;">all</span><span style="background-color: #339933; color: black;"> </span><span style="background-color: #018001; color: black;">mixed</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">up</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #3a9c3a; color: black;">and</span><span style="background-color: #3a9c3a; color: black;"> </span><span style="background-color: #6cb56c; color: black;">you</span><span style="background-color: #6cb56c; color: black;"> </span><span style="background-color: #1c8e1c; color: black;">don't</span><span style="background-color: #1c8e1c; color: black;"> </span><span style="background-color: #008000; color: black;">know</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #54a954; color: black;">how</span><span style="background-color: #54a954; color: black;"> </span><span style="background-color: #068306; color: black;">to</span><span style="background-color: #068306; color: black;"> </span><span style="background-color: #239123; color: black;">make</span><span style="background-color: #239123; color: black;"> </span><span style="background-color: #008000; color: black;">it</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">right.</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #9bcc9b; color: black;">When</span><span style="background-color: #9bcc9b; color: black;"> </span><span style="background-color: #058205; color: black;">you</span><span style="background-color: #058205; color: black;"> </span><span style="background-color: #eaf2ea; color: black;">start</span><span style="background-color: #eaf2ea; color: black;"> </span><span style="background-color: #cae3ca; color: black;">solving</span><span style="background-color: #cae3ca; color: black;"> </span><span style="background-color: #8ac48a; color: black;">it</span><span style="background-color: #8ac48a; color: black;"> </span><span style="background-color: #008000; color: black;">a</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">few</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #008000; color: black;">times,</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #a5d1a5; color: black;">you</span><span style="background-color: #a5d1a5; color: black;"> </span><span style="background-color: #e7f1e7; color: black;">start</span><span style="background-color: #e7f1e7; color: black;"> </span><span style="background-color: #2b952b; color: black;">getting</span><span style="background-color: #2b952b; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">better</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #259225; color: black;">and</span><span style="background-color: #259225; color: black;"> </span><span style="background-color: #008000; color: black;">can</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #018001; color: black;">finish</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #0e870e; color: black;">the</span><span style="background-color: #0e870e; color: black;"> </span><span style="background-color: #b0d6b0; color: black;">puzzle</span><span style="background-color: #b0d6b0; color: black;"> </span><span style="background-color: #deedde; color: black;">faster.</span><span style="background-color: #deedde; color: black;"> </span><span style="background-color: #0b850b; color: black;">That's</span><span style="background-color: #0b850b; color: black;"> </span><span style="background-color: #349a34; color: black;">how</span><span style="background-color: #349a34; color: black;"> </span><span style="background-color: #e4f0e4; color: black;">machines</span><span style="background-color: #e4f0e4; color: black;"> </span><span style="background-color: #d7e9d7; color: black;">work</span><span style="background-color: #d7e9d7; color: black;"> </span><span style="background-color: #e5f0e5; color: black;">too,</span><span style="background-color: #e5f0e5; color: black;"> </span><span style="background-color: #028102; color: black;">they</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #1a8d1a; color: black;">start</span><span style="background-color: #1a8d1a; color: black;"> </span><span style="background-color: #118911; color: black;">with</span><span style="background-color: #118911; color: black;"> </span><span style="background-color: #58ab58; color: black;">learning</span><span style="background-color: #58ab58; color: black;"> </span><span style="background-color: #028102; color: black;">puzzles</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #a3d0a3; color: black;">and</span><span style="background-color: #a3d0a3; color: black;"> </span><span style="background-color: #e0eedf; color: black;">every</span><span style="background-color: #e0eedf; color: black;"> </span><span style="background-color: #eaf2ea; color: black;">time</span><span style="background-color: #eaf2ea; color: black;"> </span><span style="background-color: #088408; color: black;">they</span><span style="background-color: #088408; color: black;"> </span><span style="background-color: #dfeddf; color: black;">make</span><span style="background-color: #dfeddf; color: black;"> </span><span style="background-color: #a5d1a5; color: black;">a</span><span style="background-color: #a5d1a5; color: black;"> </span><span style="background-color: #a4d0a4; color: black;">mistake,</span><span style="background-color: #a4d0a4; color: black;"> </span><span style="background-color: #3c9d3c; color: black;">they</span><span style="background-color: #3c9d3c; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">remember</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">that</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #46a246; color: black;">and</span><span style="background-color: #46a246; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">try</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #008000; color: black;">not</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">to</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #e8f2e8; color: black;">make</span><span style="background-color: #e8f2e8; color: black;"> </span><span style="background-color: #0f870f; color: black;">the</span><span style="background-color: #0f870f; color: black;"> </span><span style="background-color: #028102; color: black;">same</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #0e870e; color: black;">mistake</span><span style="background-color: #0e870e; color: black;"> </span><span style="background-color: #018001; color: black;">again.</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #e9f2e9; color: black;">They</span><span style="background-color: #e9f2e9; color: black;"> </span><span style="background-color: #e6f1e6; color: black;">keep</span><span style="background-color: #e6f1e6; color: black;"> </span><span style="background-color: #65b265; color: black;">getting</span><span style="background-color: #65b265; color: black;"> </span><span style="background-color: #168b16; color: black;">better</span><span style="background-color: #168b16; color: black;"> </span><span style="background-color: #8ac48a; color: black;">and</span><span style="background-color: #8ac48a; color: black;"> </span><span style="background-color: #008000; color: black;">better!</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #3b9d3b; color: black;">They</span><span style="background-color: #3b9d3b; color: black;"> </span><span style="background-color: #79bc79; color: black;">can</span><span style="background-color: #79bc79; color: black;"> </span><span style="background-color: #008000; color: black;">use</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">what</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #078407; color: black;">they</span><span style="background-color: #078407; color: black;"> </span><span style="background-color: #1b8d1b; color: black;">have</span><span style="background-color: #1b8d1b; color: black;"> </span><span style="background-color: #a9d3a9; color: black;">learned</span><span style="background-color: #a9d3a9; color: black;"> </span><span style="background-color: #128912; color: black;">to</span><span style="background-color: #128912; color: black;"> </span><span style="background-color: #9acb9a; color: black;">help</span><span style="background-color: #9acb9a; color: black;"> </span><span style="background-color: #389b38; color: black;">us,</span><span style="background-color: #389b38; color: black;"> </span><span style="background-color: #2c962c; color: black;">like</span><span style="background-color: #2c962c; color: black;"> </span><span style="background-color: #1f8f1f; color: black;">find</span><span style="background-color: #1f8f1f; color: black;"> </span><span style="background-color: #ebf3eb; color: black;">things</span><span style="background-color: #ebf3eb; color: black;"> </span><span style="background-color: #e8f2e8; color: black;">on</span><span style="background-color: #e8f2e8; color: black;"> </span><span style="background-color: #2b952b; color: black;">the</span><span style="background-color: #2b952b; color: black;"> </span><span style="background-color: #cde5cd; color: black;">internet</span><span style="background-color: #cde5cd; color: black;"> </span><span style="background-color: #b9dbb9; color: black;">or</span><span style="background-color: #b9dbb9; color: black;"> </span><span style="background-color: #008000; color: black;">even</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #d3e7d3; color: black;">drive</span><span style="background-color: #d3e7d3; color: black;"> </span><span style="background-color: #008000; color: black;">cars.</span><span style="background-color: #008000; color: black;"> </span></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="22">
+<div id="cell-34" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> []</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> res <span class="kw">in</span> response.choices[<span class="dv">0</span>].logprobs.content:</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    probs.append(np.exp(res.logprob))</span>
@@ -808,13 +823,17 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="llm_temperature_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="llm_temperature_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="temperature-1-default" class="level1">
 <h1>Temperature : 1 ( Default)</h1>
-<div class="cell" data-execution_count="23">
+<div id="cell-36" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -827,13 +846,13 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  seed<span class="op">=</span>seed</span>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="24">
+<div id="cell-37" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>highlight_openai_response(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="font-family: inherit; white-space: pre-wrap; word-break: break-all;"><span style="background-color: #008000; color: black;">Machine</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">learning</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">is</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #c4e0c4; color: black;">when</span><span style="background-color: #c4e0c4; color: black;"> </span><span style="background-color: #349934; color: black;">computers</span><span style="background-color: #349934; color: black;"> </span><span style="background-color: #50a750; color: black;">learn</span><span style="background-color: #50a750; color: black;"> </span><span style="background-color: #c9e2c8; color: black;">things</span><span style="background-color: #c9e2c8; color: black;"> </span><span style="background-color: #67b267; color: black;">on</span><span style="background-color: #67b267; color: black;"> </span><span style="background-color: #008000; color: black;">their</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">own,</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #57ab57; color: black;">just</span><span style="background-color: #57ab57; color: black;"> </span><span style="background-color: #81bf81; color: black;">like</span><span style="background-color: #81bf81; color: black;"> </span><span style="background-color: #008000; color: black;">how</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #2f972f; color: black;">you</span><span style="background-color: #2f972f; color: black;"> </span><span style="background-color: #369b36; color: black;">learn</span><span style="background-color: #369b36; color: black;"> </span><span style="background-color: #008000; color: black;">new</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #1e8f1e; color: black;">things.</span><span style="background-color: #1e8f1e; color: black;"> </span><span style="background-color: #008000; color: black;">Imagine</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #afd6af; color: black;">you</span><span style="background-color: #afd6af; color: black;"> </span><span style="background-color: #83c083; color: black;">have</span><span style="background-color: #83c083; color: black;"> </span><span style="background-color: #128912; color: black;">a</span><span style="background-color: #128912; color: black;"> </span><span style="background-color: #058205; color: black;">special</span><span style="background-color: #058205; color: black;"> </span><span style="background-color: #018001; color: black;">toy</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #b3d8b3; color: black;">that</span><span style="background-color: #b3d8b3; color: black;"> </span><span style="background-color: #86c286; color: black;">can</span><span style="background-color: #86c286; color: black;"> </span><span style="background-color: #078407; color: black;">remember</span><span style="background-color: #078407; color: black;"> </span><span style="background-color: #1f8f1f; color: black;">things</span><span style="background-color: #1f8f1f; color: black;"> </span><span style="background-color: #e8f2e8; color: black;">it</span><span style="background-color: #e8f2e8; color: black;"> </span><span style="background-color: #9fce9f; color: black;">sees</span><span style="background-color: #9fce9f; color: black;"> </span><span style="background-color: #e5f0e5; color: black;">and</span><span style="background-color: #e5f0e5; color: black;"> </span><span style="background-color: #1f8f1f; color: black;">hears.</span><span style="background-color: #1f8f1f; color: black;"> </span><span style="background-color: #55a955; color: black;">When</span><span style="background-color: #55a955; color: black;"> </span><span style="background-color: #349a34; color: black;">you</span><span style="background-color: #349a34; color: black;"> </span><span style="background-color: #058205; color: black;">show</span><span style="background-color: #058205; color: black;"> </span><span style="background-color: #a5d1a5; color: black;">it</span><span style="background-color: #a5d1a5; color: black;"> </span><span style="background-color: #068306; color: black;">a</span><span style="background-color: #068306; color: black;"> </span><span style="background-color: #0b850b; color: black;">picture</span><span style="background-color: #0b850b; color: black;"> </span><span style="background-color: #399c39; color: black;">of</span><span style="background-color: #399c39; color: black;"> </span><span style="background-color: #1c8e1c; color: black;">a</span><span style="background-color: #1c8e1c; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">cat</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #018001; color: black;">and</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #0a850a; color: black;">tell</span><span style="background-color: #0a850a; color: black;"> </span><span style="background-color: #57ab57; color: black;">it</span><span style="background-color: #57ab57; color: black;"> </span><span style="background-color: #68b368; color: black;">"this</span><span style="background-color: #68b368; color: black;"> </span><span style="background-color: #4ba54b; color: black;">is</span><span style="background-color: #4ba54b; color: black;"> </span><span style="background-color: #008000; color: black;">a</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #a6d2a6; color: black;">cat,"</span><span style="background-color: #a6d2a6; color: black;"> </span><span style="background-color: #56aa56; color: black;">the</span><span style="background-color: #56aa56; color: black;"> </span><span style="background-color: #008000; color: black;">toy</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">remembers</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">that.</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #3b9d3b; color: black;">Then,</span><span style="background-color: #3b9d3b; color: black;"> </span><span style="background-color: #a6d2a6; color: black;">when</span><span style="background-color: #a6d2a6; color: black;"> </span><span style="background-color: #008000; color: black;">you</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #399c39; color: black;">show</span><span style="background-color: #399c39; color: black;"> </span><span style="background-color: #43a143; color: black;">it</span><span style="background-color: #43a143; color: black;"> </span><span style="background-color: #4ca54c; color: black;">another</span><span style="background-color: #4ca54c; color: black;"> </span><span style="background-color: #239123; color: black;">picture</span><span style="background-color: #239123; color: black;"> </span><span style="background-color: #0c860c; color: black;">of</span><span style="background-color: #0c860c; color: black;"> </span><span style="background-color: #188c18; color: black;">a</span><span style="background-color: #188c18; color: black;"> </span><span style="background-color: #0b850b; color: black;">cat</span><span style="background-color: #0b850b; color: black;"> </span><span style="background-color: #008000; color: black;">without</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #018001; color: black;">telling</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #86c286; color: black;">it</span><span style="background-color: #86c286; color: black;"> </span><span style="background-color: #008000; color: black;">anything,</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #2d962d; color: black;">the</span><span style="background-color: #2d962d; color: black;"> </span><span style="background-color: #018001; color: black;">toy</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #048204; color: black;">can</span><span style="background-color: #048204; color: black;"> </span><span style="background-color: #dcecdc; color: black;">recognize</span><span style="background-color: #dcecdc; color: black;"> </span><span style="background-color: #138913; color: black;">that</span><span style="background-color: #138913; color: black;"> </span><span style="background-color: #008000; color: black;">it's</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #85c185; color: black;">a</span><span style="background-color: #85c185; color: black;"> </span><span style="background-color: #008000; color: black;">cat</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #1c8e1c; color: black;">too!</span><span style="background-color: #1c8e1c; color: black;"> </span><span style="background-color: #008000; color: black;">This</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #229122; color: black;">is</span><span style="background-color: #229122; color: black;"> </span><span style="background-color: #c9e3c9; color: black;">because</span><span style="background-color: #c9e3c9; color: black;"> </span><span style="background-color: #56aa56; color: black;">the</span><span style="background-color: #56aa56; color: black;"> </span><span style="background-color: #008000; color: black;">toy</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #3d9e3d; color: black;">learned</span><span style="background-color: #3d9e3d; color: black;"> </span><span style="background-color: #138913; color: black;">from</span><span style="background-color: #138913; color: black;"> </span><span style="background-color: #008000; color: black;">the</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #96c996; color: black;">first</span><span style="background-color: #96c996; color: black;"> </span><span style="background-color: #7bbc7b; color: black;">picture.</span><span style="background-color: #7bbc7b; color: black;"> </span><span style="background-color: #7bbc7b;"> </span><br><span style="background-color: #7bbc7b;"> </span><br><span style="background-color: #dcecdc; color: black;">Machine</span><span style="background-color: #dcecdc; color: black;"> </span><span style="background-color: #018001; color: black;">learning</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #63b163; color: black;">is</span><span style="background-color: #63b163; color: black;"> </span><span style="background-color: #128912; color: black;">like</span><span style="background-color: #128912; color: black;"> </span><span style="background-color: #008000; color: black;">that</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #8fc68f; color: black;">toy,</span><span style="background-color: #8fc68f; color: black;"> </span><span style="background-color: #369b36; color: black;">but</span><span style="background-color: #369b36; color: black;"> </span><span style="background-color: #038103; color: black;">with</span><span style="background-color: #038103; color: black;"> </span><span style="background-color: #018001; color: black;">big</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #028102; color: black;">computers.</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #62b062; color: black;">They</span><span style="background-color: #62b062; color: black;"> </span><span style="background-color: #8dc58d; color: black;">can</span><span style="background-color: #8dc58d; color: black;"> </span><span style="background-color: #a3d0a3; color: black;">learn</span><span style="background-color: #a3d0a3; color: black;"> </span><span style="background-color: #008000; color: black;">from</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #4ca54c; color: black;">lots</span><span style="background-color: #4ca54c; color: black;"> </span><span style="background-color: #3a9c3a; color: black;">of</span><span style="background-color: #3a9c3a; color: black;"> </span><span style="background-color: #75b975; color: black;">pictures,</span><span style="background-color: #75b975; color: black;"> </span><span style="background-color: #84c184; color: black;">sounds,</span><span style="background-color: #84c184; color: black;"> </span><span style="background-color: #209020; color: black;">and</span><span style="background-color: #209020; color: black;"> </span><span style="background-color: #028102; color: black;">information</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #c4e0c4; color: black;">to</span><span style="background-color: #c4e0c4; color: black;"> </span><span style="background-color: #c6e1c6; color: black;">understand</span><span style="background-color: #c6e1c6; color: black;"> </span><span style="background-color: #289328; color: black;">things</span><span style="background-color: #289328; color: black;"> </span><span style="background-color: #54a954; color: black;">all</span><span style="background-color: #54a954; color: black;"> </span><span style="background-color: #66b266; color: black;">by</span><span style="background-color: #66b266; color: black;"> </span><span style="background-color: #2b952b; color: black;">themselves.</span><span style="background-color: #2b952b; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">The</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #279327; color: black;">more</span><span style="background-color: #279327; color: black;"> </span><span style="background-color: #0a850a; color: black;">they</span><span style="background-color: #0a850a; color: black;"> </span><span style="background-color: #56aa56; color: black;">learn,</span><span style="background-color: #56aa56; color: black;"> </span><span style="background-color: #1e8f1e; color: black;">the</span><span style="background-color: #1e8f1e; color: black;"> </span><span style="background-color: #5eae5e; color: black;">smarter</span><span style="background-color: #5eae5e; color: black;"> </span><span style="background-color: #048204; color: black;">they</span><span style="background-color: #048204; color: black;"> </span><span style="background-color: #008000; color: black;">become.</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #42a042; color: black;">They</span><span style="background-color: #42a042; color: black;"> </span><span style="background-color: #b9dbb9; color: black;">can</span><span style="background-color: #b9dbb9; color: black;"> </span><span style="background-color: #4fa74f; color: black;">even</span><span style="background-color: #4fa74f; color: black;"> </span><span style="background-color: #b4d8b4; color: black;">help</span><span style="background-color: #b4d8b4; color: black;"> </span><span style="background-color: #7ebe7e; color: black;">us</span><span style="background-color: #7ebe7e; color: black;"> </span><span style="background-color: #e0eee0; color: black;">do</span><span style="background-color: #e0eee0; color: black;"> </span><span style="background-color: #088408; color: black;">things</span><span style="background-color: #088408; color: black;"> </span><span style="background-color: #008000; color: black;">like</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #028102; color: black;">finding</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #eaf2ea; color: black;">answers</span><span style="background-color: #eaf2ea; color: black;"> </span><span style="background-color: #138913; color: black;">to</span><span style="background-color: #138913; color: black;"> </span><span style="background-color: #4ea64e; color: black;">questions,</span><span style="background-color: #4ea64e; color: black;"> </span><span style="background-color: #018001; color: black;">predicting</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #008000; color: black;">what</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">might</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #91c791; color: black;">happen</span><span style="background-color: #91c791; color: black;"> </span><span style="background-color: #018001; color: black;">next,</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #309730; color: black;">and</span><span style="background-color: #309730; color: black;"> </span><span style="background-color: #89c389; color: black;">making</span><span style="background-color: #89c389; color: black;"> </span><span style="background-color: #389b38; color: black;">decisions.</span><span style="background-color: #389b38; color: black;"> </span><span style="background-color: #028102; color: black;">It's</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #9ccd9c; color: black;">like</span><span style="background-color: #9ccd9c; color: black;"> </span><span style="background-color: #389b38; color: black;">having</span><span style="background-color: #389b38; color: black;"> </span><span style="background-color: #86c286; color: black;">a</span><span style="background-color: #86c286; color: black;"> </span><span style="background-color: #7abc7a; color: black;">really</span><span style="background-color: #7abc7a; color: black;"> </span><span style="background-color: #2d962d; color: black;">smart</span><span style="background-color: #2d962d; color: black;"> </span><span style="background-color: #289428; color: black;">friend</span><span style="background-color: #289428; color: black;"> </span><span style="background-color: #b2d7b2; color: black;">who</span><span style="background-color: #b2d7b2; color: black;"> </span><span style="background-color: #e5f0e5; color: black;">knows</span><span style="background-color: #e5f0e5; color: black;"> </span><span style="background-color: #178b17; color: black;">so</span><span style="background-color: #178b17; color: black;"> </span><span style="background-color: #239123; color: black;">many</span><span style="background-color: #239123; color: black;"> </span><span style="background-color: #63b163; color: black;">things!</span><span style="background-color: #63b163; color: black;"> </span></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="25">
+<div id="cell-38" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> []</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> res <span class="kw">in</span> response.choices[<span class="dv">0</span>].logprobs.content:</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    probs.append(np.exp(res.logprob))</span>
@@ -843,26 +862,31 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Count"</span>)</span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="llm_temperature_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="llm_temperature_files/figure-html/cell-26-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="openai-recommendations-for-temperature" class="level1">
 <h1>OpenAI Recommendations for Temperature</h1>
-<p><img src="llm_temperature_files/figure-html/efe949a6-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="llm_temperature_files/figure-html/efe949a6-2-image.png" class="img-fluid" alt="image.png"></p>
+<p><img src="llm_temperature_files/figure-html/cell-39-1-image-3.png" class="img-fluid" alt="image-3.png"> - default is 1 - range: 0 to 2 <img src="llm_temperature_files/figure-html/cell-39-2-image.png" class="img-fluid" alt="image.png"></p>
 </section>
 <section id="top-p-nucleus-sampling" class="level1">
 <h1>Top-P (Nucleus Sampling)</h1>
 <p>Top-p sampling, also known as nucleus sampling, is a technique used in large language models to control the diversity and quality of generated text. It involves selecting tokens from the most probable options, where the sum of their probabilities determines the selection.</p>
 <p>The “top p” parameter acts as a filter, controlling how many different words or phrases the model considers when predicting the next word. The lower the value of <code>p</code>, the more deterministic the responses generated by the model are.</p>
 <p>This method helps balance between diversity and high-probability words, ensuring the output is both diverse and contextually relevant.</p>
-<div class="cell" data-execution_count="26">
+<div id="cell-42" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df_p <span class="op">=</span> df[[<span class="st">'word'</span>, <span class="st">'base_probability'</span>]].copy()</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>df_p[<span class="st">'cumulative_probability'</span>] <span class="op">=</span> df_p[<span class="st">'base_probability'</span>].cumsum()</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>df_p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
+<div>
 <div>
 
 
@@ -1002,9 +1026,11 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="27">
+</div>
+<div id="cell-43" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_p.style.<span class="bu">apply</span>(<span class="kw">lambda</span> x: [<span class="st">'background: yellow'</span> <span class="cf">if</span> x.cumulative_probability <span class="op">&lt;=</span> <span class="fl">0.8</span> <span class="cf">else</span> <span class="st">''</span> <span class="cf">for</span> i <span class="kw">in</span> x], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
+<div>
 <style type="text/css">
 #T_b7719_row0_col0, #T_b7719_row0_col1, #T_b7719_row0_col2, #T_b7719_row1_col0, #T_b7719_row1_col1, #T_b7719_row1_col2, #T_b7719_row2_col0, #T_b7719_row2_col1, #T_b7719_row2_col2, #T_b7719_row3_col0, #T_b7719_row3_col1, #T_b7719_row3_col2, #T_b7719_row4_col0, #T_b7719_row4_col1, #T_b7719_row4_col2, #T_b7719_row5_col0, #T_b7719_row5_col1, #T_b7719_row5_col2, #T_b7719_row6_col0, #T_b7719_row6_col1, #T_b7719_row6_col2, #T_b7719_row7_col0, #T_b7719_row7_col1, #T_b7719_row7_col2, #T_b7719_row8_col0, #T_b7719_row8_col1, #T_b7719_row8_col2 {
   background: yellow;
@@ -1145,7 +1171,8 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 </table>
 </div>
 </div>
-<div class="cell" data-execution_count="28">
+</div>
+<div id="cell-44" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_p[<span class="st">"base_probability"</span>].<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>1.0</code></pre>
@@ -1153,7 +1180,7 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 </div>
 <section id="high-top-p-includes-more-tokens-to-sample" class="level3">
 <h3 class="anchored" data-anchor-id="high-top-p-includes-more-tokens-to-sample">High Top-P ( Includes more tokens to sample)</h3>
-<div class="cell" data-execution_count="29">
+<div id="cell-46" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1166,7 +1193,7 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 <span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  seed<span class="op">=</span>seed</span>
 <span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="30">
+<div id="cell-47" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response.choices[<span class="dv">0</span>].message.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Machine learning is when computers learn things on their own, just like how you learn new things. Imagine you have a special toy that can remember things it sees and hears. When you show it a picture of a cat and tell it "this is a cat," the toy remembers that. Then, when you show it another picture of a cat without telling it anything, the toy can recognize that it's a cat too! This is because the toy learned from the first picture. 
@@ -1174,13 +1201,13 @@ P'(w_i) = \frac{P(w_i)^{\frac{1}{T}}}{\sum_{j=1}^{V} P(w_j)^{\frac{1}{T}}}
 Machine learning is like that toy, but with big computers. They can learn from lots of pictures, sounds, and information to understand things all by themselves. The more they learn, the smarter they become. They can even help us do things like finding answers to questions, predicting what might happen next, and making decisions. It's like having a really smart friend who knows so many things!</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="31">
+<div id="cell-48" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>highlight_openai_response(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="font-family: inherit; white-space: pre-wrap; word-break: break-all;"><span style="background-color: #008000; color: black;">Machine</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">learning</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">is</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #c4e0c4; color: black;">when</span><span style="background-color: #c4e0c4; color: black;"> </span><span style="background-color: #349934; color: black;">computers</span><span style="background-color: #349934; color: black;"> </span><span style="background-color: #50a750; color: black;">learn</span><span style="background-color: #50a750; color: black;"> </span><span style="background-color: #c9e2c8; color: black;">things</span><span style="background-color: #c9e2c8; color: black;"> </span><span style="background-color: #67b267; color: black;">on</span><span style="background-color: #67b267; color: black;"> </span><span style="background-color: #008000; color: black;">their</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">own,</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #58ab58; color: black;">just</span><span style="background-color: #58ab58; color: black;"> </span><span style="background-color: #81bf81; color: black;">like</span><span style="background-color: #81bf81; color: black;"> </span><span style="background-color: #008000; color: black;">how</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #339933; color: black;">you</span><span style="background-color: #339933; color: black;"> </span><span style="background-color: #369b36; color: black;">learn</span><span style="background-color: #369b36; color: black;"> </span><span style="background-color: #008000; color: black;">new</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">things.</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #008000; color: black;">Imagine</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #afd6af; color: black;">you</span><span style="background-color: #afd6af; color: black;"> </span><span style="background-color: #83c083; color: black;">have</span><span style="background-color: #83c083; color: black;"> </span><span style="background-color: #128912; color: black;">a</span><span style="background-color: #128912; color: black;"> </span><span style="background-color: #058205; color: black;">special</span><span style="background-color: #058205; color: black;"> </span><span style="background-color: #018001; color: black;">toy</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #b3d8b3; color: black;">that</span><span style="background-color: #b3d8b3; color: black;"> </span><span style="background-color: #86c286; color: black;">can</span><span style="background-color: #86c286; color: black;"> </span><span style="background-color: #078407; color: black;">remember</span><span style="background-color: #078407; color: black;"> </span><span style="background-color: #209020; color: black;">things</span><span style="background-color: #209020; color: black;"> </span><span style="background-color: #e8f2e8; color: black;">it</span><span style="background-color: #e8f2e8; color: black;"> </span><span style="background-color: #9fce9f; color: black;">sees</span><span style="background-color: #9fce9f; color: black;"> </span><span style="background-color: #e5f0e5; color: black;">and</span><span style="background-color: #e5f0e5; color: black;"> </span><span style="background-color: #1f8f1f; color: black;">hears.</span><span style="background-color: #1f8f1f; color: black;"> </span><span style="background-color: #55a955; color: black;">When</span><span style="background-color: #55a955; color: black;"> </span><span style="background-color: #359a35; color: black;">you</span><span style="background-color: #359a35; color: black;"> </span><span style="background-color: #058205; color: black;">show</span><span style="background-color: #058205; color: black;"> </span><span style="background-color: #a5d1a5; color: black;">it</span><span style="background-color: #a5d1a5; color: black;"> </span><span style="background-color: #068306; color: black;">a</span><span style="background-color: #068306; color: black;"> </span><span style="background-color: #0b850b; color: black;">picture</span><span style="background-color: #0b850b; color: black;"> </span><span style="background-color: #389b38; color: black;">of</span><span style="background-color: #389b38; color: black;"> </span><span style="background-color: #1b8d1b; color: black;">a</span><span style="background-color: #1b8d1b; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">cat</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #018001; color: black;">and</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #0a850a; color: black;">tell</span><span style="background-color: #0a850a; color: black;"> </span><span style="background-color: #57ab57; color: black;">it</span><span style="background-color: #57ab57; color: black;"> </span><span style="background-color: #67b267; color: black;">"this</span><span style="background-color: #67b267; color: black;"> </span><span style="background-color: #4ba54b; color: black;">is</span><span style="background-color: #4ba54b; color: black;"> </span><span style="background-color: #008000; color: black;">a</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #a6d2a6; color: black;">cat,"</span><span style="background-color: #a6d2a6; color: black;"> </span><span style="background-color: #56aa56; color: black;">the</span><span style="background-color: #56aa56; color: black;"> </span><span style="background-color: #008000; color: black;">toy</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">remembers</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">that.</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #3a9c3a; color: black;">Then,</span><span style="background-color: #3a9c3a; color: black;"> </span><span style="background-color: #a7d2a7; color: black;">when</span><span style="background-color: #a7d2a7; color: black;"> </span><span style="background-color: #008000; color: black;">you</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #399c39; color: black;">show</span><span style="background-color: #399c39; color: black;"> </span><span style="background-color: #42a042; color: black;">it</span><span style="background-color: #42a042; color: black;"> </span><span style="background-color: #4ba54b; color: black;">another</span><span style="background-color: #4ba54b; color: black;"> </span><span style="background-color: #229122; color: black;">picture</span><span style="background-color: #229122; color: black;"> </span><span style="background-color: #0c860c; color: black;">of</span><span style="background-color: #0c860c; color: black;"> </span><span style="background-color: #188c18; color: black;">a</span><span style="background-color: #188c18; color: black;"> </span><span style="background-color: #0a850a; color: black;">cat</span><span style="background-color: #0a850a; color: black;"> </span><span style="background-color: #008000; color: black;">without</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #018001; color: black;">telling</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #85c185; color: black;">it</span><span style="background-color: #85c185; color: black;"> </span><span style="background-color: #008000; color: black;">anything,</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #2d962d; color: black;">the</span><span style="background-color: #2d962d; color: black;"> </span><span style="background-color: #018001; color: black;">toy</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #048204; color: black;">can</span><span style="background-color: #048204; color: black;"> </span><span style="background-color: #dcecdc; color: black;">recognize</span><span style="background-color: #dcecdc; color: black;"> </span><span style="background-color: #128912; color: black;">that</span><span style="background-color: #128912; color: black;"> </span><span style="background-color: #008000; color: black;">it's</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #86c286; color: black;">a</span><span style="background-color: #86c286; color: black;"> </span><span style="background-color: #008000; color: black;">cat</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">too!</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #008000; color: black;">This</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #239123; color: black;">is</span><span style="background-color: #239123; color: black;"> </span><span style="background-color: #c9e3c9; color: black;">because</span><span style="background-color: #c9e3c9; color: black;"> </span><span style="background-color: #54a954; color: black;">the</span><span style="background-color: #54a954; color: black;"> </span><span style="background-color: #008000; color: black;">toy</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #3e9e3e; color: black;">learned</span><span style="background-color: #3e9e3e; color: black;"> </span><span style="background-color: #118911; color: black;">from</span><span style="background-color: #118911; color: black;"> </span><span style="background-color: #008000; color: black;">the</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #98ca98; color: black;">first</span><span style="background-color: #98ca98; color: black;"> </span><span style="background-color: #78bb78; color: black;">picture.</span><span style="background-color: #78bb78; color: black;"> </span><span style="background-color: #78bb78;"> </span><br><span style="background-color: #78bb78;"> </span><br><span style="background-color: #dcecdc; color: black;">Machine</span><span style="background-color: #dcecdc; color: black;"> </span><span style="background-color: #018001; color: black;">learning</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #66b266; color: black;">is</span><span style="background-color: #66b266; color: black;"> </span><span style="background-color: #128912; color: black;">like</span><span style="background-color: #128912; color: black;"> </span><span style="background-color: #008000; color: black;">that</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #8fc68f; color: black;">toy,</span><span style="background-color: #8fc68f; color: black;"> </span><span style="background-color: #369b36; color: black;">but</span><span style="background-color: #369b36; color: black;"> </span><span style="background-color: #038103; color: black;">with</span><span style="background-color: #038103; color: black;"> </span><span style="background-color: #018001; color: black;">big</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #028102; color: black;">computers.</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #56aa56; color: black;">They</span><span style="background-color: #56aa56; color: black;"> </span><span style="background-color: #90c790; color: black;">can</span><span style="background-color: #90c790; color: black;"> </span><span style="background-color: #a5d1a5; color: black;">learn</span><span style="background-color: #a5d1a5; color: black;"> </span><span style="background-color: #008000; color: black;">from</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #4ba54b; color: black;">lots</span><span style="background-color: #4ba54b; color: black;"> </span><span style="background-color: #3a9c3a; color: black;">of</span><span style="background-color: #3a9c3a; color: black;"> </span><span style="background-color: #78bb78; color: black;">pictures,</span><span style="background-color: #78bb78; color: black;"> </span><span style="background-color: #84c184; color: black;">sounds,</span><span style="background-color: #84c184; color: black;"> </span><span style="background-color: #209020; color: black;">and</span><span style="background-color: #209020; color: black;"> </span><span style="background-color: #028102; color: black;">information</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #c3e0c3; color: black;">to</span><span style="background-color: #c3e0c3; color: black;"> </span><span style="background-color: #c6e1c6; color: black;">understand</span><span style="background-color: #c6e1c6; color: black;"> </span><span style="background-color: #279327; color: black;">things</span><span style="background-color: #279327; color: black;"> </span><span style="background-color: #53a953; color: black;">all</span><span style="background-color: #53a953; color: black;"> </span><span style="background-color: #62b062; color: black;">by</span><span style="background-color: #62b062; color: black;"> </span><span style="background-color: #2b952b; color: black;">themselves.</span><span style="background-color: #2b952b; color: black;"> </span><span style="background-color: #1c8e1c; color: black;">The</span><span style="background-color: #1c8e1c; color: black;"> </span><span style="background-color: #239123; color: black;">more</span><span style="background-color: #239123; color: black;"> </span><span style="background-color: #0a850a; color: black;">they</span><span style="background-color: #0a850a; color: black;"> </span><span style="background-color: #55a955; color: black;">learn,</span><span style="background-color: #55a955; color: black;"> </span><span style="background-color: #209020; color: black;">the</span><span style="background-color: #209020; color: black;"> </span><span style="background-color: #5cad5c; color: black;">smarter</span><span style="background-color: #5cad5c; color: black;"> </span><span style="background-color: #048204; color: black;">they</span><span style="background-color: #048204; color: black;"> </span><span style="background-color: #008000; color: black;">become.</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #3f9f3f; color: black;">They</span><span style="background-color: #3f9f3f; color: black;"> </span><span style="background-color: #b5d9b5; color: black;">can</span><span style="background-color: #b5d9b5; color: black;"> </span><span style="background-color: #4fa74f; color: black;">even</span><span style="background-color: #4fa74f; color: black;"> </span><span style="background-color: #b3d8b3; color: black;">help</span><span style="background-color: #b3d8b3; color: black;"> </span><span style="background-color: #7fbe7f; color: black;">us</span><span style="background-color: #7fbe7f; color: black;"> </span><span style="background-color: #e0eee0; color: black;">do</span><span style="background-color: #e0eee0; color: black;"> </span><span style="background-color: #088408; color: black;">things</span><span style="background-color: #088408; color: black;"> </span><span style="background-color: #008000; color: black;">like</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #028102; color: black;">finding</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #eaf2ea; color: black;">answers</span><span style="background-color: #eaf2ea; color: black;"> </span><span style="background-color: #148a14; color: black;">to</span><span style="background-color: #148a14; color: black;"> </span><span style="background-color: #4da64d; color: black;">questions,</span><span style="background-color: #4da64d; color: black;"> </span><span style="background-color: #018001; color: black;">predicting</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #008000; color: black;">what</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">might</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #92c892; color: black;">happen</span><span style="background-color: #92c892; color: black;"> </span><span style="background-color: #018001; color: black;">next,</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #319831; color: black;">and</span><span style="background-color: #319831; color: black;"> </span><span style="background-color: #87c287; color: black;">making</span><span style="background-color: #87c287; color: black;"> </span><span style="background-color: #359a35; color: black;">decisions.</span><span style="background-color: #359a35; color: black;"> </span><span style="background-color: #028102; color: black;">It's</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #9ece9e; color: black;">like</span><span style="background-color: #9ece9e; color: black;"> </span><span style="background-color: #379b37; color: black;">having</span><span style="background-color: #379b37; color: black;"> </span><span style="background-color: #86c286; color: black;">a</span><span style="background-color: #86c286; color: black;"> </span><span style="background-color: #7abc7a; color: black;">really</span><span style="background-color: #7abc7a; color: black;"> </span><span style="background-color: #2c962c; color: black;">smart</span><span style="background-color: #2c962c; color: black;"> </span><span style="background-color: #289428; color: black;">friend</span><span style="background-color: #289428; color: black;"> </span><span style="background-color: #b3d8b3; color: black;">who</span><span style="background-color: #b3d8b3; color: black;"> </span><span style="background-color: #e5f0e5; color: black;">knows</span><span style="background-color: #e5f0e5; color: black;"> </span><span style="background-color: #178b17; color: black;">so</span><span style="background-color: #178b17; color: black;"> </span><span style="background-color: #229122; color: black;">many</span><span style="background-color: #229122; color: black;"> </span><span style="background-color: #61af61; color: black;">things!</span><span style="background-color: #61af61; color: black;"> </span></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="32">
+<div id="cell-49" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>response.choices[<span class="dv">0</span>].logprobs.content[:<span class="dv">5</span>] <span class="co"># first 5 tokens</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>[ChatCompletionTokenLogprob(token='Machine', bytes=[77, 97, 99, 104, 105, 110, 101], logprob=-0.0015492603, top_logprobs=[]),
@@ -1190,7 +1217,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
  ChatCompletionTokenLogprob(token=' computers', bytes=[32, 99, 111, 109, 112, 117, 116, 101, 114, 115], logprob=-0.25018257, top_logprobs=[])]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="33">
+<div id="cell-50" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> []</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> res <span class="kw">in</span> response.choices[<span class="dv">0</span>].logprobs.content:</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    probs.append(np.exp(res.logprob))</span>
@@ -1201,14 +1228,18 @@ Machine learning is like that toy, but with big computers. They can learn from l
 <span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="llm_temperature_files/figure-html/cell-34-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="llm_temperature_files/figure-html/cell-34-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 </section>
 <section id="low-top-p-more-deterministic" class="level1">
 <h1>Low Top-P ( More Deterministic)</h1>
-<div class="cell" data-execution_count="34">
+<div id="cell-52" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1221,13 +1252,13 @@ Machine learning is like that toy, but with big computers. They can learn from l
 <span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  seed<span class="op">=</span>seed</span>
 <span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="35">
+<div id="cell-53" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>highlight_openai_response(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="font-family: inherit; white-space: pre-wrap; word-break: break-all;"><span style="background-color: #008000; color: black;">Machine</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">learning</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">is</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #3f9f3f; color: black;">like</span><span style="background-color: #3f9f3f; color: black;"> </span><span style="background-color: #9acb9a; color: black;">having</span><span style="background-color: #9acb9a; color: black;"> </span><span style="background-color: #008000; color: black;">a</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #91c791; color: black;">super</span><span style="background-color: #91c791; color: black;"> </span><span style="background-color: #0f870f; color: black;">smart</span><span style="background-color: #0f870f; color: black;"> </span><span style="background-color: #62b062; color: black;">robot</span><span style="background-color: #62b062; color: black;"> </span><span style="background-color: #1e8f1e; color: black;">friend</span><span style="background-color: #1e8f1e; color: black;"> </span><span style="background-color: #72b872; color: black;">that</span><span style="background-color: #72b872; color: black;"> </span><span style="background-color: #2a952a; color: black;">can</span><span style="background-color: #2a952a; color: black;"> </span><span style="background-color: #018001; color: black;">learn</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #61af61; color: black;">things</span><span style="background-color: #61af61; color: black;"> </span><span style="background-color: #65b265; color: black;">on</span><span style="background-color: #65b265; color: black;"> </span><span style="background-color: #008000; color: black;">its</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">own.</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #198c19; color: black;">Just</span><span style="background-color: #198c19; color: black;"> </span><span style="background-color: #5cad5c; color: black;">like</span><span style="background-color: #5cad5c; color: black;"> </span><span style="background-color: #008000; color: black;">how</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #8cc58c; color: black;">you</span><span style="background-color: #8cc58c; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">learn</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #028102; color: black;">new</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #3d9e3d; color: black;">things</span><span style="background-color: #3d9e3d; color: black;"> </span><span style="background-color: #038103; color: black;">by</span><span style="background-color: #038103; color: black;"> </span><span style="background-color: #289328; color: black;">practicing</span><span style="background-color: #289328; color: black;"> </span><span style="background-color: #53a953; color: black;">and</span><span style="background-color: #53a953; color: black;"> </span><span style="background-color: #47a347; color: black;">trying</span><span style="background-color: #47a347; color: black;"> </span><span style="background-color: #40a040; color: black;">different</span><span style="background-color: #40a040; color: black;"> </span><span style="background-color: #40a040; color: black;">things,</span><span style="background-color: #40a040; color: black;"> </span><span style="background-color: #42a042; color: black;">machine</span><span style="background-color: #42a042; color: black;"> </span><span style="background-color: #008000; color: black;">learning</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #359a35; color: black;">is</span><span style="background-color: #359a35; color: black;"> </span><span style="background-color: #008000; color: black;">when</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #70b770; color: black;">a</span><span style="background-color: #70b770; color: black;"> </span><span style="background-color: #349a34; color: black;">computer</span><span style="background-color: #349a34; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">program</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #028102; color: black;">learns</span><span style="background-color: #028102; color: black;"> </span><span style="background-color: #48a348; color: black;">from</span><span style="background-color: #48a348; color: black;"> </span><span style="background-color: #4ba54a; color: black;">lots</span><span style="background-color: #4ba54a; color: black;"> </span><span style="background-color: #97ca97; color: black;">of</span><span style="background-color: #97ca97; color: black;"> </span><span style="background-color: #359a35; color: black;">examples</span><span style="background-color: #359a35; color: black;"> </span><span style="background-color: #2b952b; color: black;">and</span><span style="background-color: #2b952b; color: black;"> </span><span style="background-color: #40a040; color: black;">gets</span><span style="background-color: #40a040; color: black;"> </span><span style="background-color: #1d8e1d; color: black;">better</span><span style="background-color: #1d8e1d; color: black;"> </span><span style="background-color: #1e8f1e; color: black;">at</span><span style="background-color: #1e8f1e; color: black;"> </span><span style="background-color: #0d860d; color: black;">doing</span><span style="background-color: #0d860d; color: black;"> </span><span style="background-color: #0c860c; color: black;">a</span><span style="background-color: #0c860c; color: black;"> </span><span style="background-color: #1b8d1b; color: black;">task.</span><span style="background-color: #1b8d1b; color: black;"> </span><span style="background-color: #6eb66e; color: black;">For</span><span style="background-color: #6eb66e; color: black;"> </span><span style="background-color: #349934; color: black;">example,</span><span style="background-color: #349934; color: black;"> </span><span style="background-color: #71b771; color: black;">if</span><span style="background-color: #71b771; color: black;"> </span><span style="background-color: #84c084; color: black;">you</span><span style="background-color: #84c084; color: black;"> </span><span style="background-color: #008000; color: black;">show</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">the</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #50a750; color: black;">robot</span><span style="background-color: #50a750; color: black;"> </span><span style="background-color: #3d9e3d; color: black;">friend</span><span style="background-color: #3d9e3d; color: black;"> </span><span style="background-color: #2d962d; color: black;">lots</span><span style="background-color: #2d962d; color: black;"> </span><span style="background-color: #339933; color: black;">of</span><span style="background-color: #339933; color: black;"> </span><span style="background-color: #90c790; color: black;">pictures</span><span style="background-color: #90c790; color: black;"> </span><span style="background-color: #148a14; color: black;">of</span><span style="background-color: #148a14; color: black;"> </span><span style="background-color: #399c39; color: black;">cats</span><span style="background-color: #399c39; color: black;"> </span><span style="background-color: #008000; color: black;">and</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">dogs,</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #008000; color: black;">it</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #50a750; color: black;">can</span><span style="background-color: #50a750; color: black;"> </span><span style="background-color: #108810; color: black;">learn</span><span style="background-color: #108810; color: black;"> </span><span style="background-color: #0f870f; color: black;">to</span><span style="background-color: #0f870f; color: black;"> </span><span style="background-color: #349a34; color: black;">tell</span><span style="background-color: #349a34; color: black;"> </span><span style="background-color: #018001; color: black;">the</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #1c8e1c; color: black;">difference</span><span style="background-color: #1c8e1c; color: black;"> </span><span style="background-color: #078407; color: black;">between</span><span style="background-color: #078407; color: black;"> </span><span style="background-color: #088408; color: black;">them.</span><span style="background-color: #088408; color: black;"> </span><span style="background-color: #0b850b; color: black;">It's</span><span style="background-color: #0b850b; color: black;"> </span><span style="background-color: #289328; color: black;">like</span><span style="background-color: #289328; color: black;"> </span><span style="background-color: #008000; color: black;">magic,</span><span style="background-color: #008000; color: black;"> </span><span style="background-color: #038103; color: black;">but</span><span style="background-color: #038103; color: black;"> </span><span style="background-color: #088408; color: black;">really</span><span style="background-color: #088408; color: black;"> </span><span style="background-color: #6ab46a; color: black;">it's</span><span style="background-color: #6ab46a; color: black;"> </span><span style="background-color: #66b266; color: black;">just</span><span style="background-color: #66b266; color: black;"> </span><span style="background-color: #6ab46a; color: black;">the</span><span style="background-color: #6ab46a; color: black;"> </span><span style="background-color: #4da64d; color: black;">computer</span><span style="background-color: #4da64d; color: black;"> </span><span style="background-color: #90c790; color: black;">using</span><span style="background-color: #90c790; color: black;"> </span><span style="background-color: #6cb56c; color: black;">math</span><span style="background-color: #6cb56c; color: black;"> </span><span style="background-color: #2f972f; color: black;">and</span><span style="background-color: #2f972f; color: black;"> </span><span style="background-color: #5bad5b; color: black;">patterns</span><span style="background-color: #5bad5b; color: black;"> </span><span style="background-color: #088408; color: black;">to</span><span style="background-color: #088408; color: black;"> </span><span style="background-color: #018001; color: black;">figure</span><span style="background-color: #018001; color: black;"> </span><span style="background-color: #0e870e; color: black;">things</span><span style="background-color: #0e870e; color: black;"> </span><span style="background-color: #7fbe7f; color: black;">out.</span><span style="background-color: #7fbe7f; color: black;"> </span></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="36">
+<div id="cell-54" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> []</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> res <span class="kw">in</span> response.choices[<span class="dv">0</span>].logprobs.content:</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    probs.append(np.exp(res.logprob))</span>
@@ -1238,7 +1269,11 @@ Machine learning is like that toy, but with big computers. They can learn from l
 <span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
 <span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="llm_temperature_files/figure-html/cell-37-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="llm_temperature_files/figure-html/cell-37-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -1246,14 +1281,14 @@ Machine learning is like that toy, but with big computers. They can learn from l
 <h1>OpenAI Recommendations for Top-P</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/19b1821b-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-56-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/d509cd30-1-image-2.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image-2.png</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-57-1-image-2.png" class="img-fluid figure-img"></p>
+<figcaption>image-2.png</figcaption>
 </figure>
 </div>
 </section>
@@ -1268,7 +1303,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </ul>
 <section id="high-temperature-high-top-p" class="level3">
 <h3 class="anchored" data-anchor-id="high-temperature-high-top-p">High Temperature, High Top-P</h3>
-<div class="cell" data-execution_count="53">
+<div id="cell-60" class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1289,7 +1324,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </section>
 <section id="high-temperature-low-top-p" class="level3">
 <h3 class="anchored" data-anchor-id="high-temperature-low-top-p">High Temperature, Low Top-P</h3>
-<div class="cell" data-execution_count="38">
+<div id="cell-62" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1310,7 +1345,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </section>
 <section id="low-temperature-high-top-p" class="level3">
 <h3 class="anchored" data-anchor-id="low-temperature-high-top-p">Low Temperature, High Top-P</h3>
-<div class="cell" data-execution_count="39">
+<div id="cell-64" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1331,7 +1366,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </section>
 <section id="low-temperature-low-top-p" class="level3">
 <h3 class="anchored" data-anchor-id="low-temperature-low-top-p">Low Temperature, Low Top-P</h3>
-<div class="cell" data-execution_count="40">
+<div id="cell-66" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1351,8 +1386,8 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/71951ef3-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-67-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 </section>
@@ -1363,19 +1398,19 @@ Machine learning is like that toy, but with big computers. They can learn from l
 <p>It ranges from -2.0 to 2.0, where positive values discourage repetition by penalizing tokens that occur frequently, and negative values can increase the likelihood of repetition. This helps control the diversity of the generated content and prevent verbatim repetition.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/808def45-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-70-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>In the above example, we can see recommendations such as National Park appeared twice in the generated text. We can use frequency penalty to reduce the likelihood of a token being selected again if it has already appeared in the generated text.</p>
-<div class="cell" data-execution_count="41">
+<div id="cell-71" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="st">Write 10 slogans for ChatGPT</span></span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="42">
+<div id="cell-72" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1394,7 +1429,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </div>
 <section id="high-frequency-penalty" class="level3">
 <h3 class="anchored" data-anchor-id="high-frequency-penalty">High Frequency Penalty</h3>
-<div class="cell" data-execution_count="43">
+<div id="cell-74" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1415,7 +1450,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </section>
 <section id="low-frequency-penalty" class="level3">
 <h3 class="anchored" data-anchor-id="low-frequency-penalty">Low Frequency Penalty</h3>
-<div class="cell" data-execution_count="44">
+<div id="cell-76" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1435,14 +1470,14 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/5438ee5a-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-77-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/93462723-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-78-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 </section>
@@ -1450,7 +1485,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 <section id="presence-penalty" class="level1">
 <h1>Presence Penalty</h1>
 <p>Presence Penalty is a parameter that influences the generation of new content by penalizing tokens that have already appeared in the text. It ranges from -2.0 to 2.0, where positive values discourage repetition and encourage the model to introduce new topics, while negative values do the opposite. This penalty is applied as a one-time, additive contribution to tokens that have been used at least once, helping to ensure more diverse and creative outputs</p>
-<div class="cell" data-execution_count="45">
+<div id="cell-80" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1469,7 +1504,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </div>
 <section id="high-presence-penalty" class="level3">
 <h3 class="anchored" data-anchor-id="high-presence-penalty">High Presence Penalty</h3>
-<div class="cell" data-execution_count="46">
+<div id="cell-82" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1490,7 +1525,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </section>
 <section id="low-presence-penalty" class="level3">
 <h3 class="anchored" data-anchor-id="low-presence-penalty">Low Presence Penalty</h3>
-<div class="cell" data-execution_count="47">
+<div id="cell-84" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1510,14 +1545,14 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/26411631-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-85-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="llm_temperature_files/figure-html/6d7f2e66-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="llm_temperature_files/figure-html/cell-86-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 </section>
@@ -1526,7 +1561,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 <h1>Interaction between Frequency Penalty and Presence Penalty</h1>
 <section id="high-frequency-penalty-and-high-presence-penalty" class="level3">
 <h3 class="anchored" data-anchor-id="high-frequency-penalty-and-high-presence-penalty">High Frequency Penalty and High Presence Penalty</h3>
-<div class="cell" data-execution_count="48">
+<div id="cell-89" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1548,7 +1583,7 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </section>
 <section id="low-frequency-penalty-and-low-presence-penalty" class="level3">
 <h3 class="anchored" data-anchor-id="low-frequency-penalty-and-low-presence-penalty">Low Frequency Penalty and Low Presence Penalty</h3>
-<div class="cell" data-execution_count="49">
+<div id="cell-91" class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span>model,</span>
@@ -1596,19 +1631,11 @@ Machine learning is like that toy, but with big computers. They can learn from l
 </ul>
 
 
-
 </section>
 </section>
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1688,10 +1715,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/arunprakash\.ai");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1701,8 +1745,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1714,7 +1767,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1758,6 +1934,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1783,6 +1960,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1843,6 +2046,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

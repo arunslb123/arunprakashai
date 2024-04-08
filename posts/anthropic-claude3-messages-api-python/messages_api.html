@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -67,8 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -84,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -93,39 +97,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: [],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
 
 <script type="text/javascript">
@@ -136,14 +113,12 @@ gtag('js', new Date());
 gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
-<link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="messages_api.xml"><meta property="og:title" content="Explained Intuitively - Anthropic Claude3: Messages API with Multimodal Input">
+<meta property="og:title" content="Explained Intuitively - Anthropic Claude3: Messages API with Multimodal Input">
 <meta property="og:description" content="Anthropic’s Messages API enables creating sophisticated conversational AI experiences with text and image inputs. Customize model behavior using system prompts, fine-tune randomness with temperature, and stream responses. The API supports single queries and multi-turn conversations, making it versatile for various applications.">
 <meta property="og:image" content="https://arunprakash.ai/posts/anthropic-claude3-messages-api-python/messages_api.png">
-<meta property="og:site-name" content="Explained Intuitively">
+<meta property="og:site_name" content="Explained Intuitively">
 <meta property="og:image:height" content="720">
 <meta property="og:image:width" content="1280">
 <meta name="twitter:title" content="Explained Intuitively - Anthropic Claude3: Messages API with Multimodal Input">
@@ -158,10 +133,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Explained Intuitively</span>
     </a>
@@ -173,23 +148,23 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arunslb123" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/arunslb123"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/arunprakashml" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/arunprakashml"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -212,7 +187,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-right">
 
       <div>
       <div class="quarto-title-meta-heading">Author</div>
@@ -234,7 +209,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -252,12 +227,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </ul>
 </nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+
 
 
 
@@ -283,10 +259,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </ul>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<div class="cell" data-execution_count="30">
+<div id="cell-3" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install anthropic --upgrade</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="31">
+<div id="cell-4" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -295,13 +271,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>True</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="32">
+<div id="cell-5" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>api_key <span class="op">=</span> os.getenv(<span class="st">"ANTHROPIC_API_KEY"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="messages-api" class="level1">
 <h1>Messages API</h1>
-<div class="cell" data-execution_count="33">
+<div id="cell-7" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> anthropic.Anthropic(</span>
@@ -324,12 +300,12 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>[ContentBlock(text="Here are some of the top places to visit in Sydney, Australia:\n\n1. Sydney Opera House - This iconic building is a UNESCO World Heritage site and a must-see attraction.\n\n2. Sydney Harbour Bridge - Take a walk across the bridge or participate in a guided climb for stunning views of the city and harbor.\n\n3. Bondi Beach - One of Australia's most famous beaches, known for its golden sand, surfing, and vibrant beach culture.\n\n4. The Rocks - A historic neighborhood with cobblestone streets, museums, galleries, and markets.\n\n5. Darling Harbour - A waterfront precinct with restaurants, shops, and attractions like the SEA LIFE Sydney Aquarium and the Australian National Maritime Museum.\n\n6. Royal Botanic Garden Sydney - A beautiful oasis in the heart of the city, with diverse plant collections and stunning harbor views.\n\n7. Taronga Zoo - Located on the shores of Sydney Harbour, this zoo is home to a wide variety of native Australian and exotic animals.\n\n8. Queen Victoria Building (QVB) - A historic shopping center with over 200 high-end stores, cafes, and restaurants.\n\n9. Manly Beach - Take a ferry from Circular Quay to Manly for a day of swimming, sunbathing, and exploring the charming beachside town.\n\n10. Blue Mountains National Park - Located just outside Sydney, this stunning park offers hiking trails, waterfalls, and the famous Three Sisters rock formation.", type='text')]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="34">
+<div id="cell-8" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML, Markdown</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="35">
+<div id="cell-9" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are some of the top places to visit in Sydney, Australia:</p>
 <ol type="1">
 <li><p>Sydney Opera House - This iconic building is a UNESCO World Heritage site and a must-see attraction.</p></li>
@@ -347,14 +323,14 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="messages_api_files/figure-html/a06a8e22-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="messages_api_files/figure-html/cell-10-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 </section>
 <section id="claude-3-sonnet" class="level1">
 <h1>Claude 3 Sonnet</h1>
-<div class="cell" data-execution_count="36">
+<div id="cell-12" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-sonnet-20240229"</span>,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -370,9 +346,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>[ContentBlock(text="Here are some of the top places to visit in Sydney, Australia:\n\n1. Sydney Opera House: This iconic UNESCO World Heritage Site is a must-see with its distinctive sail-like design and excellent performances.\n\n2. Sydney Harbour Bridge: Climb to the top of this steel arch bridge for breathtaking views or just admire it from the ground.\n\n3. Bondi Beach: One of Australia's most famous beaches, known for its great surfing, coastal walk, and lively atmosphere.\n\n4. The Rocks: This historic district offers a glimpse into Sydney's past with its cobblestone streets, museums, galleries, and lively markets.\n\n5. Darling Harbour: A popular waterfront area with restaurants, shops, attractions like the SEA LIFE Sydney Aquarium and Chinese Garden of Friendship.\n\n6. Royal Botanic Garden: Sprawling gardens right next to the Sydney Opera House, perfect for a stroll or picnic.\n\n7. Taronga Zoo: This zoo set on shores of Sydney Harbour is home to Australian wildlife like kangaroos and koalas.\n\n8. Manly Beach: Catch a ferry across the harbor to this laid-back beach suburb with great surfing and scenic walks.\n\n9. Sydney Tower Eye: Get 360-degree panoramic views from the observation deck of this tall tower.\n\n10. The Grounds of Alexandria: A charming outdoor precinct with gardens, cafes, markets and more in an old industrial area.", type='text')]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="37">
+<div id="cell-13" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are some of the top places to visit in Sydney, Australia:</p>
 <ol type="1">
 <li><p>Sydney Opera House: This iconic UNESCO World Heritage Site is a must-see with its distinctive sail-like design and excellent performances.</p></li>
@@ -390,14 +366,14 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="messages_api_files/figure-html/cf6aa23a-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="messages_api_files/figure-html/cell-14-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="messages_api_files/figure-html/4e755b28-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="messages_api_files/figure-html/cell-15-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf</p>
@@ -436,7 +412,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="max_tokens" class="level1">
 <h1>max_tokens</h1>
-<div class="cell" data-execution_count="38">
+<div id="cell-20" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-sonnet-20240229"</span>,</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">100</span>,</span>
@@ -448,7 +424,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are some of the top resources to learn Python:</p>
 <ol type="1">
 <li><p><strong>Official Python Documentation</strong>: The official Python documentation (https://docs.python.org/) is a comprehensive resource that covers everything from the basics to advanced topics. It’s a great reference for learning the language and its standard library.</p></li>
@@ -459,7 +435,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="stop_sequences" class="level1">
 <h1>stop_sequences</h1>
-<div class="cell" data-execution_count="39">
+<div id="cell-22" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-sonnet-20240229"</span>,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -472,7 +448,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are the top 10 places to visit in Sydney, Australia:</p>
 <ol type="1">
 <li><p>Sydney Opera House - This iconic UNESCO World Heritage Site is a must-see with its distinctive sail-like design and excellent performances.</p></li>
@@ -490,7 +466,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <li><p>Defaults to 1.0. Ranges from 0.0 to 1.0. Use temperature closer to 0.0 for analytical / multiple choice, and closer to 1.0 for creative and generative tasks.</p></li>
 <li><p>Note that even with temperature of 0.0, the results will not be fully deterministic.</p></li>
 </ul>
-<div class="cell" data-execution_count="40">
+<div id="cell-24" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -502,7 +478,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each place:</p>
 <ol type="1">
 <li><p>Sydney Opera House Slogan: “Experience the iconic symbol of Australia’s cultural heart.”</p></li>
@@ -518,7 +494,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </ol>
 </div>
 </div>
-<div class="cell" data-execution_count="41">
+<div id="cell-25" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -530,7 +506,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each:</p>
 <ol type="1">
 <li><p>Sydney Opera House Slogan: “Experience the heart of Sydney’s cultural scene”</p></li>
@@ -553,7 +529,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>Use nucleus sampling.</p>
 <p>In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by top_p.&nbsp;You should either alter temperature or top_p, but not both.</p>
 <p>Recommended for advanced use cases only. You usually only need to use temperature.</p>
-<div class="cell" data-execution_count="42">
+<div id="cell-28" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -565,7 +541,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each:</p>
 <ol type="1">
 <li><p>Sydney Opera House Slogan: “Experience the iconic symbol of Australia’s cultural heart”</p></li>
@@ -581,7 +557,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </ol>
 </div>
 </div>
-<div class="cell" data-execution_count="43">
+<div id="cell-29" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -593,7 +569,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each place:</p>
 <ol type="1">
 <li><p>Sydney Opera House - “Experience the iconic masterpiece that defines Sydney’s skyline.”</p></li>
@@ -615,7 +591,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>Only sample from the top K options for each subsequent token.</p>
 <p>Used to remove “long tail” low probability responses.</p>
 <p>Recommended for advanced use cases only. You usually only need to use temperature.</p>
-<div class="cell" data-execution_count="44">
+<div id="cell-32" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -627,7 +603,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each place:</p>
 <ol type="1">
 <li><p>Sydney Opera House Slogan: “Experience the iconic symbol of Australia’s cultural heart”</p></li>
@@ -643,7 +619,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </ol>
 </div>
 </div>
-<div class="cell" data-execution_count="45">
+<div id="cell-33" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -655,7 +631,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are the top 10 places to visit in Sydney, along with a marketing slogan for each place:</p>
 <ol type="1">
 <li><p>Sydney Opera House - “Experience the harmony of architecture and the arts.”</p></li>
@@ -674,7 +650,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="putting-it-all-together" class="level1">
 <h1>Putting it all together</h1>
-<div class="cell" data-execution_count="46">
+<div id="cell-35" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -688,7 +664,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <ol type="1">
 <li><p>Sydney Opera House - “Experience the iconic wonder of architecture and the arts”</p></li>
 <li><p>Bondi Beach - “Soak up the sun, surf, and style at Australia’s most famous beach”</p></li>
@@ -705,17 +681,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </div>
 
 
-
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -795,10 +763,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/arunprakash\.ai");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -808,8 +793,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -821,7 +815,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -865,6 +982,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -890,6 +1008,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -950,6 +1094,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -67,8 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -84,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -93,39 +97,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: [],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
 
 <script type="text/javascript">
@@ -136,32 +113,30 @@ gtag('js', new Date());
 gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
-<link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="messages_api_images.xml"><meta property="og:title" content="Explained Intuitively - Anthropic Claude3: Messages API with Images">
+<meta property="og:title" content="Explained Intuitively - Anthropic Claude3: Messages API with Images">
 <meta property="og:description" content="Anthropic’s Claude 3 models can understand and analyze images, allowing for conversations that include both text and visuals. Supported image formats include JPEG, PNG, GIF, and WebP. Multiple images can be included in a single request for analysis. Image analysis counts towards token usage. Claude has some limitations in image understanding but provides valuable interpretations.">
-<meta property="og:image" content="https://arunprakash.ai/posts/anthropic-claude3-messages-images-claude3/images.png">
-<meta property="og:site-name" content="Explained Intuitively">
+<meta property="og:image" content="https://arunprakash.ai/posts/anthropic-claude3-messages-images-claude/images.png">
+<meta property="og:site_name" content="Explained Intuitively">
 <meta property="og:image:height" content="720">
 <meta property="og:image:width" content="1280">
 <meta name="twitter:title" content="Explained Intuitively - Anthropic Claude3: Messages API with Images">
 <meta name="twitter:description" content="Anthropic’s Claude 3 models can understand and analyze images, allowing for conversations that include both text and visuals. Supported image formats include JPEG, PNG, GIF, and WebP. Multiple images can be included in a single request for analysis. Image analysis counts towards token usage. Claude has some limitations in image understanding but provides valuable interpretations.">
-<meta name="twitter:image" content="https://arunprakash.ai/posts/anthropic-claude3-messages-images-claude3/images.png">
+<meta name="twitter:image" content="https://arunprakash.ai/posts/anthropic-claude3-messages-images-claude/images.png">
 <meta name="twitter:image-height" content="720">
 <meta name="twitter:image-width" content="1280">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://arunprakash.ai/posts/anthropic-claude3-messages-images-claude3/messages_api_images.html" />
+<link rel="canonical" href="https://arunprakash.ai/posts/anthropic-claude3-messages-images-claude/messages_api_images.html" />
 </head>
 
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Explained Intuitively</span>
     </a>
@@ -173,23 +148,23 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arunslb123" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/arunslb123"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/arunprakashml" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/arunprakashml"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -213,7 +188,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-right">
 
       <div>
       <div class="quarto-title-meta-heading">Author</div>
@@ -235,7 +210,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -249,12 +224,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </ul>
 </nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+
 
 
 
@@ -269,10 +245,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <li><p>Claude has some limitations, such as identifying people, spatial reasoning, counting objects, and detecting AI-generated images. Always review and verify Claude’s interpretations.</p></li>
 <li><p>Claude does not generate, produce, edit, manipulate or create images; it only interprets and analyzes them.</p></li>
 </ul>
-<div class="cell" data-execution_count="66">
+<div id="cell-2" class="cell" data-execution_count="66">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install anthropic --upgrade</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="39">
+<div id="cell-3" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -281,10 +257,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>True</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="40">
+<div id="cell-4" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>api_key <span class="op">=</span> os.getenv(<span class="st">"ANTHROPIC_API_KEY"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="41">
+<div id="cell-5" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> anthropic.Anthropic(</span>
@@ -292,7 +268,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    api_key<span class="op">=</span>api_key,</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="4">
+<div id="cell-6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1000</span>,</span>
@@ -308,12 +284,12 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>[ContentBlock(text="Here are some of the top places to visit in Sydney, Australia:\n\n1. Sydney Opera House - This iconic building is a UNESCO World Heritage site and a must-see attraction.\n\n2. Sydney Harbour Bridge - Take a walk across the bridge or participate in a guided climb for stunning views of the city and harbor.\n\n3. Bondi Beach - One of Australia's most famous beaches, known for its golden sand, surfing, and vibrant beach culture.\n\n4. The Rocks - A historic neighborhood with cobblestone streets, museums, galleries, and markets.\n\n5. Darling Harbour - A waterfront precinct with restaurants, shops, and attractions like the SEA LIFE Sydney Aquarium and the Australian National Maritime Museum.\n\n6. Royal Botanic Garden Sydney - A beautiful oasis in the heart of the city, with diverse plant collections and stunning harbor views.\n\n7. Taronga Zoo - Located on the shores of Sydney Harbour, this zoo is home to a wide variety of native Australian and exotic animals.\n\n8. Sydney Tower Eye - The tallest structure in Sydney, offering 360-degree views of the city from the observation deck and revolving restaurant.\n\n9. Manly Beach - A popular beach located a short ferry ride from the city center, known for its laid-back atmosphere and water activities.\n\n10. Blue Mountains National Park - A scenic park located about 2 hours from Sydney, known for its dramatic rock formations, waterfalls, and hiking trails.\n\nThese are just a few of the many attractions Sydney has to offer, and there are plenty of other neighborhoods, beaches, and cultural experiences to explore in this vibrant city.", type='text')]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="42">
+<div id="cell-7" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML, Markdown</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="6">
+<div id="cell-8" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here are some of the top places to visit in Sydney, Australia:</p>
 <ol type="1">
 <li><p>Sydney Opera House - This iconic building is a UNESCO World Heritage site and a must-see attraction.</p></li>
@@ -330,16 +306,20 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>These are just a few of the many attractions Sydney has to offer, and there are plenty of other neighborhoods, beaches, and cultural experiences to explore in this vibrant city.</p>
 </div>
 </div>
-<div class="cell" data-execution_count="43">
+<div id="cell-9" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="35">
+<div id="cell-10" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">'claude_results.jpeg'</span>, width<span class="op">=</span><span class="dv">800</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
-<p><img src="messages_api_images_files/figure-html/cell-10-output-1.jpeg" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="messages_api_images_files/figure-html/cell-10-output-1.jpeg" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="45">
+</div>
+<div id="cell-11" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load image and convert to base64</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> base64</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
@@ -347,13 +327,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>image_data <span class="op">=</span> base64.b64encode(<span class="bu">open</span>(<span class="st">'claude_results.jpeg'</span>, <span class="st">'rb'</span>).read()).decode(<span class="st">'utf-8'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="46">
+<div id="cell-12" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(image_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="46">
 <pre><code>str</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="47">
+<div id="cell-13" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>image_data[:<span class="dv">100</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="47">
 <pre><code>'/9j/4AAQSkZJRgABAgEASABIAAD/4QDKRXhpZgAATU0AKgAAAAgABgESAAMAAAABAAEAAAEaAAUAAAABAAAAVgEbAAUAAAABAAAA'</code></pre>
@@ -362,7 +342,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="describe-an-image" class="level1">
 <h1>Describe an Image</h1>
-<div class="cell" data-execution_count="38">
+<div id="cell-15" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
@@ -391,9 +371,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>Message(id='msg_01Xd14cQdncxYH1Cqt7ULGte', content=[ContentBlock(text='This image shows a comparison table of performance metrics across different AI language models.\n\nThe models compared include Claude 3 (in its Opus, Sonnet and Haiku variants), GPT-4, GPT-3.5, and two versions of Gemini 1.0.\n\nVarious metrics are listed down the left side, including:\n- Undergraduate level knowledge (MMLU)\n- Graduate level reasoning (GQPA, Diamond)\n- Grade school math (GSM8K)  \n- Math problem-solving (MATH)\n- Multilingual math (MGSM)\n- Code generation (HumanEval)\n- Reasoning over text (DROP, F1 score) \n- Mixed evaluations (BIG-Bench-Hard)\n- Knowledge Q&amp;A (ARC-Challenge)\n- Common Knowledge (HellaSwag)\n\nThe cells contain the score each model achieved on the corresponding metric. The score format varies by row, with some showing x-shot scores, others showing raw scores, F1 scores, or number of shots.\n\nOverall, this table enables a side-by-side comparison of how well these prominent language models perform across a diverse set of NLP benchmarks and capability assessments. The color coding also helps highlight relative strengths and weaknesses.', type='text')], model='claude-3-opus-20240229', role='assistant', stop_reason='end_turn', stop_sequence=None, type='message', usage=Usage(input_tokens=1640, output_tokens=291))</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="13">
+<div id="cell-16" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>This image shows a comparison table of various metrics across different AI language models, including Claude 3 (in Opus, Sonnet and Haiku variants), GPT-4, GPT-3.5, and two versions of Gemini.</p>
 <p>The metrics compared include: - Undergraduate level knowledge (MMLU) - Graduate level reasoning (GPQA, Diamond) - Grade school math (GSM8K) - Math problem-solving (MATH) - Multilingual math (MGSM) - Code generation (HumanEval) - Reasoning over text (DROP, F1 score) - Mixed evaluations (BIG-Bench-Hard) - Knowledge Q&amp;A (ARC-Challenge) - Common Knowledge (HellaSwag)</p>
 <p>For each metric, the scores are provided along with the number of “shots” used in the evaluation (e.g.&nbsp;0-shot, 5-shot, 10-shot etc.). The scores are given as percentages, except for the DROP reasoning metric which uses an F1 score.</p>
@@ -403,7 +383,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="generate-code" class="level1">
 <h1>Generate Code</h1>
-<div class="cell" data-execution_count="14">
+<div id="cell-18" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
@@ -432,9 +412,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>Message(id='msg_01THwqDdZn2oWfVF2XNu45w3', content=[ContentBlock(text="Here's the Python code to create a bar plot from the image table, including only the Claude columns:\n\n```python\nimport matplotlib.pyplot as plt\n\nmetrics = ['Undergraduate level knowledge MMLU',\n           'Graduate level reasoning GFQA, Diamond',\n           'Grade school math GSMSB',\n           'Math problem-solving MATH',\n           'Multilingual math MGSM',\n           'Code HumanEval',\n           'Reasoning over text DROP, F1 score',\n           'Mixed evaluations BIG-Bench-Hard',\n           'Knowledge Q&amp;A ARC-Challenge',\n           'Common Knowledge HellaSwag']\n\nclaude_3_opus = [86.8, 50.4, 95.0, 60.1, 90.7, 84.9, 83.1, 86.8, 96.4, 95.4]\nclaude_3_sonnet = [79.0, 40.4, 92.3, 43.1, 83.5, 73.0, 78.9, 82.9, 93.2, 89.0]\nclaude_3_haiku = [75.2, 33.3, 88.9, 38.9, 75.1, 75.9, 78.4, 73.7, 89.2, 85.9]\n\nx = range(len(metrics))\nwidth = 0.25\n\nfig, ax = plt.subplots(figsize=(12, 8))\n\nax.bar(x, claude_3_opus, width, label='Claude 3 Opus')\nax.bar([i + width for i in x], claude_3_sonnet, width, label='Claude 3 Sonnet')\nax.bar([i + 2*width for i in x], claude_3_haiku, width, label='Claude 3 Haiku')\n\nax.set_xlabel('Metrics')\nax.set_ylabel('Values')\nax.set_xticks([i + width for i in x])\nax.set_xticklabels(metrics, rotation=45, ha='right')\nax.legend()\n\nplt.tight_layout()\nplt.show()\n```\n\nThis code does the following:\n\n1. It imports the necessary matplotlib.pyplot module.\n\n2. It defines the metrics as a list of strings.\n\n3. It extracts the values for each Claude model (Opus, Sonnet, and Haiku) into separate lists.\n\n4. It sets up the x-coordinates and width for the bars.\n\n5. It creates a figure and an axis using `plt.subplots()`.\n\n6. It creates the bars for each Claude model using `ax.bar()`, with appropriate offsets for the x-coordinates.\n\n7. It sets the x-label and y-label using `ax.set_xlabel()` and `ax.set_ylabel()`, respectively.\n\n8. It sets the x-tick positions and labels using `ax.set_xticks()` and `ax.set_xticklabels()`, with rotation and horizontal alignment for better readability.\n\n9. It adds a legend using `ax.legend()`.\n\n10. It adjusts the layout using `plt.tight_layout()` to ensure the labels and titles fit nicely.\n\n11. Finally, it displays the plot using `plt.show()`.\n\nWhen you run this code, it will generate a bar plot comparing the performance of the Claude models (Opus, Sonnet, and Haiku) across various metrics.", type='text')], model='claude-3-opus-20240229', role='assistant', stop_reason='end_turn', stop_sequence=None, type='message', usage=Usage(input_tokens=1670, output_tokens=825))</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="15">
+<div id="cell-19" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here’s the Python code to create a bar plot from the image table, including only the Claude columns:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -487,7 +467,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>When you run this code, it will generate a bar plot comparing the performance of the Claude models (Opus, Sonnet, and Haiku) across various metrics.</p>
 </div>
 </div>
-<div class="cell" data-execution_count="16">
+<div id="cell-20" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>metrics <span class="op">=</span> [<span class="st">'Undergraduate level knowledge MMLU'</span>,</span>
@@ -521,27 +501,35 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="messages_api_images_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="messages_api_images_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="recipe-generation" class="level1">
 <h1>Recipe Generation</h1>
-<div class="cell" data-execution_count="17">
+<div id="cell-22" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>recipe_data <span class="op">=</span> base64.b64encode(<span class="bu">open</span>(<span class="st">'recipe.jpg'</span>, <span class="st">'rb'</span>).read()).decode(<span class="st">'utf-8'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="18">
+<div id="cell-23" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="19">
+<div id="cell-24" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#display the image</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">'recipe.jpg'</span>, width<span class="op">=</span><span class="dv">800</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
-<p><img src="messages_api_images_files/figure-html/cell-21-output-1.jpeg" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="messages_api_images_files/figure-html/cell-21-output-1.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Prompt I used to generate the image is ‘A single perfect éclair, dark chocolate glaze, a single raspberry on top, cracked surface revealing vanilla custard’</p>
-<div class="cell" data-execution_count="20">
+<div id="cell-26" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
@@ -570,9 +558,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>Message(id='msg_01L7JH75i2MPegcQa4b597DS', content=[ContentBlock(text='This image shows an appetizing raspberry chocolate eclair or cream puff dessert. The eclair pastry is golden brown and flaky looking, filled with a luscious vanilla cream filling, and topped with a rich chocolate ganache glaze and fresh raspberries dusted with cocoa powder.\n\nTo make raspberry chocolate eclairs, you would need to:\n\n1. Prepare choux pastry dough, pipe it into eclair shapes, and bake until puffed and golden.\n\n2. Make a vanilla pastry cream filling, let it chill, then pipe it into the cooled eclair shells. \n\n3. Prepare a shiny chocolate ganache glaze and dip or spread it on top of the filled eclairs.\n\n4. Top with fresh raspberries and dust with cocoa powder for the finishing touch. \n\n5. Chill the assembled eclairs for a couple hours to allow flavors to meld before serving.\n\nThe combination of crisp pastry, silky cream, bittersweet chocolate and tart-sweet raspberries makes for an irresistible treat that is sure to impress. While eclairs take some time and technique, the end result of this classic French patisserie is well worth the effort for a special occasion dessert.', type='text')], model='claude-3-opus-20240229', role='assistant', stop_reason='end_turn', stop_sequence=None, type='message', usage=Usage(input_tokens=1648, output_tokens=279))</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="21">
+<div id="cell-27" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>This image shows an appetizing raspberry chocolate eclair or cream puff dessert. The eclair pastry is golden brown and flaky looking, filled with a luscious vanilla cream filling, and topped with a rich chocolate ganache glaze and fresh raspberries dusted with cocoa powder.</p>
 <p>To make raspberry chocolate eclairs, you would need to:</p>
 <ol type="1">
@@ -588,7 +576,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="image-with-system-prompt" class="level1">
 <h1>Image with system prompt</h1>
-<div class="cell" data-execution_count="22">
+<div id="cell-29" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
@@ -618,9 +606,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>Message(id='msg_01QGkczZma6tD84ZQoNccyzW', content=[ContentBlock(text="Voici une recette pour un éclair au chocolat et aux framboises, inspirée de l'image :\n\nPâte à choux :\n- 125 ml d'eau\n- 50 g de beurre\n- 65 g de farine \n- 2 œufs\n- 1 pincée de sel\n\nCrème pâtissière à la vanille :\n- 250 ml de lait\n- 50 g de sucre\n- 30 g de farine\n- 2 jaunes d'œufs \n- 1 gousse de vanille\n\nGanache au chocolat :\n- 100 g de chocolat noir\n- 100 ml de crème fraîche liquide\n\nDécoration :\n- Cacao en poudre\n- Framboises fraîches\n\nInstructions :\n\n1. Préparez la pâte à choux en portant à ébullition l'eau, le beurre et le sel. Hors du feu, incorporez la farine d'un coup puis remettez sur feu doux en mélangeant jusqu'à ce que la pâte se décolle. Laissez tiédir puis incorporez les œufs un par un. Pochez sur une plaque et faites cuire 30 min à 180°C.\n\n2. Pour la crème, portez le lait et la vanille à ébullition. À part, mélangez sucre, farine et jaunes d'œufs. Versez le lait dessus en mélangeant, puis remettez sur feu doux jusqu'à épaississement. Laissez refroidir.\n\n3. Préparez la ganache en faisant fondre le chocolat avec la crème chauffée.\n\n4. Fourrez les éclairs refroidis de crème pâtissière, glacez-les de ganache, saupoudrez de cacao et décorez de framboises fraîches. \n\nDégustez ces délicieux éclairs faits maison, alliant le croquant de la pâte, la douceur vanillée de la crème et l'intense chocolat, rehaussés de framboises acidulées.", type='text')], model='claude-3-opus-20240229', role='assistant', stop_reason='end_turn', stop_sequence=None, type='message', usage=Usage(input_tokens=1664, output_tokens=543))</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="23">
+<div id="cell-30" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Voici une recette pour un éclair au chocolat et aux framboises, inspirée de l’image :</p>
 <p>Pâte à choux : - 125 ml d’eau - 50 g de beurre - 65 g de farine - 2 œufs - 1 pincée de sel</p>
 <p>Crème pâtissière à la vanille : - 250 ml de lait - 50 g de sucre - 30 g de farine - 2 jaunes d’œufs - 1 gousse de vanille</p>
@@ -639,35 +627,47 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="multiple-images-getting-feedback-on-what-shoe-to-wear-for-a-blue-suit" class="level1">
 <h1>Multiple Images: Getting Feedback on What Shoe to Wear for a Blue Suit</h1>
-<div class="cell" data-execution_count="24">
+<div id="cell-32" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>blue_suit <span class="op">=</span> base64.b64encode(<span class="bu">open</span>(<span class="st">'suit.jpeg'</span>, <span class="st">'rb'</span>).read()).decode(<span class="st">'utf-8'</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>black_shoes <span class="op">=</span> base64.b64encode(<span class="bu">open</span>(<span class="st">'black_shoe.jpeg'</span>, <span class="st">'rb'</span>).read()).decode(<span class="st">'utf-8'</span>)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>brown_shoes <span class="op">=</span> base64.b64encode(<span class="bu">open</span>(<span class="st">'brown_shoe.jpeg'</span>, <span class="st">'rb'</span>).read()).decode(<span class="st">'utf-8'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="25">
+<div id="cell-33" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">'suit.jpeg'</span>, width<span class="op">=</span><span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
-<p><img src="messages_api_images_files/figure-html/cell-27-output-1.jpeg" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="messages_api_images_files/figure-html/cell-27-output-1.jpeg" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="26">
+</div>
+<div id="cell-34" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">'black_shoe.jpeg'</span>, width<span class="op">=</span><span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
-<p><img src="messages_api_images_files/figure-html/cell-28-output-1.jpeg" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="messages_api_images_files/figure-html/cell-28-output-1.jpeg" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="27">
+</div>
+<div id="cell-35" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">'brown_shoe.jpeg'</span>, width<span class="op">=</span><span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
-<p><img src="messages_api_images_files/figure-html/cell-29-output-1.jpeg" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="messages_api_images_files/figure-html/cell-29-output-1.jpeg" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="28">
+</div>
+<div id="cell-36" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>suit_data <span class="op">=</span> base64.b64encode(<span class="bu">open</span>(<span class="st">'suit.jpeg'</span>, <span class="st">'rb'</span>).read()).decode(<span class="st">'utf-8'</span>)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>black_shoe_data <span class="op">=</span> base64.b64encode(<span class="bu">open</span>(<span class="st">'black_shoe.jpeg'</span>, <span class="st">'rb'</span>).read()).decode(<span class="st">'utf-8'</span>)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>brown_shoe_data <span class="op">=</span> base64.b64encode(<span class="bu">open</span>(<span class="st">'brown_shoe.jpeg'</span>, <span class="st">'rb'</span>).read()).decode(<span class="st">'utf-8'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="29">
+<div id="cell-37" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.messages.create(</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-3-opus-20240229"</span>,</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
@@ -723,9 +723,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="30">
+<div id="cell-38" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(message.content[<span class="dv">0</span>].text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Based on the blue plaid suit shown in the image, I would recommend pairing it with the brown leather dress shoes (Shoe 2) rather than the black ones (Shoe 1). Here are a few reasons why:</p>
 <ol type="1">
 <li><p>Brown shoes complement blue suits very well, creating a harmonious and stylish color combination. The warm tones of the brown leather pair nicely with the cool blue hues of the suit fabric.</p></li>
@@ -738,17 +738,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </div>
 
 
-
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -828,10 +820,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/arunprakash\.ai");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -841,8 +850,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -854,7 +872,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -898,6 +1039,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -923,6 +1065,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -983,6 +1151,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

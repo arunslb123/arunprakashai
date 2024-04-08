@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,15 +60,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -84,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -93,39 +97,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: [],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
 
 <script type="text/javascript">
@@ -136,17 +113,15 @@ gtag('js', new Date());
 gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
-<link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="real_estate.xml"><meta property="og:title" content="Explained Intuitively - Claude3 + Python: Automate Real Industry Workflows Like a Pro">
+<meta property="og:title" content="Explained Intuitively - Claude3 + Python: Automate Real Industry Workflows Like a Pro">
 <meta property="og:description" content="Explore how AI can revolutionize the real estate industry through automated property appraisals and personalized event newsletters. Learn to leverage Anthropic’s Claude model to generate comprehensive appraisals and engaging newsletters, and build an interactive Streamlit app to showcase these AI-powered functionalities.">
 <meta property="og:image" content="https://arunprakash.ai/posts/anthropic-claude3-industry-usecases/industry_yt.jpg">
-<meta property="og:site-name" content="Explained Intuitively">
+<meta property="og:site_name" content="Explained Intuitively">
 <meta name="twitter:title" content="Explained Intuitively - Claude3 + Python: Automate Real Industry Workflows Like a Pro">
 <meta name="twitter:description" content="Explore how AI can revolutionize the real estate industry through automated property appraisals and personalized event newsletters. Learn to leverage Anthropic’s Claude model to generate comprehensive appraisals and engaging newsletters, and build an interactive Streamlit app to showcase these AI-powered functionalities.">
 <meta name="twitter:image" content="https://arunprakash.ai/posts/anthropic-claude3-industry-usecases/industry_yt.jpg">
@@ -157,10 +132,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Explained Intuitively</span>
     </a>
@@ -172,23 +147,23 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arunslb123" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/arunslb123"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/arunprakashml" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/arunprakashml"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -213,7 +188,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-right">
 
       <div>
       <div class="quarto-title-meta-heading">Author</div>
@@ -235,7 +210,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -247,12 +222,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </ul>
 </nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+
 
 
 
@@ -283,7 +259,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>Let’s dive in and explore how AI can revolutionize the way we approach property appraisal and event marketing in the real estate industry!</p>
 <section id="project-1-property-appraisal" class="level1">
 <h1>Project 1: Property Appraisal</h1>
-<div class="cell" data-execution_count="14">
+<div id="cell-3" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install anthropic --upgrade</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Install required libraries</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install streamlit</span></span>
@@ -291,7 +267,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install python-dotenv</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install Pillow</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="15">
+<div id="cell-4" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
@@ -300,10 +276,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>anthropic.api_key <span class="op">=</span> os.getenv(<span class="st">"ANTHROPIC_API_KEY"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="16">
+<div id="cell-5" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> anthropic.Anthropic()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="18">
+<div id="cell-6" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> summarize_text(text):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> anthropic</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> <span class="ss">f"Please provide a detailed (approx 1000 words) and comprehensive property appraisal suitable for the Australian market based on the following information, using placeholders for the values:</span><span class="ch">\n\n</span><span class="sc">{</span>text<span class="sc">}</span><span class="ss">"</span></span>
@@ -319,7 +295,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="19">
+<div id="cell-7" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>property_description <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">This property is a modern, two-story residential home located in a quiet, suburban neighborhood in Melbourne, Australia.</span></span>
@@ -327,7 +303,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st"> The 180 sq. m. house sits on a 600 sq. m. lot with a landscaped garden, a patio, and a single-car garage.</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="20">
+<div id="cell-8" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>appraisal <span class="op">=</span> summarize_text(property_description)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(appraisal)</span>
@@ -336,14 +312,14 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>Message(id='msg_01A2Pg1wCV6R72Y9LuBFCi3U', content=[ContentBlock(text="Property Appraisal Report\n\nSubject Property: Modern Two-Story Residential Home\nLocation: [Address], Melbourne, Australia\n\nIntroduction:\nThe purpose of this appraisal is to estimate the market value of the subject property, a modern, two-story residential home located in a quiet, suburban neighborhood in Melbourne, Australia. The appraisal is based on a thorough inspection of the property, an analysis of comparable properties in the area, and a consideration of current market conditions.\n\nProperty Description:\nThe subject property is a well-maintained, two-story residential home built in 2015. The house features a contemporary design with a rendered brick exterior and a tiled roof. The property offers a total living area of approximately 180 square meters (1,938 square feet) and is situated on a generous 600 square meter (6,458 square feet) lot.\n\nThe ground floor comprises an open-plan living area that seamlessly combines the living room, dining room, and kitchen. The modern kitchen features high-quality appliances, ample storage space, and a breakfast bar. The living area has large windows that allow for an abundance of natural light and provide views of the landscaped garden. A sliding glass door leads to the patio, perfect for outdoor entertaining.\n\nThe upper floor consists of four well-appointed bedrooms and two bathrooms. The master bedroom features a walk-in closet and an en-suite bathroom with a double vanity, a shower, and a bathtub. The remaining three bedrooms are served by a shared bathroom with a shower and a single vanity. All bedrooms have built-in wardrobes and carpet flooring.\n\nAdditional features of the property include:\n- Ducted air conditioning throughout the house\n- High ceilings (2.7 meters) on both floors\n- Double-glazed windows for improved energy efficiency\n- Hardwood flooring in the living areas and tiles in the wet areas\n- A single-car garage with internal access to the house\n- A landscaped front and rear garden with mature trees and shrubs\n- A paved patio area perfect for outdoor dining and entertaining\n\nNeighborhood Analysis:\nThe subject property is located in a well-established, quiet suburban neighborhood in Melbourne. The area is characterized by similar modern, single-family homes on medium to large-sized lots. The neighborhood has well-maintained streets, sidewalks, and streetlights. It is conveniently located near schools, parks, shopping centers, and public transportation, making it an attractive location for families and professionals.\n\nMarket Analysis:\nThe Melbourne residential property market has shown resilience and steady growth over the past few years, despite the challenges posed by the COVID-19 pandemic. Low interest rates, government incentives, and a strong demand for housing have contributed to the market's stability. The suburb in which the subject property is located has experienced a moderate increase in median house prices over the past 12 months, with a growing demand for modern, well-maintained homes.\n\nComparable Sales:\nThe following comparable sales were selected based on their similarity to the subject property in terms of location, size, age, and condition:\n\n1. [Address], Melbourne - A modern, two-story home with 4 bedrooms, 2 bathrooms, and a total living area of 185 sq. m. on a 580 sq. m. lot. Sold for $[X] in [Month, Year].\n\n2. [Address], Melbourne - A 2016-built, two-story home with 4 bedrooms, 2 bathrooms, and a total living area of 175 sq. m. on a 610 sq. m. lot. Sold for $[Y] in [Month, Year].\n\n3. [Address], Melbourne - A modern, two-story home with 4 bedrooms, 2 bathrooms, and a total living area of 190 sq. m. on a 595 sq. m. lot. Sold for $[Z] in [Month, Year].\n\nValuation:\nBased on the analysis of the subject property, the neighborhood, the current market conditions, and the comparable sales, the estimated market value of the subject property as of [Date] is:\n\n$[Estimated Market Value]\n\nThis value estimate is subject to the following assumptions and limiting conditions:\n1. The appraiser has inspected the property, but no structural or mechanical tests were conducted.\n2. The appraiser assumes no responsibility for hidden defects or non-apparent conditions of the property.\n3. The information provided by the client and other sources is assumed to be accurate and reliable.\n4. This appraisal is for the sole use of the client and intended users and should not be relied upon by any other party.\n\nConclusion:\nThe subject property is a well-maintained, modern two-story residential home in a desirable suburban neighborhood in Melbourne. Its features, location, and condition make it an attractive option for potential buyers in the current market. The estimated market value of $[Estimated Market Value] reflects the property's characteristics and is supported by the analysis of comparable sales and market trends.\n\nAppraiser:\n[Appraiser's Name]\n[Appraiser's Certification/License Number]\n[Appraisal Company Name]", type='text')], model='claude-3-opus-20240229', role='assistant', stop_reason='end_turn', stop_sequence=None, type='message', usage=Usage(input_tokens=170, output_tokens=1154))</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="7">
+<div id="cell-9" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># display using markdown</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Markdown</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary in markdown format</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>display(Markdown(appraisal.content[<span class="dv">0</span>].text))</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Property Appraisal Report</p>
 <p>Property Description: The subject property is a contemporary, two-story residential dwelling situated in a tranquil, suburban neighborhood in Melbourne, Australia. Constructed in 2015, this well-maintained home offers a comfortable living space for a family or individuals seeking a modern lifestyle. The property features 4 bedrooms, 2 bathrooms, and an open-plan living area, providing ample space for both relaxation and entertainment. With a total living area of 180 square meters (1,938 square feet), the house sits on a generous 600 square meter (6,458 square feet) lot, which includes a beautifully landscaped garden, a patio, and a single-car garage.</p>
 <p>Location and Neighborhood: The property is located in a desirable suburban area of Melbourne, known for its safety, convenience, and family-friendly atmosphere. The neighborhood is characterized by well-maintained homes, manicured lawns, and tree-lined streets, creating a pleasant and visually appealing environment. The area is served by reputable schools, both primary and secondary, making it an ideal location for families with school-aged children. Additionally, the property is in close proximity to local amenities such as shopping centers, restaurants, parks, and recreational facilities, ensuring a convenient and enjoyable lifestyle for residents.</p>
@@ -382,7 +358,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="project-2-property-appraisal-with-a-house-images" class="level1">
 <h1>Project 2: Property Appraisal with a house images</h1>
-<div class="cell" data-execution_count="10">
+<div id="cell-11" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> display_images_side_by_side(image_paths):</span>
@@ -401,7 +377,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <div style="display: flex; justify-content: space-between;"><img src="front_view.webp" style="width: 30%; height: auto;"><img src="side_view.webp" style="width: 30%; height: auto;"></div>
 </div>
 </div>
-<div class="cell" data-execution_count="9">
+<div id="cell-12" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
@@ -471,7 +447,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the appraisal in markdown format</span></span>
 <span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>display(Markdown(appraisal))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Property Appraisal Report</p>
 <p>Property Overview: The subject property is a contemporary, two-story residential home situated in a tranquil, suburban neighborhood in Melbourne, Australia. Constructed in 2015, this [PROPERTY_AGE]-year-old home offers 4 bedrooms, 2 bathrooms, and an open-plan living area. The house, measuring approximately 180 sq. m., is positioned on a generous 600 sq. m. lot that features a well-maintained landscaped garden, a patio, and a single-car garage.</p>
 <p>Exterior: The home boasts a striking, modern architectural design with clean lines and a blend of materials, including wood, brick, and glass. The exterior showcases warm, earthy tones, complemented by expansive windows that allow ample natural light to flood the interior spaces. The landscaped garden is meticulously maintained, offering a serene and inviting outdoor environment. The patio, accessible from the living area, provides an ideal space for outdoor entertaining and relaxation. The single-car garage offers secure parking and additional storage space.</p>
@@ -489,7 +465,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="project-3-creating-newsletters-with-property-details-for-events" class="level1">
 <h1>Project 3: Creating newsletters with property details for events</h1>
-<div class="cell" data-execution_count="11">
+<div id="cell-15" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Markdown</span>
@@ -528,7 +504,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the newsletter in markdown format</span></span>
 <span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>display(Markdown(newsletter))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>🌞🏡 Summer Festival Special: Discover Your Dream Home! 🏡🌞</p>
 <p>Welcome to our Summer Festival newsletter, where we showcase three incredible properties that will make your summer unforgettable. Whether you’re looking for the perfect venue for a lively gathering or a tranquil retreat, we have the ideal home for you. Get ready to fall in love with these stunning properties and imagine the endless possibilities for your summer celebrations!</p>
 <p>🌿 Property 1: 123 Main St - Your Backyard Oasis Awaits! 🌿 Slogan: “Where Summer Memories Bloom: 123 Main St”</p>
@@ -545,7 +521,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <h1>Streamlit App</h1>
 <p>Create a file named app.py, copy the next cell content, and run the following command in your terminal to start the Streamlit app:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">streamlit</span> run app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell" data-execution_count="1">
+<div id="cell-18" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
@@ -710,17 +686,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </div>
 
 
-
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -800,10 +768,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/arunprakash\.ai");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -813,8 +798,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -826,7 +820,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -870,6 +987,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -895,6 +1013,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -955,6 +1099,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

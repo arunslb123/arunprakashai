@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -67,8 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -84,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -93,39 +97,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: [],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
 
 <script type="text/javascript">
@@ -136,14 +113,12 @@ gtag('js', new Date());
 gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
-<link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="news_assistant_tools.xml"><meta property="og:title" content="Explained Intuitively - Morning with Jarvis: Craft Your Own News Universe from Social Media and News Digests">
+<meta property="og:title" content="Explained Intuitively - Morning with Jarvis: Craft Your Own News Universe from Social Media and News Digests">
 <meta property="og:description" content="Revolutionize your morning routine with an AI-powered tool that delivers personalized audio news briefings on your topic of interest directly to your telegram. This project uses openai assistants API, Selenium, telegram API, openai text to speech models, DuckDuckGo for search, and many more.">
 <meta property="og:image" content="https://arunprakash.ai/posts/personalised-news-social-media-openai-assistants-api/0_0.webp">
-<meta property="og:site-name" content="Explained Intuitively">
+<meta property="og:site_name" content="Explained Intuitively">
 <meta name="twitter:title" content="Explained Intuitively - Morning with Jarvis: Craft Your Own News Universe from Social Media and News Digests">
 <meta name="twitter:description" content="Revolutionize your morning routine with an AI-powered tool that delivers personalized audio news briefings on your topic of interest directly to your telegram. This project uses openai assistants API, Selenium, telegram API, openai text to speech models, DuckDuckGo for search, and many more.">
 <meta name="twitter:image" content="https://arunprakash.ai/posts/personalised-news-social-media-openai-assistants-api/0_0.webp">
@@ -154,10 +129,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Explained Intuitively</span>
     </a>
@@ -169,23 +144,23 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arunslb123" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/arunslb123"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/arunprakashml" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/arunprakashml"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -210,7 +185,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-right">
 
       <div>
       <div class="quarto-title-meta-heading">Author</div>
@@ -232,7 +207,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -252,7 +227,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </ul>
 </nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
@@ -262,13 +237,14 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 
 
 
+
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="0_0.webp" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Voyage Vista</figcaption>
+<figcaption>Voyage Vista</figcaption>
 </figure>
 </div>
-<div class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install selenium</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install webdriver-manager</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install fpdf</span></span>
@@ -291,14 +267,14 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="news_assistant_tools_files/figure-html/3148fb4e-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="news_assistant_tools_files/figure-html/cell-6-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 </section>
 <section id="download-screenshots" class="level1">
 <h1>Download Screenshots</h1>
-<div class="cell" data-execution_count="2">
+<div id="cell-8" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> webdriver_manager.chrome <span class="im">import</span> ChromeDriverManager</span>
@@ -427,17 +403,17 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <section id="screenshots-to-text" class="level1">
 <h1>Screenshots to Text</h1>
 <p>I attempted to convert screenshots to text using various AI models. Initially, I used GPT-4 Vision models, but they were unable to process images containing people, which made them unsuitable for social media images. I then tried Gemini Pro Vision, but the results did not meet my expectations. Finally, I used Tesseract, an open-source text recognition engine, which provided excellent results.</p>
-<div class="cell" data-execution_count="3">
+<div id="cell-11" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>screenshots_folder <span class="op">=</span> <span class="st">'screenshots'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="4">
+<div id="cell-12" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>twitter_files <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(screenshots_folder) <span class="cf">if</span> f.startswith(<span class="st">'twitter_screenshot'</span>)]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>reddit_files <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(screenshots_folder) <span class="cf">if</span> f.startswith(<span class="st">'reddit_screenshot'</span>)]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>openai_files <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(screenshots_folder) <span class="cf">if</span> f.startswith(<span class="st">'openai_screenshot'</span>)]</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>github_files <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(screenshots_folder) <span class="cf">if</span> f.startswith(<span class="st">'github_screenshot'</span>)]</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>hackernews_files <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(screenshots_folder) <span class="cf">if</span> f.startswith(<span class="st">'hackernews_screenshot'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="5">
+<div id="cell-13" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>twitter_files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>['twitter_screenshot_2.png',
@@ -448,7 +424,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </div>
 </div>
 <p><img src="screenshots/openai_screenshot_2.png" width="60%"></p>
-<div class="cell" data-execution_count="7">
+<div id="cell-15" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytesseract</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -464,7 +440,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>"oo OG GO\n\nG OpenAl\n\nTopics\n\nMore\n\nRESOURCES\nDocumentation\nAPI reference\n\nHelp center\n\nCATEGORIES\nAnnouncements\n\nAPI\n\nPrompting\nDocumentation\n\nPlugins / Actions builders\n\nAll categories\n\nTAGS\n\nchatgpt\n\ngpt-4\n\napi\nplugin-development\nlost-user\n\nAlltags\n\nDocumentation\n\nAPI reference\n\nHM DUg\nHi Bugs gpt-4\n\n@ Cannot publish my GPT store because of the name while\n\nothers have published similar\n™@ GPT builders chatgpt\n\nAny tools out there to pull/scrape complete website data and\n\nfeed it into GPT?\nH API gpt-4, api\n\nBuilder Profile Website Verified, but will not activate\n® Plugins / Actions builders lost-user\n\nBuilders with the Most GPTs\nGPT builders chatgpt, gpts, gpt-builder\n\nGenerating Traffic or ads to GPT - Best way to go about it\n® Plugins / Actions builders gpt-4, plugin-development, chatgpt-plugin\n\n“4 Whisper error 400 “Unrecognized file format.”\nH API whisper\n\nGpt-4-vision-preview model for other document types not just\nimages\nBH API\n\nChatCompletionMessag is returning content=None when\nfinish_reason='stop’\nWAPI\n\nWhich Model is the Best for Writing?\nWAPI\n\nRetrieving Complete Structured Data Objects Using Assistants\n\nAPI File Search Feature\nWAPI\n\na\n\nANSE\n\n-@0:°@\n\nw2Q@e\n\nad\n\nv\n\n20\n\n14\n\nvt\n\n27\n\n7.6k\n\n148\n\n10\n\n613\n\n357\n\n88\n\n74\n\n75\n\n25\n\neu\n\n2h\n\n2h\n\n2h\n\n2h\n\n3h\n\n3h\n\n3h\n\n3h\n\n3h\n\n3h\n"</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="8">
+<div id="cell-16" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>twitter_files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>['twitter_screenshot_2.png',
@@ -474,7 +450,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
  'twitter_screenshot_5.png']</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="9">
+<div id="cell-17" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_text_from_images(file_paths, folder<span class="op">=</span><span class="st">'screenshots'</span>):</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
@@ -513,13 +489,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>combined_text <span class="op">=</span> combine_texts_from_sources(twitter_files, reddit_files, openai_files, github_files, hackernews_files)</span>
 <span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="10">
+<div id="cell-18" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>combined_text[:<span class="dv">1000</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>"Q. openai aad nK\n\n#HelloMotoHelloColor @\nMotorola Razr 40 Ultra now in Pantone Color\n\nTop Latest People Media Lists\n\nSs omMN AaopoD x\n\nNX\n\nDo\n\n&gt; @o\n\nWhisper (baseline) - 73 seconds\nWhisper w/ Speculative Decoding - 33 seconds\n\nAll with zero drop in performance! 4\n\nPseudocode:\n\n1. Initialise a Teacher model ex: openai/whisper-large-v2.\n\n2. Load an assistant model ex....\n\nShow more\n\noee vaibhav@hf-dgx-01: /raid/vb/open_asr_leaderboard/transformers/scripts XH\n\nCleaderboard_env) vaibhav@hf-dgx-@1: /raid/vb/open_asr_leaderboard/transformers/\nscripts$ vi spec_dec_whisper.py\n\n0:58\n\n[&gt;\n\n© 20 tl 123 OQ 768 il 118K nN\n\nRowan Cheung @ ®) @rowancheung - Jan 11\n\nof 2024 - Peach Fuzz.\n€ Promoted by Motorola India\n\nTrending in India\n#justiceforblinkitworkers\n6,039 posts\n\nEntertainment - Trending\n#RadhikaApte\n\n1,723 posts\n\nEntertainment - Trending\n\nFamily Audience\nA8K posts\n\nShow more\n\nWho to follow\nMufaddal Vohra @\n@mufaddal vohra\n\n% Johns. @\nVY @CricCrazyJohns\n\nf Geology Page\nOpenAl's GPT Store is h"</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="11">
+<div id="cell-19" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -552,7 +528,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Alternative prompt. You can play with your own prompting based on your domain of interest.</p>
-<div class="cell" data-execution_count="12">
+<div id="cell-21" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">You are a skilled assistant tasked with transforming social media text obtained through OCR into a news article centered around OpenAI. Your sources include content from Twitter, Reddit, and the OpenAI community. Structure your article with a compelling headline and body text.</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -569,7 +545,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 <section id="news-curation" class="level1">
 <h1>News Curation</h1>
-<div class="cell" data-execution_count="13">
+<div id="cell-23" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
@@ -581,7 +557,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>openai.api_key <span class="op">=</span> OPENAI_API_KEY</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> OpenAI()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="14">
+<div id="cell-24" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  model<span class="op">=</span><span class="st">"gpt-4-1106-preview"</span>,</span>
@@ -593,11 +569,11 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  seed<span class="op">=</span><span class="dv">1</span></span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="15">
+<div id="cell-25" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#display markdown</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Markdown, display</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>display(Markdown(response.choices[<span class="dv">0</span>].message.content))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="openais-rapid-advancements-and-community-buzz-a-glimpse-into-the-future-of-ai" class="level1 cell-output cell-output-display">
+<section id="openais-rapid-advancements-and-community-buzz-a-glimpse-into-the-future-of-ai" class="level1 cell-output cell-output-display cell-output-markdown">
 <h1>OpenAI’s Rapid Advancements and Community Buzz: A Glimpse into the Future of AI</h1>
 <p>OpenAI, the artificial intelligence research lab known for its groundbreaking work in the field of AI, has been making waves across social media platforms and online communities. From Twitter to Reddit, users are actively discussing the latest updates, sharing insights, and expressing their opinions on OpenAI’s projects and initiatives. This article delves into the recent buzz surrounding OpenAI, highlighting interesting projects and community reactions.</p>
 <section id="interesting-projects" class="level2">
@@ -653,13 +629,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </section>
 </div>
 <p>We are planning to develop a system that performs several tasks. First, it will convert text into audio using a text-to-speech library. Then, it will leverage the OpenAI Assistants API to call functions that interact with the audio. Additionally, we will use a code interpreter to transform news text into a Word document. Finally, we will utilize the Telegram API to distribute the news via Telegram.</p>
-<div class="cell" data-execution_count="16">
+<div id="cell-27" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>news_content <span class="op">=</span> response.choices[<span class="dv">0</span>].message.content</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="creating-text-to-speech" class="level1">
 <h1>Creating Text to Speech</h1>
-<div class="cell" data-execution_count="17">
+<div id="cell-29" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> export_audio(output_file_path):</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Converts given text to speech and saves the output as an audio file.</span></span>
@@ -683,11 +659,11 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    response.stream_to_file(output_file_path)</span>
 <span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="18">
+<div id="cell-30" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nest_asyncio</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>nest_asyncio.<span class="bu">apply</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="19">
+<div id="cell-31" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> telegram <span class="im">import</span> Bot</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> telegram.error <span class="im">import</span> TelegramError</span>
@@ -712,7 +688,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> TelegramError <span class="im">as</span> e:</span>
 <span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Failed to send Telegram PDF: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="20">
+<div id="cell-32" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> aiohttp</span>
@@ -779,7 +755,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>In <code>send_telegram_audio</code>, we’re opening the audio file in read-binary mode and using the <code>send_audio</code> method of the <code>Bot</code> class to send it to the specified chat. We’re setting a title for the audio file as well. If the file is sent successfully, the bot prints a confirmation message. If there’s an error, like a network issue or if the file doesn’t exist, the bot catches the <code>TelegramError</code> exception and prints an error message.</p>
 <p>The <code>send_pdf</code> function works similarly, but it uses the <code>send_document</code> method to send a PDF file. Again, if the file is sent successfully, the bot prints a confirmation message, and if there’s an error, it prints an error message.</p>
 <p>This code is a simple yet powerful example of how bots can automate the process of sending files over Telegram, making it easier to distribute content like audio messages or documents to users or groups.</p>
-<div class="cell" data-execution_count="21">
+<div id="cell-34" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install duckduckgo-search</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -788,7 +764,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>Thanks Meri Nova for the idea on extracting url for the news. This is a very useful feature for the news curation.</p>
 <p><img src="twitter_search.png" width="60%"></p>
 <p>Extracting URLs from screenshots, especially when they are not fully visible on social media feeds, can be quite challenging. A potential solution to this problem is to leverage DuckDuckGo’s News API to search for the content and extract the URL. In this blog post, I will guide you through creating a simple function that accepts a search query and returns the top URL from the search results.</p>
-<div class="cell" data-execution_count="22">
+<div id="cell-38" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> duckduckgo_search <span class="im">import</span> DDGS</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> DDGS() <span class="im">as</span> ddgs:</span>
@@ -797,7 +773,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    ddgs_news <span class="op">=</span> <span class="bu">list</span>(ddgs_news_gen)</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="23">
+<div id="cell-39" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ddgs_news[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>{'date': '2024-01-12T20:32:09+00:00',
@@ -808,7 +784,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
  'source': 'Seeking Alpha on MSN.com'}</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="24">
+<div id="cell-40" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> duckduckgo_search <span class="im">import</span> DDGS</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_ddg_news_urls(keywords):</span>
@@ -836,7 +812,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <section id="openai-assistants-api" class="level1">
 <h1>OpenAI Assistants API</h1>
 <p>Now, we have all the functionalities we need to build our news curation system. We can use the OpenAI Assistants API to create a personalized chatbot that will interact with the user and provide customized content. We use function calling to find url for a news chunk. We can also use the code interpreter to transform news text into a Word document. Finally, we can use the Telegram API to distribute the news via Telegram.</p>
-<div class="cell" data-execution_count="25">
+<div id="cell-43" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>news_content</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>'# OpenAI\'s Rapid Advancements and Community Buzz: A Glimpse into the Future of AI\n\nOpenAI, the artificial intelligence research lab known for its groundbreaking work in the field of AI, has been making waves across social media platforms and online communities. From Twitter to Reddit, users are actively discussing the latest updates, sharing insights, and expressing their opinions on OpenAI\'s projects and initiatives. This article delves into the recent buzz surrounding OpenAI, highlighting interesting projects and community reactions.\n\n## Interesting Projects\n\n### Whisper\'s Performance Leap\nOne of the notable advancements that caught the attention of the AI community is the improvement in OpenAI\'s Whisper model. Whisper, known for its robust speech-to-text capabilities, has seen a significant boost in performance with the introduction of Speculative Decoding. The processing time for transcribing audio has been nearly halved from 73 seconds to 33 seconds without any drop in accuracy. This enhancement is a testament to OpenAI\'s commitment to pushing the boundaries of AI efficiency.\n\n### GPT Store and Custom GPTs\nOpenAI\'s GPT Store has been a hot topic, especially with the introduction of actions to custom GPTs. While some users have expressed concerns about the utility of most GPTs available in the store, others have shared advanced tutorials on how to improve GPTs by incorporating actions. This feature allows developers to rank higher and potentially monetize their custom GPTs, adding a new dimension to AI\'s commercial viability.\n\n### AI Hardware Innovations\nThe AI hardware space is also experiencing disruption, with companies like Humane raising significant funds and OpenAI reportedly raising $1 billion for the development of the "aiPhone." These developments indicate a shift towards AI-integrated devices that could redefine user interactions with technology.\n\n### AI and Copyrighted Material\nA contentious issue that has emerged is the use of copyrighted materials in training AI models. OpenAI has acknowledged the challenge of creating effective AI tools like ChatGPT without such materials. This has sparked a debate on the ethical and legal implications of AI development, with calls for proper consent and compensation for copyright holders.\n\n### OpenAI\'s Diverse Team\nOpenAI\'s diverse team composition has also been a subject of discussion, with the bulk of the team being in their 30s, 40s, and 50s. This diversity is seen as a strength, bringing a wealth of experience and perspectives to the organization\'s mission of ensuring that artificial general intelligence benefits all of humanity.\n\n## Community Reactions\n\n### GPT-4 Usage Caps and DALL-E Output\nOn platforms like Reddit, users have been vocal about their experiences with OpenAI\'s services. Some have noticed tighter usage caps on ChatGPT-4, leading to quicker exhaustion of their allocated resources. Others have inquired about the impact of GPT Plus subscriptions on the speed and quality of DALL-E outputs.\n\n### Implementing RAG on Document Corpora\nThe community has also been seeking best practices for implementing Retrieval-Augmented Generation (RAG) on document corpora with wide-ranging topics. This highlights the growing interest in leveraging OpenAI\'s models for complex information retrieval tasks.\n\n### GPT Store\'s Selection Process\nCriticism has been directed at the GPT Store\'s selection process, with some users pointing out a lack of vision in featuring unique and useful GPTs. The community has called for a more thoughtful curation process that prioritizes quality and utility over quantity.\n\n### GPT Auth - Authentication for Custom GPTs\nAn interesting project shared by a community member is GPT Auth, which provides authentication and analytics for custom GPTs. This tool aims to help developers track users and queries, ensuring better management of their AI services.\n\n### ChatGPT, GPT-4, and Assistant API Distinctions\nThere\'s a growing curiosity about the differences between ChatGPT, GPT-4, and the Assistant API. While GPT-4 is the core language model, ChatGPT and the Assistant API are seen as specialized workflows built around it, each with its unique capabilities and use cases.\n\n## Conclusion\n\nOpenAI continues to be at the forefront of AI research and development, with its projects and updates sparking lively discussions and debates within the tech community. From performance improvements in models like Whisper to the ethical considerations of using copyrighted materials, OpenAI\'s work is shaping the future of AI and its integration into our daily lives. As the community engages with these advancements, it\'s clear that OpenAI\'s mission to benefit all of humanity through AI is a journey that many are keen to be a part of.'</code></pre>
@@ -844,7 +820,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </div>
 <p>We plan to use a few functions and code interpreter as a tools in our assistant.</p>
 <p>So Let’s start with defining JSONs so that our assistant can ask us to call these functions providing arguments.</p>
-<div class="cell" data-execution_count="26">
+<div id="cell-45" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tts_json <span class="op">=</span> {</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"type"</span>: <span class="st">"function"</span>,</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"function"</span>: {</span>
@@ -863,7 +839,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="27">
+<div id="cell-46" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>telegram_audio_json <span class="op">=</span> {</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"type"</span>: <span class="st">"function"</span>,</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"function"</span>: {</span>
@@ -883,7 +859,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="28">
+<div id="cell-47" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>telegram_document_json <span class="op">=</span> {</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"type"</span>: <span class="st">"function"</span>,</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"function"</span>: {</span>
@@ -902,7 +878,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="29">
+<div id="cell-48" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ddg_search_json <span class="op">=</span> {</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"type"</span>: <span class="st">"function"</span>,</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"function"</span>: {</span>
@@ -921,7 +897,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="30">
+<div id="cell-49" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>available_functions <span class="op">=</span> {</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"export_audio"</span>: export_audio,</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"send_telegram_audio"</span>: send_telegram_audio,</span>
@@ -929,7 +905,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"get_ddg_news_urls"</span>: get_ddg_news_urls</span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="31">
+<div id="cell-50" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>tools <span class="op">=</span> [</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    tts_json,</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    telegram_audio_json,</span>
@@ -938,7 +914,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"type"</span>:<span class="st">"code_interpreter"</span>}</span>
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="32">
+<div id="cell-51" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>assistant_instructions <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="st">You are an News assistant tasked with creating word document, finding url for each news message, </span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="st">calling relevant functions to send files to telegram.</span></span>
@@ -958,7 +934,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="st">Then add this in the news documents as read more link.</span></span>
 <span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="33">
+<div id="cell-52" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> OpenAI()</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -974,7 +950,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <pre><code>Assistant(id='asst_3DC1J7HuUMQmf4sj5PL9a2pz', created_at=1705168872, description='News assistant that summarizes social media content about OpenAI.', file_ids=[], instructions='\nYou are an News assistant tasked with creating word document, finding url for each news message, \ncalling relevant functions to send files to telegram.\n\nThe news is curated from different social media platforms\n\nFor audio file names and document file names, use the following format:\nnews.mp3\nnews.docx\n\nFor creating word document, use code interpreter. Include all the details from the news along with their urls.\n\nI am saving in the current folder, so do not need to specify the path, just the file name.\n\nFor finding url, just find one url for each news message and store it in a list.\n\nThen add this in the news documents as read more link.\n', metadata={}, model='gpt-4-1106-preview', name='News Curator', object='assistant', tools=[ToolFunction(function=FunctionDefinition(name='export_audio', description='Converts given text to speech and saves the output as an audio file.', parameters={'type': 'object', 'properties': {'output_file_path': {'type': 'string', 'description': 'The file path where the audio output will be saved.'}}, 'required': ['output_file_path']}), type='function'), ToolFunction(function=FunctionDefinition(name='send_telegram_audio', description='Sends an audio file to a Telegram chat.', parameters={'type': 'object', 'properties': {'audio_file_path': {'type': 'string', 'description': 'Path of the audio file to send.'}}, 'required': ['audio_file_path']}), type='function'), ToolFunction(function=FunctionDefinition(name='send_telegram_document', description='Sends a document (e.g., Word file) to a Telegram chat.', parameters={'type': 'object', 'properties': {'word_file_path': {'type': 'string', 'description': 'Path of the Word file to send.'}}, 'required': ['word_file_path']}), type='function'), ToolFunction(function=FunctionDefinition(name='get_ddg_news_urls', description='Searches for news on DuckDuckGo and returns a list of URLs.', parameters={'type': 'object', 'properties': {'keywords': {'type': 'string', 'description': 'Search keywords.'}}, 'required': ['keywords']}), type='function'), ToolCodeInterpreter(type='code_interpreter')])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="34">
+<div id="cell-53" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_assistant(assistant_id, thread_id):</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    run <span class="op">=</span> client.beta.threads.runs.create(</span>
@@ -1022,10 +998,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a>    color_style <span class="op">=</span> <span class="ss">f"&lt;span style='color: </span><span class="sc">{</span>color<span class="sc">}</span><span class="ss">;'&gt;</span><span class="sc">{</span>text<span class="sc">}</span><span class="ss">&lt;/span&gt;"</span></span>
 <span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a>    display(Markdown(color_style))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="35">
+<div id="cell-54" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>thread <span class="op">=</span> client.beta.threads.create()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="36">
+<div id="cell-55" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>news_shot <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="st">News chunk: </span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="st">GPT Store: A Hub for Custom AI Solutions</span></span>
@@ -1040,7 +1016,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="37">
+<div id="cell-56" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.beta.threads.messages.create(</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    thread_id<span class="op">=</span>thread.<span class="bu">id</span>,</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    role<span class="op">=</span><span class="st">"user"</span>,</span>
@@ -1060,75 +1036,75 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="38">
+<div id="cell-57" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>messages <span class="op">=</span> run_assistant(news_assistant.<span class="bu">id</span>, thread.<span class="bu">id</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> requires_action</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘Whisper OpenAI Speculative Decoding’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘GPT Store Custom GPTs’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘AI Hardware Innovations aiPhone’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘OpenAI Copyrighted Material Training AI’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘OpenAI Team Diversity’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘GPT-4 Usage Caps DALL-E Output’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘OpenAI Retrieval-Augmented Generation RAG Document Corpora’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘GPT Store Selection Process’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘GPT Auth Custom GPTs’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function get_ddg_news_urls with arguments {‘keywords’: ‘ChatGPT GPT-4 Assistant API differences’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> completed</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: green;">I have found URLs for each of the specified news chunks. Here they are:</span></p>
 <ol type="1">
 <li>Whisper OpenAI Speculative Decoding - <a href="https://www.geeky-gadgets.com/speculative-decoding-what-is-it-and-why-does-it-matter/">Read more</a></li>
@@ -1148,7 +1124,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="message-2-create-a-word-document">Message 2: Create a word document</h2>
 <p>I am creating one more assistant specialised in creating word documents.</p>
 <p>The main reason is, I tried to use the same previous assistant to create word document, but it did not return any file in the annotations.</p>
-<div class="cell" data-execution_count="39">
+<div id="cell-60" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>assistant_doc <span class="op">=</span> client.beta.assistants.create(</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"News Word Document Creater Assistant"</span>,</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    instructions<span class="op">=</span><span class="st">"""You are a helpful assistant that creates word document with the full news along with their urls for read more</span></span>
@@ -1159,7 +1135,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="40">
+<div id="cell-61" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># new message</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.beta.threads.messages.create(</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    thread_id<span class="op">=</span>thread.<span class="bu">id</span>,</span>
@@ -1167,68 +1143,68 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    content<span class="op">=</span><span class="st">"Create a word document with the news content and their urls. Save the file as news.docx"</span></span>
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="41">
+<div id="cell-62" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>messages <span class="op">=</span> run_assistant(assistant_doc.<span class="bu">id</span>, thread.<span class="bu">id</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> completed</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: green;">The news content has been compiled into a Word document, and the file <code>news.docx</code> has been saved. You can download it from the link below:</span></p>
 <p><a href="sandbox:/mnt/data/news.docx">Download news.docx</a></p>
 </div>
 </div>
-<div class="cell" data-execution_count="42">
+<div id="cell-63" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>file_id <span class="op">=</span> messages.data[<span class="dv">0</span>].content[<span class="dv">0</span>].text.annotations[<span class="dv">0</span>].file_path.file_id</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="43">
+<div id="cell-64" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_file_to_temp_dir(file_id, output_path):</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    file_data <span class="op">=</span> openai.files.content(file_id)</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    file_data_bytes <span class="op">=</span> file_data.read()</span>
@@ -1248,7 +1224,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <section id="message-3-send-telegram-message" class="level1">
 <h1>Message 3: Send Telegram Message</h1>
 <p>Sending the audio file and the news document to the telegram message.</p>
-<div class="cell" data-execution_count="44">
+<div id="cell-69" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># new message</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> client.beta.threads.messages.create(</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    thread_id<span class="op">=</span>thread.<span class="bu">id</span>,</span>
@@ -1256,27 +1232,27 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    content<span class="op">=</span><span class="ss">f"news document is saved as </span><span class="sc">{</span>news_file<span class="sc">}</span><span class="ss">, now send both the audio file and the document file to telegram. Both the files are already saved in the current folder."</span></span>
 <span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="45">
+<div id="cell-70" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>messages <span class="op">=</span> run_assistant(news_assistant.<span class="bu">id</span>, thread.<span class="bu">id</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> requires_action</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function send_telegram_audio with arguments {‘audio_file_path’: ‘news.mp3’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: red;">Now calling function send_telegram_document with arguments {‘word_file_path’: ‘news.docx’}</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> in_progress</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: blue;"><strong>Status:</strong> completed</span></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="color: green;">Both the audio file <code>news.mp3</code> and the document <code>news.docx</code> have been sent to Telegram successfully.</span></p>
 </div>
 </div>
@@ -1285,17 +1261,9 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <p>I hope you enjoyed the project. Please Follow me on <a href="https://twitter.com/arunprakashml" target="_blank">Twitter</a> or <a href="https://www.linkedin.com/in/arunprakashtce/" target="_blank">LinkedIn</a> for more interesting projects and updates.</p>
 
 
-
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1375,10 +1343,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/arunprakash\.ai");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1388,8 +1373,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1401,7 +1395,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1445,6 +1562,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1470,6 +1588,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1530,6 +1674,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

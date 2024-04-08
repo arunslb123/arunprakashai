@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,15 +60,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -84,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -93,39 +97,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: [],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
 
 <script type="text/javascript">
@@ -136,17 +113,15 @@ gtag('js', new Date());
 gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
-<link rel="alternate" type="application/rss+xml" title="Explained Intuitively" href="podcast_analysis.xml"><meta property="og:title" content="Explained Intuitively - Book Recommendations, Interesting Advices, Career Tips from Dwarkesh Patel’s Podcasts using Anthropic’s Claude 3 API">
+<meta property="og:title" content="Explained Intuitively - Book Recommendations, Interesting Advices, Career Tips from Dwarkesh Patel’s Podcasts using Anthropic’s Claude 3 API">
 <meta property="og:description" content="Discover the most recommended books and intriguing ideas from Dwarkesh Patel’s podcast guests. This project analyzes 63 podcast transcripts using Anthropic’s Claude 3 API, visualizes key metrics, and estimates the total cost based on token usage.">
 <meta property="og:image" content="https://arunprakash.ai/posts/dwarkesh-patel-anthropic-claude3-opus-python/maxresdefault.jpg">
-<meta property="og:site-name" content="Explained Intuitively">
+<meta property="og:site_name" content="Explained Intuitively">
 <meta name="twitter:title" content="Explained Intuitively - Book Recommendations, Interesting Advices, Career Tips from Dwarkesh Patel’s Podcasts using Anthropic’s Claude 3 API">
 <meta name="twitter:description" content="Discover the most recommended books and intriguing ideas from Dwarkesh Patel’s podcast guests. This project analyzes 63 podcast transcripts using Anthropic’s Claude 3 API, visualizes key metrics, and estimates the total cost based on token usage.">
 <meta name="twitter:image" content="https://arunprakash.ai/posts/dwarkesh-patel-anthropic-claude3-opus-python/maxresdefault.jpg">
@@ -157,10 +132,10 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Explained Intuitively</span>
     </a>
@@ -172,23 +147,23 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arunslb123" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/arunslb123"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/arunprakashml" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/arunprakashml"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -212,7 +187,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-right">
 
       <div>
       <div class="quarto-title-meta-heading">Author</div>
@@ -234,7 +209,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -245,12 +220,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
   </ul>
 </nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+
 
 
 
@@ -265,7 +241,7 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <li>Estimated the total cost of the project based on Anthropic’s Cluade 3 Opus pricing for input and output tokens</li>
 <li>Extracted and summarized the top books and ideas discussed across all the podcasts analyzed</li>
 </ul>
-<div class="cell" data-execution_count="42">
+<div id="cell-2" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -273,12 +249,13 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="43">
+<div id="cell-3" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"podcast_analysis.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="44">
+<div id="cell-4" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="44">
+<div>
 <div>
 
 
@@ -370,7 +347,8 @@ gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="45">
+</div>
+<div id="cell-5" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># overall processing time, total input tokens, total output token, number of podcast</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Overall Processing Time in Minutes: "</span>, df[<span class="st">'Processing Time (s)'</span>].<span class="bu">sum</span>()<span class="op">/</span><span class="dv">60</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Overall Input Tokens: "</span>, df[<span class="st">'Input Tokens'</span>].<span class="bu">sum</span>())</span>
@@ -395,7 +373,7 @@ Overall Input Token Cost:  22.15908
 Overall Output Token Cost:  1.5699750000000001</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="46">
+<div id="cell-6" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -417,12 +395,12 @@ dtypes: float64(2), int64(5), object(3)
 memory usage: 5.1+ KB</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="47">
+<div id="cell-7" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"date_published"</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">"date_published"</span>])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'date_published'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="48">
+<div id="cell-8" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Duration distribution</span></span>
@@ -441,13 +419,21 @@ memory usage: 5.1+ KB</code></pre>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Word Count vs Duration'</span>)</span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="podcast_analysis_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="podcast_analysis_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="podcast_analysis_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="podcast_analysis_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="26">
+</div>
+<div id="cell-9" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 1: Processing Time vs Word Count</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(df[<span class="st">'Word Count'</span>], df[<span class="st">'Processing Time (s)'</span>])</span>
@@ -481,22 +467,38 @@ memory usage: 5.1+ KB</code></pre>
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Correlation Heatmap'</span>)</span>
 <span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="podcast_analysis_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="podcast_analysis_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="podcast_analysis_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="podcast_analysis_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="podcast_analysis_files/figure-html/cell-9-output-3.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="podcast_analysis_files/figure-html/cell-9-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="podcast_analysis_files/figure-html/cell-9-output-4.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="podcast_analysis_files/figure-html/cell-9-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="download-youtube-video-transcripts" class="level1">
 <h1>Download Youtube Video Transcripts</h1>
-<div class="cell" data-execution_count="4">
+<div id="cell-11" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pytube <span class="im">import</span> Playlist</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> youtube_transcript_api <span class="im">import</span> YouTubeTranscriptApi</span>
@@ -612,7 +614,7 @@ Transcript downloaded for video: Tyler Cowen - The Great Reset
 Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Education, and UBI</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="6">
+<div id="cell-12" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame.from_dict(podcast_info, orient<span class="op">=</span><span class="st">'index'</span>)</span>
@@ -621,6 +623,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"duration_in_minute"</span>] <span class="op">=</span> df[<span class="st">"duration"</span>]<span class="op">/</span><span class="dv">60</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
+<div>
 <div>
 
 
@@ -719,14 +722,15 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="7">
+</div>
+<div id="cell-13" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(os.listdir(<span class="st">"podcast"</span>))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>63</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="8">
+<div id="cell-14" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
@@ -735,7 +739,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </section>
 <section id="podcast-outputs" class="level1">
 <h1>Podcast Outputs</h1>
-<div class="cell" data-execution_count="17">
+<div id="cell-16" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load API keys from .env file</span></span>
@@ -826,7 +830,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the specified tasks based on the transcript:</p>
 <p><result> 1. Anano Bhattacharya is a science writer who has worked at the Economist and Nature. He is the author of “The Man from the Future: The Visionary Life of John von Neumann”.</result></p>
 <ol start="2" type="1">
@@ -844,16 +848,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No direct discussion of the guest’s personal learning process. The guest advises against trying to emulate Von Neumann’s intense work habits and narrow focus on intellectual pursuits at the expense of personal relationships and work-life balance. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 11108</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 296</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 24.720909118652344 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 8463</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -862,7 +866,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my response based on the information provided in the transcript: <result> 1. Sholto and Trenton are AI researchers who have made important contributions in the field of AI safety and mechanistic interpretability of AI models in the early stages of their careers at Google Brain and Anthropic.</result></p>
 <ol start="2" type="1">
 <li><p>The Symbolic Species</p></li>
@@ -883,16 +887,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Sholto learns by obsessively reading papers, talking to domain experts to absorb their knowledge, and fearlessly taking on challenging research problems. He emphasizes the importance of ruthlessly prioritizing the highest-leverage problems to work on. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 46658</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 428</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 48.144148111343384 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 31262</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -901,7 +905,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my summary of the key information requested from the podcast transcript: <result> 1. Bio of the guest: Brian Potter is an engineer and the author of the construction physics blog where he writes about how the construction industry works and why it has been slow to industrialize and innovate.</result></p>
 <ol start="2" type="1">
 <li><p>Books suggested by the guest: Where’s My Flying Car?</p></li>
@@ -926,16 +930,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>Guest’s learning process: Not discussed in the transcript. </li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 34310</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 261</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 35.006452322006226 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 27475</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -944,7 +948,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is a summary of the requested information from the podcast transcript:</p>
 <p><result> 1. William MacAskill bio: William MacAskill is one of the founders of the effective altruism movement and a professor at Oxford University. He is the author of the upcoming book “What We Owe the Future”.</result></p>
 <ol start="2" type="1">
@@ -963,16 +967,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Learning process: Not directly discussed in the podcast. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 14302</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 311</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 27.399937868118286 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 11151</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -981,7 +985,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested steps based on the transcript:</p>
 <p><result> 1. Dario Amodei is the CEO of Anthropic, a company working on building safe and ethical artificial intelligence systems.</result></p>
 <ol start="2" type="1">
@@ -1002,16 +1006,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Dario learned about AI scaling laws empirically through hands-on experience and experiments early in his career at Baidu and OpenAI. He found consistent patterns that more compute, data, and model size led to smooth improvements in capabilities across many domains. Discussions with others like Ilya Sutskever further convinced him that this scaling phenomenon was a fundamental driver of AI progress. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 28815</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 328</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 33.30003094673157 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 19829</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1020,7 +1024,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my response based on the information in the transcript:</p>
 <p><result> 1. Matjaz Leonardis is a scientist who co-authored a paper with David Deutsch about the Popper-Miller theorem and its implications for induction and scientific reasoning.</result></p>
 <ol start="2" type="1">
@@ -1043,16 +1047,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>People have tremendous goodwill towards helping young people learn. The key challenge is idiosyncratically finding the right mentors and problems to work on. </li>
 </ul>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 8299</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 345</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 25.074346780776978 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 6561</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1061,7 +1065,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Bio: Nadia Asparouhova is the author of Working in Public: The Making and Maintenance of Open Source Software and she is currently researching what the new tech elite will look like.</result></p>
 <ol start="2" type="1">
@@ -1082,16 +1086,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Learning process: Talk to people - you can learn a lot more by directly talking to open source developers than speculating about what they might be thinking. Be observant and write about what you see. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 18977</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 395</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 34.19145703315735 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 12834</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1100,7 +1104,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information from the podcast transcript: <result> 1. Eliezer Yudkowsky is a prominent AI safety researcher who has been working on the problem of AI alignment for over 20 years and wrote the popular Harry Potter fanfiction “Harry Potter and the Methods of Rationality”.</result></p>
 <ol start="2" type="1">
 <li><p>Adaptation and Natural Selection</p></li>
@@ -1118,16 +1122,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Eliezer has tried to help others develop the skills needed for AI alignment research through his writing, such as the Rationality Sequences on Less Wrong and Harry Potter and the Methods of Rationality. But he believes the education system does not properly train people to do real science and revolutionary insights, which are often passed down through apprenticeship instead. Overall, he has spent many years on the problem of how to transmit the necessary skills and has not fully solved it. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 57983</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 365</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 50.36423921585083 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 38775</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1136,7 +1140,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested tasks based on the provided transcript:</p>
 <p><result> 1. Bio of the guest: Robin Hanson is an associate professor of economics at George Mason University who has written extensively on idea futures, prediction markets, and hidden motives in human behavior.</result></p>
 <ol start="2" type="1">
@@ -1157,16 +1161,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>The guest’s learning process involves moving from one interesting topic to the next as he gains key insights that change what topics seem most important and interesting to pursue. He tries to take a broad perspective to identify important areas that are neglected by others. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 24464</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 338</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 32.86100196838379 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 19118</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1175,7 +1179,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested summary of the transcript:</p>
 <p><result> 1. Bio of guest: Bethany McLean is a well-known finance and business journalist, famous for breaking the story of the Enron scandal and writing several books including “The Smartest Guys in the Room” about Enron, “All the Devils are Here” about the 2008 financial crisis, and “Saudi America” about fracking.</result></p>
 <ol start="2" type="1">
@@ -1195,16 +1199,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Guest’s learning process: Bethany says writing is a key part of her learning and thought process. Only by writing about a topic and trying to explain it clearly does she realize what she truly understands and doesn’t understand. She finds writing to be difficult but invaluable for clarifying her thinking. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 20906</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 366</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 28.6966609954834 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 16323</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1213,7 +1217,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is a summary of the key information requested from the transcript:</p>
 <p><result> 1. Caleb Watney is the director of innovation policy at the Progressive Policy Institute.</result></p>
 <ol start="2" type="1">
@@ -1233,16 +1237,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Guest’s learning process: Not directly discussed in the transcript. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 15488</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 257</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 22.48008441925049 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 12024</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1251,7 +1255,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is the information I extracted from the transcript: <result> 1. Brian Caplan is the author of “Don’t Be a Feminist: Essays on Genuine Justice” and “How Evil Are Politicians? Essays on Demagoguery”. He is a professional public speaker.</result></p>
 <ol start="2" type="1">
 <li><p>Books suggested by Brian Caplan in the podcast: Don’t Be a Feminist: Essays on Genuine Justice, How Evil Are Politicians? Essays on Demagoguery, Open Borders: The Science and Ethics of Immigration, The Case Against Education, The Rational Voter, The Russian Revolution by Richard Pipes</p></li>
@@ -1278,16 +1282,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </ul>
 <p></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 33079</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 300</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 29.67089319229126 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 26183</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1296,7 +1300,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Carl Shulman is a research associate at the Future of Humanity Institute at Oxford and an advisor to the Open Philanthropy project, one of the biggest funders on causes having to do with AI and its risks.</result></p>
 <ol start="2" type="1">
@@ -1316,16 +1320,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>[No discussion of the guest’s personal learning process was found in the transcript.] </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 32437</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 235</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 30.634654998779297 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 22553</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1334,7 +1338,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested tasks based solely on the information provided in the transcript:</p>
 <p><result> 1. Bio: Kenneth T. Jackson is the preeminent historian on New York City and was the director of the Herbert H. Lehman Center for American History and the Jacques Barzun Professor Emeritus of History at Columbia University.</result></p>
 <ol start="2" type="1">
@@ -1354,16 +1358,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 20408</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 320</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 28.263413906097412 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 13707</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1372,7 +1376,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the podcast transcript:</p>
 <p><result> 1. Grant Sanderson is a math Youtuber who creates math education videos on his channel 3Blue1Brown. He has significantly impacted math education by making math concepts more accessible through his animated videos.</result></p>
 <ol start="2" type="1">
@@ -1382,16 +1386,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Grant discussed the importance of working through calculations yourself when self-learning math, rather than just reading explanations, in order to build intuition. He also mentioned that explaining concepts well requires remembering what it was like to not understand the concept, which gets harder over time. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 24499</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 326</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 33.956478118896484 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 16911</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1400,7 +1404,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Finn Morehouse bio: Finn Morehouse is a research scholar at the Oxford University’s Future of Humanity Institute and an assistant to Toby Ord. He is also the host of the Hear This Idea podcast.</result></p>
 <ol start="2" type="1">
@@ -1431,16 +1435,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>Proactively reaching out to people he looks up to as potential mentors to learn from them </li>
 </ul>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 36900</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 389</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 41.87009596824646 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 27881</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1449,7 +1453,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the key information requested from the transcript:</p>
 <p><result></result></p>
 <ol type="1">
@@ -1471,16 +1475,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </ol>
 <p></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 14848</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 336</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 28.60408091545105 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 11490</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1489,7 +1493,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is the response based on the transcript: <result> 1. Bio: Scott Aaronson is a Professor of Computer Science at the University of Texas at Austin. He received his PhD at age 22 and is known for his work in quantum computing and complexity theory.</result></p>
 <ol start="2" type="1">
 <li><p>Books suggested: The Fabric of Reality by David Deutsch</p></li>
@@ -1507,16 +1511,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Learning process: Scott learned by taking advanced courses early on in college. He would read new quantum computing papers every day, flag interesting ones to read, and reach out to the authors with questions and ideas. He expanded his expertise by starting narrow and gradually broadening. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 19530</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 354</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 32.598668813705444 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 15147</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1525,7 +1529,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested steps based on the transcript:</p>
 <p><result> 1. Demis Hassabis is the CEO and co-founder of DeepMind, an artificial intelligence company. He has a background in neuroscience and has been working on and thinking about artificial general intelligence (AGI) for over 30 years.</result></p>
 <ol start="2" type="1">
@@ -1544,16 +1548,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>[The guest did not discuss his personal learning process in this podcast.] </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 17087</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 303</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 27.64421510696411 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 11395</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1562,7 +1566,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information from the transcript: <result> 1. Tyler Cowen is an economist, blogger, and author. He is a professor at George Mason University and runs the blog Marginal Revolution.</result></p>
 <ol start="2" type="1">
 <li><p>Books mentioned: Cowen’s book “How to Pay for the War” from 1940.</p></li>
@@ -1581,16 +1585,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No clear information provided about Tyler Cowen’s personal learning process. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 28844</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 243</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 30.989137172698975 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 18829</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1599,7 +1603,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested tasks based solely on the information in the transcript:</p>
 <p><result> 1. Nat Friedman was the CEO of GitHub from 2018 to 2021. Before that, he started and sold two companies, Ximian and Xamarin, and he is also the founder of AI Grant and California YIMBY.</result></p>
 <ol start="2" type="1">
@@ -1620,16 +1624,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Nat said he has a high willingness to try new things and jump into new projects impulsively. He cultivates a forward-looking view and doesn’t dwell on past accomplishments. No other explicit discussion of his learning process. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 25392</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 394</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 38.10643720626831 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 17064</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1638,7 +1642,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information from the transcript:</p>
 <p><result> 1. Bio of guest: Joe Carlsmith is a senior research analyst at Open Philanthropy and a doctoral student in philosophy at the University of Oxford. He researches existential risk from artificial intelligence and writes about philosophy, ethics, and the future on his blog Hands and Cities.</result></p>
 <ol start="2" type="1">
@@ -1657,16 +1661,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Summary of guest’s learning process: </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 23890</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 250</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 27.040849924087524 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 18522</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1675,7 +1679,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested tasks based on the podcast transcript:</p>
 <p><result> 1. Bryan Caplan is a professor of economics at George Mason University. He has written several books including Open Borders and The Case Against Education.</result></p>
 <ol start="2" type="1">
@@ -1695,16 +1699,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Learning process: No discussion of Caplan’s personal learning process was found in the transcript. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 14490</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 260</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 20.04172420501709 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 11571</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1713,7 +1717,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Dominic Cummings was the chief advisor to UK Prime Minister Boris Johnson and masterminded the Brexit campaign.</result></p>
 <ol start="2" type="1">
@@ -1737,16 +1741,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No specific discussion of Dominic’s learning process. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 37957</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 371</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 40.7433021068573 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 24862</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1755,7 +1759,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Bio: Byrne Hobart is a writer, consultant and investor who writes at diff.substack.com.</result></p>
 <ol start="2" type="1">
@@ -1787,16 +1791,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>Byrne retains knowledge through this process of connecting ideas across different sources. The more context and connections you have, the more what you learn will make sense and stick with you. </li>
 </ul>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 18651</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 424</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 36.757038831710815 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 14715</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1805,7 +1809,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Carl Shulman is a researcher who studies AI forecasting and global catastrophic risks. He has worked with Open Philanthropy on these topics.</result></p>
 <ol start="2" type="1">
@@ -1830,16 +1834,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>Trying to be exhaustive by systematically going through taxonomies of possibilities (e.g.&nbsp;reviewing global catastrophic risk scenarios across different scientific fields) </li>
 </ul>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 35371</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 352</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 39.60577988624573 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 24723</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1848,7 +1852,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the key information from the podcast transcript:</p>
 <p><result></result></p>
 <ol type="1">
@@ -1871,16 +1875,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </ol>
 <p></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 35002</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 338</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 41.73274803161621 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 27397</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1889,7 +1893,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the relevant information from the podcast transcript:</p>
 <p><result> 1. Augustine Lebron is the author of the book “The Laws of Trading: A Trader’s Guide to Better Decision Making for Everyone”. He previously worked as an engineer for 6 years before transitioning into a career in quantitative trading at Jane Street. A few years ago, he left Jane Street to start his own consulting company helping tech companies with management and hiring. Recently, he started a new company in the crypto space.</result></p>
 <ol start="2" type="1">
@@ -1907,16 +1911,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>The guest believes in being “sequentially obsessive” - spending 5-6 years getting really good at one thing, then moving on to master something else for the next 5-6 years, and so on. He finds value in developing deep expertise in a field but then cross-pollinating by learning new fields over the course of a career. This sequential excellence allows you to bring new perspectives to each new area. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 16826</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 447</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 36.44933819770813 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 13269</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1925,7 +1929,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information:</p>
 <p><result> 1. Bio: Charles Mann is the author of several books including 1491, 1493, and The Wizard and the Prophet.</result></p>
 <ol start="2" type="1">
@@ -1947,16 +1951,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No discussion of the guest’s learning process. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 22159</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 352</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 30.224998235702515 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 17181</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1965,7 +1969,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information from the transcript:</p>
 <p><result> 1. Bio of the guest: Andrew Roberts is a historian who is the author of 20 books including biographies of Churchill, Napoleon, King George, and an excellent book about World War II. He is a member of the House of Lords in the UK.</result></p>
 <ol start="2" type="1">
@@ -1986,16 +1990,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Guest’s learning process: Andrew Roberts starts work at 4am each day to get focused time before distractions, and takes a 30 minute nap every afternoon to effectively “get two days’ worth of work out of one day.” He started this habit in his early 20s. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 17445</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 400</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 30.742560148239136 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 11443</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2004,7 +2008,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my response based on the transcript:</p>
 <p><result> 1. Bio: Andy Matuschak is a researcher, engineer, and designer working on tools for thought.</result></p>
 <ol start="2" type="1">
@@ -2029,16 +2033,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>Uses spaced repetition to memorize facts that won’t come up frequently enough to be naturally reinforced </li>
 </ul>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 34417</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 311</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 36.83078932762146 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 23178</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2047,7 +2051,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Bio of guest: Stephen Gruget is the founder of Manifold Markets, a platform for user-created prediction markets. Manifold Markets has received a grant from Scott Alexander and raised a $2 million seed round.</result></p>
 <ol start="2" type="1">
@@ -2066,16 +2070,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Guest’s learning process: Stephen learned about prediction market mechanisms like Uniswap, Hanson’s logarithmic market scoring rule, and dynamic parimutuel systems mostly by reading academic papers after already coming up with related ideas from first principles thinking. He dove into the technical details as he was building Manifold Markets. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 12473</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 313</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 25.157910108566284 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 9759</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2084,7 +2088,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the key information from the podcast transcript:</p>
 <p><result> 1. Bio: Shane Legg is the founder and Chief AGI scientist at Google DeepMind.</result></p>
 <ol start="2" type="1">
@@ -2104,16 +2108,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Learning process: No discussion of Shane’s personal learning process or advice on how to learn. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 10393</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 256</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 21.963053941726685 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 6960</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2122,7 +2126,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result></result></p>
 <ol type="1">
@@ -2154,16 +2158,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </ul>
 <p></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 22189</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 479</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 38.65663528442383 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 17027</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2172,7 +2176,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Richard Rhodes is the Pulitzer Prize-winning author of The Making of the Atomic Bomb, and most recently, the author of Energy, A Human History.</result></p>
 <ol start="2" type="1">
@@ -2191,16 +2195,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No explicit discussion of Rhodes’ learning process or how he learns was found in the transcript. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 32022</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 216</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 28.844836950302124 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 22868</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2209,7 +2213,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested tasks based solely on the information provided in the transcript:</p>
 <p><result> 1. Brian Caplan is an economics professor who has written a book titled “Labor Econ Versus the World”, a collection of his essays from 2005-2022. This is the first in a planned series of eight books compiling his best blog posts from EconLog.</result></p>
 <ol start="2" type="1">
@@ -2228,16 +2232,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No discussion of the guest’s learning process or how he learns. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 17174</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 341</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 31.83338499069214 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 13481</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2246,7 +2250,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information from the transcript:</p>
 <p><result> 1. Bio of David Deutsch (the guest): David Deutsch is a physicist and philosopher who proposed the “Deutsch’s Algorithm” in quantum computing. He is the author of the book “The Fabric of Reality”.</result></p>
 <ol start="2" type="1">
@@ -2266,16 +2270,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No substantive discussion of the guest’s personal learning process or how he learns. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 16416</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 248</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 21.287183046340942 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 12529</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2284,7 +2288,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information from the transcript:</p>
 <p><result> 1. Holden Karnofsky is the co-CEO of Open Philanthropy. He originally co-founded the organization GiveWell to help people decide where to give to charity most effectively.</result></p>
 <ol start="2" type="1">
@@ -2304,16 +2308,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No explicit discussion of Holden’s personal learning process. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 34407</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 370</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 39.61585807800293 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 23822</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2322,7 +2326,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the key information requested from the transcript:</p>
 <p><result></result></p>
 <ol type="1">
@@ -2342,16 +2346,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </ol>
 <p></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 27870</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 250</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 29.887240886688232 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 20715</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2360,7 +2364,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Ilya Sutskever is the Co-founder and Chief Scientist of OpenAI.</result></p>
 <ol start="2" type="1">
@@ -2380,16 +2384,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>The guest said he tries really hard and gives his work everything he’s got, which has worked for him so far. He implied perseverance is necessary but not sufficient for success as a researcher. Having the right way of looking at things is also important. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 11888</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 316</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 27.0299551486969 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 7782</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2398,7 +2402,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Marc Andreessen is the co-founder of the venture capital firm Andreessen Horowitz (also known as a16z).</result></p>
 <ol start="2" type="1">
@@ -2420,16 +2424,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No substantive discussion of Marc Andreessen’s personal learning process. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 21751</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 318</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 32.03044891357422 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 14552</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2438,7 +2442,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result></result></p>
 <ol type="1">
@@ -2462,16 +2466,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </ol>
 <p></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 35891</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 350</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 38.08158898353577 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 28548</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2480,7 +2484,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested tasks:</p>
 <p><result></result></p>
 <ol type="1">
@@ -2501,16 +2505,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </ol>
 <p></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 59338</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 248</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 42.23641395568848 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 40944</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2519,7 +2523,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Bio: Sarah Fitzgerald is a writer, coach and speaker with a fallabilist worldview who started a journal that became Taking Children Seriously in the early 1990s. She has spoken all over the world about her educational philosophy.</result></p>
 <ol start="2" type="1">
@@ -2538,16 +2542,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Learning process: Not found in transcript </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 11888</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 268</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 22.962816953659058 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 8930</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2556,7 +2560,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information from the podcast transcript:</p>
 <p><result> 1. Byrne Hobart bio: Byrne Hobart writes at thediff.co. When the podcaster has a question about a concept or event in finance, 9 times out of 10 Byrne’s writings provide the best take on the topic.</result></p>
 <ol start="2" type="1">
@@ -2576,16 +2580,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No direct discussion of the guest’s specific learning process or how he learns. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 20238</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 406</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 33.34837627410889 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 15020</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2594,7 +2598,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the key information from the transcript:</p>
 <p><result> 1. Bio: Richard Henania is the president of the Center for the Study of Partisanship and Ideology and the author of the book “Public Choice Theory and the Illusion of Grand Strategy”.</result></p>
 <ol start="2" type="1">
@@ -2614,16 +2618,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No information about the guest’s learning process was found in the transcript. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 17346</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 286</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 30.215448141098022 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 13724</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2632,7 +2636,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the key information from the podcast transcript:</p>
 <p><result> 1. Bio of guest: Tyler Cowen is an economics professor who co-created the online educational platform Marginal Revolution University. He has authored several books including The Complacent Class and Big Business.</result></p>
 <ol start="2" type="1">
@@ -2664,16 +2668,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>He believes his learning rate has slowed down since his late 20s but is still pretty high </li>
 </ul>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 11003</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 379</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 27.943734884262085 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 8343</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2682,7 +2686,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested steps based on the transcript:</p>
 <p><result> 1. Patrick Collison is the CEO and co-founder of Stripe, a global payments company. He co-founded Arc Institute, a biomedical research organization, and was involved with Fast Grants which provided funding for COVID-19 research.</result></p>
 <ol start="2" type="1">
@@ -2702,16 +2706,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No specific discussion of Patrick’s personal learning process or how he learns. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 24019</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 259</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 31.90658402442932 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 17078</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2720,7 +2724,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information from the transcript:</p>
 <p><result> 1. Guest bio: Yung Chang is the author of Wild Swans, which has sold over 15 million copies worldwide, and a biography of Mao titled Mao: The Unknown Story. She was born in China in 1952 and grew up under Mao’s rule.</result></p>
 <ol start="2" type="1">
@@ -2739,16 +2743,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>No explicit discussion of the guest’s learning process was found in the transcript. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 15745</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 379</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 31.04735779762268 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 12351</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2757,7 +2761,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my analysis of the podcast transcript:</p>
 <p><result> 1. Guest bio: Scott Young is the author of the book Ultralearning: Accelerate Your Career, Master Hard Skills, and Outsmart the Competition. He completed the MIT challenge, attempting to learn MIT’s 4-year computer science curriculum in one year, and has done ultralearning projects learning multiple languages.</result></p>
 <ol start="2" type="1">
@@ -2776,16 +2780,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Scott’s learning process: Scott focuses more on understanding than memorization when learning, as he believes it leads to better retention and transfer to other domains. He immerses himself in a field to develop chunked patterns and an intuitive understanding. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 26208</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 414</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 36.75805592536926 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 20748</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2794,7 +2798,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the key points from the transcript:</p>
 <p><result> 1. Jason Crawford is a former startup founder who now writes at The Roots of Progress, where he researches and writes about the history of technology and industry, and the philosophy of progress. He aims to educate people on how the modern world and high standard of living was created in recent centuries through science, technology, and industry.</result></p>
 <ol start="2" type="1">
@@ -2813,16 +2817,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>The guest did not discuss his own learning process or provide advice on how to learn. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 11935</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 382</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 29.660333156585693 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 9126</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2831,7 +2835,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the requested information from the transcript:</p>
 <p><result> 1. Robert Martin is a long-time programmer who has worked in the field for around 50 years.</result></p>
 <ol start="2" type="1">
@@ -2860,16 +2864,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>The guest did not directly discuss his own learning process or techniques in this interview. </li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 9628</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 319</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 24.402140140533447 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 7366</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2878,7 +2882,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested tasks based on the transcript:</p>
 <p><result> 1. Bio: Sarah Paine is a professor of strategy and policy at the Naval War College who has written several highly regarded books on military history.</result></p>
 <ol start="2" type="1">
@@ -2913,16 +2917,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>Keeping an open mind, constantly looking for unknown unknowns, and being willing to reassess previous views </li>
 </ul>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 34304</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 519</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 46.30790305137634 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 22921</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2931,7 +2935,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Sam Bankman-Fried is the CEO of FTX, a cryptocurrency derivatives exchange. He also ran the quantitative trading firm Alameda Research.</result></p>
 <ol start="2" type="1">
@@ -2959,16 +2963,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>No significant discussion of the guest’s learning process was found in the transcript. </li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 10138</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 354</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 28.26761484146118 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 6727</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -2977,7 +2981,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested tasks based solely on the information provided in the transcript:</p>
 <p><result> 1. Garrett Jones is an economist at George Mason University and author of The Culture Transplant: How Migrants Make the Economies They Move To a Lot Like the Ones They Left, 10% Less Democracy, and Hive Mind.</result></p>
 <ol start="2" type="1">
@@ -2997,16 +3001,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </ol>
 <p></p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 17350</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 288</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 27.13167691230774 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 11534</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -3015,7 +3019,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at summarizing the key points from the transcript:</p>
 <p><result> 1. Bio of the guest: Tyler Cowen is an economist, blogger, and author who has written numerous books. He runs the Emergent Ventures grant program to fund talented individuals.</result></p>
 <ol start="2" type="1">
@@ -3050,16 +3054,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>Teaching others informally how to do things like start a podcast or write a blog to help them take risks and learn </li>
 </ul>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 24166</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 377</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 34.69293808937073 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 18758</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -3068,7 +3072,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Eliezer Yudkowsky is a philosopher and artificial intelligence researcher known for writing the book “Harry Potter and the Methods of Rationality”.</result></p>
 <ol start="2" type="1">
@@ -3088,16 +3092,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>[The transcript does not contain any substantive discussion of Eliezer Yudkowsky’s personal learning process or how he learns.] </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 21492</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 275</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 24.04459810256958 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 16625</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -3106,7 +3110,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Bio of the guest: Alexander Mikaberidze is a professor of history and the Ruth Herring Noel Endowed Chair at Louisiana State University, and the author of the book “The Napoleonic Wars: A Global History”.</result></p>
 <ol start="2" type="1">
@@ -3124,16 +3128,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Guest’s learning process: Not discussed in the transcript. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 17152</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 235</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 21.725136756896973 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 13094</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -3142,7 +3146,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt to extract the requested information from the transcript:</p>
 <p><result> 1. Alex Tabarrok is the Bartley J. Madden Chair of Economics at the Mercado Center and a professor of economics at George Mason University. He is also the co-author of the popular Marginal Revolution blog with Tyler Cowen.</result></p>
 <ol start="2" type="1">
@@ -3168,16 +3172,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>The guest did not discuss his own learning process in the transcript. </li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 19281</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 291</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 26.35242199897766 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 14865</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -3186,7 +3190,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at extracting the requested information from the transcript:</p>
 <p><result> 1. Bio: Michael Huemer is a professor of philosophy at the University of Colorado. He has written more than 70 academic articles and 8 books on epistemology, ethics, meta-ethics, metaphysics, and political philosophy.</result></p>
 <ol start="2" type="1">
@@ -3216,16 +3220,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li>The guest would probably be worse at philosophy if he had not gone through grad school training, although this could partly be a selection effect rather than just the training </li>
 </ul>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 21908</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 361</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 31.41848397254944 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 16978</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -3234,7 +3238,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at the requested information from the podcast transcript:</p>
 <p><result> 1. Bio: Dr.&nbsp;David Friedman is an economist, legal scholar, and author, most recently of the book “Legal Systems Very Different from Ours”. He is the son of Nobel Prize winning economist Milton Friedman.</result></p>
 <ol start="2" type="1">
@@ -3254,16 +3258,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Learning process: Not directly discussed, though Dr.&nbsp;Friedman reads widely, processes ideas and writes on his blog, and engages in discussion with other intellectuals online and at conferences to refine his thinking on various topics. He relies on both systematic analysis and intuition. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 18718</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 358</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 31.18577480316162 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 14668</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -3272,7 +3276,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my attempt at completing the requested tasks based on the transcript:</p>
 <p><result> 1. Steve Hsu is a theoretical physicist turned entrepreneur who founded the genomic prediction company Genomic Prediction.</result></p>
 <ol start="2" type="1">
@@ -3290,16 +3294,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>As a physicist, Hsu learned to work with messy, real-world data and deeply understand both the theoretical models and the actual data to resolve any mismatches. Physicists routinely have to deeply engage with the systems they work with. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 34431</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 277</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 34.868486166000366 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 26785</p>
 </div>
 <div class="cell-output cell-output-display">
@@ -3308,7 +3312,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <div class="cell-output cell-output-display">
 <pre><code>'****************************************************************************************************'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Here is my summary of the key information from the podcast transcript:</p>
 <p><result> 1. Bio of guest: Jimmy Soni is the author of several books including biographies of Cato, Claude Shannon, and most recently a book called The Founders about the story of PayPal and the entrepreneurs who shaped Silicon Valley.</result></p>
 <ol start="2" type="1">
@@ -3327,20 +3331,20 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <li><p>Guest’s learning process: Jimmy Soni spends years exhaustively researching a book topic, poring through historical documents and press releases to find small insights. He finds the process of making tiny discoveries that shed light on the full picture to be thrilling. He tries to approach projects by asking what writers he admires like Robert Caro would do. </p></li>
 </ol>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Input tokens: 17968</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Output tokens: 406</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Processing time: 33.922861099243164 seconds</p>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display cell-output-markdown">
 <p>Podcast Word count: 14027</p>
 </div>
 </div>
-<div class="cell" data-execution_count="18">
+<div id="cell-17" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb144"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the results dictionary to a DataFrame</span></span>
@@ -3350,6 +3354,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <span id="cb144-7"><a href="#cb144-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the DataFrame</span></span>
 <span id="cb144-8"><a href="#cb144-8" aria-hidden="true" tabindex="-1"></a>display(df_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
+<div>
 <div>
 
 
@@ -3460,7 +3465,8 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="20">
+</div>
+<div id="cell-18" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb145"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the two dataframes</span></span>
 <span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the two dataframes on the filename column</span></span>
 <span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a>merged_df <span class="op">=</span> pd.merge(df, df_stats, left_on<span class="op">=</span><span class="st">'File Name'</span>, right_index<span class="op">=</span><span class="va">True</span>)</span>
@@ -3471,6 +3477,7 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 <span id="cb145-8"><a href="#cb145-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the merged DataFrame</span></span>
 <span id="cb145-9"><a href="#cb145-9" aria-hidden="true" tabindex="-1"></a>display(merged_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
+<div>
 <div>
 
 
@@ -3629,23 +3636,16 @@ Transcript downloaded for video: Bryan Caplan - Nurturing Orphaned Ideas, Educat
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="21">
+</div>
+<div id="cell-19" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb146"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>merged_df.to_csv(<span class="st">"podcast_analysis.csv"</span>)</span>
 <span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -3725,10 +3725,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/arunprakash\.ai");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -3738,8 +3755,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -3751,7 +3777,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -3795,6 +3944,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -3820,6 +3970,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -3880,6 +4056,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
