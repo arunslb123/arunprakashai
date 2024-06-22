@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Arun Prakash">
+<meta name="dcterms.date" content="2024-06-22">
+<meta name="description" content="Explore how to create an intelligent stock analysis assistant using Python, the Anthropic API, and financial libraries. This project fetches real-time stock data, visualizes trends, analyzes performance, gathers relevant news, and provides AI-powered insights and short-term price predictions.">
+
+<title>Explained Intuitively - Building a Smart Stock Market Analyzer with Anthropic Claude 3.5</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Explained Intuitively - Building a Smart Stock Market Analyzer with Anthropic Claude 3.5">
+<meta property="og:description" content="Explore how to create an intelligent stock analysis assistant using Python, the Anthropic API, and financial libraries. This project fetches real-time stock data, visualizes trends, analyzes performance, gathers relevant news, and provides AI-powered insights and short-term price predictions.">
+<meta property="og:image" content="https://arunprakash.ai/posts/anthropic-sonnet3_5_tools/stock.webp">
+<meta property="og:site_name" content="Explained Intuitively">
+<meta name="twitter:title" content="Explained Intuitively - Building a Smart Stock Market Analyzer with Anthropic Claude 3.5">
+<meta name="twitter:description" content="Explore how to create an intelligent stock analysis assistant using Python, the Anthropic API, and financial libraries. This project fetches real-time stock data, visualizes trends, analyzes performance, gathers relevant news, and provides AI-powered insights and short-term price predictions.">
+<meta name="twitter:image" content="https://arunprakash.ai/posts/anthropic-sonnet3_5_tools/stock.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://arunprakash.ai/posts/anthropic-sonnet3_5_tools/tool_usage.html" />
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Explained Intuitively</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/arunslb123"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/arunprakashml"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-right">
+      <h1 class="title">Building a Smart Stock Market Analyzer with Anthropic Claude 3.5</h1>
+                  <div>
+        <div class="description">
+          Explore how to create an intelligent stock analysis assistant using Python, the Anthropic API, and financial libraries. This project fetches real-time stock data, visualizes trends, analyzes performance, gathers relevant news, and provides AI-powered insights and short-term price predictions.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">claude3</div>
+                <div class="quarto-category">genai</div>
+                <div class="quarto-category">finance</div>
+                <div class="quarto-category">sonnet</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-right">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Arun Prakash </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 22, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#building-a-smart-stock-market-analyzer-with-anthropic-sonnet-3.5" id="toc-building-a-smart-stock-market-analyzer-with-anthropic-sonnet-3.5" class="nav-link active" data-scroll-target="#building-a-smart-stock-market-analyzer-with-anthropic-sonnet-3.5">Building a Smart Stock Market Analyzer with Anthropic Sonnet 3.5</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+
+
+
+
+
+<section id="building-a-smart-stock-market-analyzer-with-anthropic-sonnet-3.5" class="level1">
+<h1>Building a Smart Stock Market Analyzer with Anthropic Sonnet 3.5</h1>
+<p>In today’s fast-paced financial world, staying on top of market trends and making informed investment decisions is crucial. What if we could harness the power of artificial intelligence to analyze stocks, provide insights, and even predict future prices? That’s exactly what we’re going to explore in this exciting project!</p>
+<p>We’re building a smart stock market analyzer that combines the analytical prowess of Claude AI with real-time financial data and news. This powerful tool will:</p>
+<ol type="1">
+<li>Fetch and visualize historical stock data</li>
+<li>Analyze stock performance trends</li>
+<li>Gather relevant news articles</li>
+<li>Provide AI-powered insights and short-term price predictions</li>
+</ol>
+<p>Let’s dive into the code and see how we can create this intelligent stock analysis assistant using Python, the Anthropic API, and some handy financial libraries.</p>
+<div id="cell-2" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> base64</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> duckduckgo_search <span class="im">import</span> DDGS</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the Anthropic client</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> anthropic.Anthropic()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-3" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>True</code></pre>
+</div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tools <span class="op">=</span> [</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"name"</span>: <span class="st">"get_stock_price"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"description"</span>: <span class="st">"Retrieves the current stock price for a given ticker symbol."</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_schema"</span>: {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"properties"</span>: {</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                <span class="st">"ticker"</span>: {</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"description"</span>: <span class="st">"The stock ticker symbol, e.g., AAPL for Apple Inc."</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            },</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required"</span>: [<span class="st">"ticker"</span>]</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"name"</span>: <span class="st">"get_news_summary"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"description"</span>: <span class="st">"Searches for news using DuckDuckGo and returns a formatted string of news articles."</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_schema"</span>: {</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"properties"</span>: {</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                <span class="st">"keywords"</span>: {</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"description"</span>: <span class="st">"Keywords to search for news, e.g., 'Apple Inc technology'."</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            },</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required"</span>: [<span class="st">"keywords"</span>]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-5" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_stock_data(ticker, days<span class="op">=</span><span class="dv">90</span>):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Retrieves historical stock data."""</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    end_date <span class="op">=</span> datetime.now()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    start_date <span class="op">=</span> end_date <span class="op">-</span> timedelta(days<span class="op">=</span>days)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    stock_data <span class="op">=</span> yf.download(ticker, start<span class="op">=</span>start_date, end<span class="op">=</span>end_date)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> stock_data.empty:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"No data found for stock code: </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> stock_data</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_stock_graph(stock_data, ticker):</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Plots and saves a stock price graph."""</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    plt.plot(stock_data.index, stock_data[<span class="st">'Close'</span>], label<span class="op">=</span><span class="st">'Closing Price'</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"</span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss"> Stock Price - Last </span><span class="sc">{</span><span class="bu">len</span>(stock_data)<span class="sc">}</span><span class="ss"> Days"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Date"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Price (USD)"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss">_stock_graph.png"</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    plt.savefig(filename)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    plt.close()</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> filename</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-6" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_news_summary(keywords, max_results<span class="op">=</span><span class="dv">10</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Searches for news articles using DuckDuckGo and displays them as a dataframe."""</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> DDGS() <span class="im">as</span> ddgs:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        news_gen <span class="op">=</span> ddgs.news(keywords, region<span class="op">=</span><span class="st">"wt-wt"</span>, safesearch<span class="op">=</span><span class="st">"off"</span>, timelimit<span class="op">=</span><span class="st">"w"</span>, max_results<span class="op">=</span>max_results)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        news_articles <span class="op">=</span> <span class="bu">list</span>(news_gen)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a DataFrame</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(news_articles)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Function to create HTML for image display</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> image_html(url):</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f'&lt;img src="</span><span class="sc">{</span>url<span class="sc">}</span><span class="ss">" style="max-width:100px; max-height:100px;"&gt;'</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Apply the function to the 'image' column</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'image'</span>] <span class="op">=</span> df[<span class="st">'image'</span>].<span class="bu">apply</span>(image_html)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Select and reorder columns</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[[<span class="st">'date'</span>, <span class="st">'image'</span>, <span class="st">'title'</span>, <span class="st">'source'</span>, <span class="st">'body'</span>]]</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Display the DataFrame</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    display(HTML(df.to_html(escape<span class="op">=</span><span class="va">False</span>)))</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create summary string</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    summary <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, article <span class="kw">in</span> df.iterrows():</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        summary <span class="op">+=</span> <span class="ss">f"Date: </span><span class="sc">{</span>article[<span class="st">'date'</span>]<span class="sc">}</span><span class="ch">\n</span><span class="ss">Title: </span><span class="sc">{</span>article[<span class="st">'title'</span>]<span class="sc">}</span><span class="ch">\n</span><span class="ss">Source: </span><span class="sc">{</span>article[<span class="st">'source'</span>]<span class="sc">}</span><span class="ch">\n</span><span class="ss">Summary: </span><span class="sc">{</span>article[<span class="st">'body'</span>]<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-7" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_tool_call(tool_name, tool_input):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Processes tool calls and returns the result."""</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tool_name <span class="op">==</span> <span class="st">"get_stock_price"</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        stock_data <span class="op">=</span> get_stock_data(tool_input[<span class="st">"ticker"</span>])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">isinstance</span>(stock_data, <span class="bu">str</span>):  <span class="co"># Error message</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> stock_data</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        latest_price <span class="op">=</span> stock_data[<span class="st">'Close'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"The latest closing price for </span><span class="sc">{</span>tool_input[<span class="st">'ticker'</span>]<span class="sc">}</span><span class="ss"> is $</span><span class="sc">{</span>latest_price<span class="sc">:.2f}</span><span class="ss">"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> tool_name <span class="op">==</span> <span class="st">"get_news_summary"</span>:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> get_news_summary(tool_input[<span class="st">"keywords"</span>])</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Unknown function"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-8" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-9" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyze_stock(stock_code):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Main function to analyze a stock."""</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get stock data and plot graph</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    stock_data <span class="op">=</span> get_stock_data(stock_code)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(stock_data, <span class="bu">str</span>):  <span class="co"># Error message</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> stock_data</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    graph_filename <span class="op">=</span> plot_stock_graph(stock_data, stock_code)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># display the plot</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    display(Markdown(<span class="ss">f"![</span><span class="sc">{</span>stock_code<span class="sc">}</span><span class="ss"> Stock Graph](</span><span class="sc">{</span>graph_filename<span class="sc">}</span><span class="ss">)"</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load and encode the stock graph image</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(graph_filename, <span class="st">'rb'</span>) <span class="im">as</span> image_file:</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        image_data <span class="op">=</span> base64.b64encode(image_file.read()).decode(<span class="st">'utf-8'</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initial user message</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    initial_message <span class="op">=</span> <span class="ss">f"Analyze the stock graph, and news summary in great detail and provide a summary of the stock's performance and future outlook for </span><span class="sc">{</span>stock_code<span class="sc">}</span><span class="ss">. Also predict the stock price for the next 3 days."</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    messages <span class="op">=</span> [</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"role"</span>: <span class="st">"user"</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"content"</span>: [</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>                {</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"type"</span>: <span class="st">"image"</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"source"</span>: {</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"type"</span>: <span class="st">"base64"</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"media_type"</span>: <span class="st">"image/png"</span>,</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"data"</span>: image_data,</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>                    },</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>                },</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>                {</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"type"</span>: <span class="st">"text"</span>,</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"text"</span>: initial_message</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>            ],</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> client.messages.create(</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>            model<span class="op">=</span><span class="st">"claude-3-5-sonnet-20240620"</span>,</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>            max_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>            tools<span class="op">=</span>tools,</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>            messages<span class="op">=</span>messages</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Response:"</span>)</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Stop Reason: </span><span class="sc">{</span>response<span class="sc">.</span>stop_reason<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Content: </span><span class="sc">{</span>response<span class="sc">.</span>content<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>        display(response.content)</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> response.stop_reason <span class="op">==</span> <span class="st">'tool_use'</span>:</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>            tool_calls <span class="op">=</span> [content <span class="cf">for</span> content <span class="kw">in</span> response.content <span class="cf">if</span> content.<span class="bu">type</span> <span class="op">==</span> <span class="st">"tool_use"</span>]</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>            tool_results <span class="op">=</span> []</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> tool_call <span class="kw">in</span> tool_calls:</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>                result <span class="op">=</span> process_tool_call(tool_call.name, tool_call.<span class="bu">input</span>)</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>                tool_results.append({</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"type"</span>: <span class="st">"tool_result"</span>,</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"tool_use_id"</span>: tool_call.<span class="bu">id</span>,</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"content"</span>: result</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>                })</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>            messages.append({<span class="st">"role"</span>: <span class="st">"assistant"</span>, <span class="st">"content"</span>: response.content})</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>            messages.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: tool_results})</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>            final_response <span class="op">=</span> <span class="bu">next</span>((block.text <span class="cf">for</span> block <span class="kw">in</span> response.content <span class="cf">if</span> <span class="bu">hasattr</span>(block, <span class="st">"text"</span>)), <span class="va">None</span>)</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>            display(Markdown(final_response))</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> final_response</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>stock_code <span class="op">=</span> <span class="st">"NVDA"</span></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>analysis <span class="op">=</span> analyze_stock(stock_code)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[*********************100%%**********************]  1 of 1 completed
+
+Response:
+Stop Reason: tool_use
+Content: [TextBlock(text="To provide a comprehensive analysis of NVIDIA's (NVDA) stock performance, future outlook, and a prediction for the next 3 days, I'll need to gather the current stock price and recent news. Let me collect this information for you.", type='text'), ToolUseBlock(id='toolu_01PSEKpuQ1JNWkmpH1NyzfsD', input={'ticker': 'NVDA'}, name='get_stock_price', type='tool_use'), ToolUseBlock(id='toolu_01SGh1gfbvBi9fRQ8AT2aVXv', input={'keywords': 'NVIDIA stock performance AI technology'}, name='get_news_summary', type='tool_use')]
+[*********************100%%**********************]  1 of 1 completed
+
+Response:
+Stop Reason: end_turn
+Content: [TextBlock(text="Based on the provided stock graph, current stock price, and recent news, let's analyze NVIDIA's (NVDA) stock performance and future outlook:\n\nStock Performance Analysis:\n1. Recent Trend: The graph shows a significant upward trend for NVDA stock over the past 62 days. The stock price has more than doubled, rising from around $75 in mid-April to over $130 in mid-June.\n\n2. Volatility: While the overall trend is strongly positive, there have been periods of volatility. Notable dips occurred in mid-April and early May, but these were followed by strong recoveries.\n\n3. Current Position: As of the latest data point, the stock shows a slight downturn from its peak, closing at $126.57. This is still substantially higher than its starting point on the graph.\n\n4. Market Cap Achievement: NVIDIA briefly became the world's most valuable public company, surpassing giants like Microsoft and Apple with a market cap of $3.34 trillion. However, recent news indicates some volatility, with a significant midday selloff causing it to fall behind Microsoft again.\n\nFuture Outlook:\n1. AI Dominance: NVIDIA's surge is primarily driven by its leadership in AI technology. The company's GPUs are in high demand for AI applications, positioning it at the forefront of the AI revolution.\n\n2. Product Innovation: NVIDIA continues to innovate, introducing products like the Grace Hopper Superchip, Blackwell architecture chips, and AI-optimized networking solutions. This diversification strengthens its market position.\n\n3. Financial Health: The company's strong financial position is evident from its substantial stock buyback program, with plans to repurchase over $30 billion in shares this year.\n\n4. Market Sentiment: Despite the recent selloff, overall market sentiment remains positive. Analysts and investors see NVIDIA as a key player in the AI industry, which is expected to continue growing.\n\n5. Competition: While NVIDIA dominates, other companies like Broadcom are making strides in AI-related technologies, which could impact NVIDIA's market share in the future.\n\n6. Valuation Concerns: With the rapid price increase, there are some concerns about overvaluation, which might lead to short-term volatility.\n\nPrediction for the Next 3 Days:\nPredicting short-term stock movements is highly speculative and not recommended for making investment decisions. However, based on the current trends and news:\n\nDay 1: Slight recovery, possibly to $128-$130 range.\nDay 2: Consolidation around $130, with potential for minor gains.\nDay 3: Possible minor pullback to $127-$129 range as the market digests recent gains.\n\nThese predictions are based on the assumption that no major news or market events occur. It's important to note that stock prices, especially for volatile stocks like NVIDIA, can be influenced by numerous factors and can change rapidly.\n\nIn conclusion, while NVIDIA's stock has shown remarkable growth driven by AI demand, investors should be cautious of the high valuation and potential market volatility. The long-term outlook remains positive due to NVIDIA's strong position in the AI market, but short-term fluctuations are likely as the market continues to assess the company's valuation and future prospects.", type='text')]</code></pre>
+</div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="NVDA_stock_graph.png" class="img-fluid figure-img"></p>
+<figcaption>NVDA Stock Graph</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>[TextBlock(text="To provide a comprehensive analysis of NVIDIA's (NVDA) stock performance, future outlook, and a prediction for the next 3 days, I'll need to gather the current stock price and recent news. Let me collect this information for you.", type='text'),
+ ToolUseBlock(id='toolu_01PSEKpuQ1JNWkmpH1NyzfsD', input={'ticker': 'NVDA'}, name='get_stock_price', type='tool_use'),
+ ToolUseBlock(id='toolu_01SGh1gfbvBi9fRQ8AT2aVXv', input={'keywords': 'NVIDIA stock performance AI technology'}, name='get_news_summary', type='tool_use')]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">image</th>
+<th data-quarto-table-cell-role="th">title</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">body</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2024-06-21T19:03:00+00:00</td>
+<td><img src="https://images.mktw.net/im-46969352/social" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>Why Nvidia's bonds are a safe-haven alternative to its high-flying stock</td>
+<td>MarketWatch on MSN.com</td>
+<td>Nvidia's shareholder returns program is also not a risk factor for bondholders, he said. The company bought back $9.5 billion of its own stock in fiscal 2024, and a little over $10 billion in fiscal 2023. In the first quarter, it bought back $7.7 billion of its own stock, putting it on track to repurchase more than $30 billion in shares this year.</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2024-06-21T09:00:00+00:00</td>
+<td><img src="https://imageio.forbes.com/specials-images/imageserve/6674eda9188547422756cc1d/0x0.jpg?format=jpg&amp;height=900&amp;width=1600&amp;fit=bounds" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>Revisiting Nvidia Stock's Risks As Valuation Tops $3.3 Trillion</td>
+<td>Forbes</td>
+<td>Following a 10% rally over the last five trading days, Nvidia (NASDAQ: NVDA) has emerged as the world's most valuable company, led by surging AI-driven graphics..</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2024-06-21T08:51:00+00:00</td>
+<td><img src="https://g.foolcdn.com/editorial/images/780944/paper-certificate-shares-invest-stock-split-market-reverse-getty.jpg" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>If You Bought 1 Share of Stock-Split Stock Nvidia at Its IPO, Here's How Many Shares You'd Own Now</td>
+<td>The Motley Fool</td>
+<td>Wall Street's artificial intelligence (AI) titan has undergone a half-dozen stock splits since its initial public offering (IPO) in 1999.</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2024-06-19T12:02:00+00:00</td>
+<td><img src="https://www.networkworld.com/wp-content/uploads/2024/06/NVIDIA-GPUs-1.jpg?quality=50&amp;strip=all&amp;w=1024" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>Nvidia rides the AI wave to become the world's most valuable public company</td>
+<td>Network World</td>
+<td>The chipmaker's market cap reached $3.34 trillion on Tuesday, outpacing Microsoft's $3.32 trillion and Apple's $3.27 trillion.</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2024-06-20T18:48:56+00:00</td>
+<td><embed src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1oAWfu.img?w=960&amp;h=540&amp;m=4&amp;q=72" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>Nvidia Stock Endures $277 Billion Midday Selloff As AI Giant Falls Behind Microsoft</td>
+<td>Forbes on MSN.com</td>
+<td>ToplineNvidia stock suffered a rare tumble Thursday, relinquishing the artificial intelligence motor's briefly held title as the most valuable public company on the planet and exhibiting broader stock indexes' sensitivity to price movements from Nvidia.</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2024-06-20T22:50:22+00:00</td>
+<td><embed src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1oBKqf.img?w=1199&amp;h=800&amp;m=4&amp;q=89" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>Nvidia company history &amp; timeline: From GPU maker to AI leader</td>
+<td>TheStreet on MSN.com</td>
+<td>Nvidia has been around for decades but only recently has it taken the tech spotlight — here's how its early focus on graphics technology and a pivot to AI vaulted it into a multitrillion-dollar tech darling.</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>2024-06-16T16:01:00+00:00</td>
+<td><img src="https://g.foolcdn.com/editorial/images/780422/analyst-smiling-and-looking-at-laptop.jpg" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>3 Reasons to Buy Nvidia Like There's No Tomorrow (Hint: The Stock Split Isn't 1 of Them)</td>
+<td>The Motley Fool on MSN.com</td>
+<td>Besides its AI GPUs, Nvidia has also introduced the Grace Hopper Superchip (CPU + GPU), Blackwell architecture chips, AI-optimized Spectrum-X Ethernet networking, and Nvidia AI enterprise software. These products help drive performance gains and users' lower costs while training and running AI applications.</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2024-06-18T20:56:00+00:00</td>
+<td><img src="https://www.investopedia.com/thmb/s4zJTzjE99g8bQonDjFv43OmUec=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/INV_SemiconductorChip_GettyImages-948544050-6d807fd10dd44d31a938ad70c8cfa857.jpg" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>Nvidia Turbocharges Semiconductor ETFs Even As Other Chip Stocks Join the AI Party</td>
+<td>Investopedia</td>
+<td>Nvidia's share surge made it the most valuable company in the world, but other chip stocks are now joining in, boosting semiconductor ETFs.</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>2024-06-17T14:03:00+00:00</td>
+<td><img src="https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2024/06/17/broadcom-shutter2.jpeg" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>Broadcom's Cutting-Edge AI Networking Technology Leaves Nvidia, Marvell, Cisco Behind: JPMorgan</td>
+<td>Business Insider</td>
+<td>Broadcom dominates the datacenter and AI Ethernet switching market with 80% market share, driven by relentless innovation and cutting-edge</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>2024-06-18T21:33:22+00:00</td>
+<td><img src="https://www.usatoday.com/gcdn/authoring/authoring-images/2024/06/05/USAT/73979824007-nvidia-endeavorbuildinglogo.jpg?crop=1999,1125,x0,y104&amp;width=1999&amp;height=1125&amp;format=pjpg&amp;auto=webp" class="img-fluid" style="max-width:100px; max-height:100px;"></td>
+<td>AI fever drives Nvidia to world's most valuable company, over Microsoft and Apple</td>
+<td>USA Today on MSN.com</td>
+<td>The surge in Nvidia's market value has been driven by demand for its chips. Shares are up more than 170% this year.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>[TextBlock(text="Based on the provided stock graph, current stock price, and recent news, let's analyze NVIDIA's (NVDA) stock performance and future outlook:\n\nStock Performance Analysis:\n1. Recent Trend: The graph shows a significant upward trend for NVDA stock over the past 62 days. The stock price has more than doubled, rising from around $75 in mid-April to over $130 in mid-June.\n\n2. Volatility: While the overall trend is strongly positive, there have been periods of volatility. Notable dips occurred in mid-April and early May, but these were followed by strong recoveries.\n\n3. Current Position: As of the latest data point, the stock shows a slight downturn from its peak, closing at $126.57. This is still substantially higher than its starting point on the graph.\n\n4. Market Cap Achievement: NVIDIA briefly became the world's most valuable public company, surpassing giants like Microsoft and Apple with a market cap of $3.34 trillion. However, recent news indicates some volatility, with a significant midday selloff causing it to fall behind Microsoft again.\n\nFuture Outlook:\n1. AI Dominance: NVIDIA's surge is primarily driven by its leadership in AI technology. The company's GPUs are in high demand for AI applications, positioning it at the forefront of the AI revolution.\n\n2. Product Innovation: NVIDIA continues to innovate, introducing products like the Grace Hopper Superchip, Blackwell architecture chips, and AI-optimized networking solutions. This diversification strengthens its market position.\n\n3. Financial Health: The company's strong financial position is evident from its substantial stock buyback program, with plans to repurchase over $30 billion in shares this year.\n\n4. Market Sentiment: Despite the recent selloff, overall market sentiment remains positive. Analysts and investors see NVIDIA as a key player in the AI industry, which is expected to continue growing.\n\n5. Competition: While NVIDIA dominates, other companies like Broadcom are making strides in AI-related technologies, which could impact NVIDIA's market share in the future.\n\n6. Valuation Concerns: With the rapid price increase, there are some concerns about overvaluation, which might lead to short-term volatility.\n\nPrediction for the Next 3 Days:\nPredicting short-term stock movements is highly speculative and not recommended for making investment decisions. However, based on the current trends and news:\n\nDay 1: Slight recovery, possibly to $128-$130 range.\nDay 2: Consolidation around $130, with potential for minor gains.\nDay 3: Possible minor pullback to $127-$129 range as the market digests recent gains.\n\nThese predictions are based on the assumption that no major news or market events occur. It's important to note that stock prices, especially for volatile stocks like NVIDIA, can be influenced by numerous factors and can change rapidly.\n\nIn conclusion, while NVIDIA's stock has shown remarkable growth driven by AI demand, investors should be cautious of the high valuation and potential market volatility. The long-term outlook remains positive due to NVIDIA's strong position in the AI market, but short-term fluctuations are likely as the market continues to assess the company's valuation and future prospects.", type='text')]</code></pre>
+</div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p>Based on the provided stock graph, current stock price, and recent news, let’s analyze NVIDIA’s (NVDA) stock performance and future outlook:</p>
+<p>Stock Performance Analysis: 1. Recent Trend: The graph shows a significant upward trend for NVDA stock over the past 62 days. The stock price has more than doubled, rising from around $75 in mid-April to over $130 in mid-June.</p>
+<ol start="2" type="1">
+<li><p>Volatility: While the overall trend is strongly positive, there have been periods of volatility. Notable dips occurred in mid-April and early May, but these were followed by strong recoveries.</p></li>
+<li><p>Current Position: As of the latest data point, the stock shows a slight downturn from its peak, closing at $126.57. This is still substantially higher than its starting point on the graph.</p></li>
+<li><p>Market Cap Achievement: NVIDIA briefly became the world’s most valuable public company, surpassing giants like Microsoft and Apple with a market cap of $3.34 trillion. However, recent news indicates some volatility, with a significant midday selloff causing it to fall behind Microsoft again.</p></li>
+</ol>
+<p>Future Outlook: 1. AI Dominance: NVIDIA’s surge is primarily driven by its leadership in AI technology. The company’s GPUs are in high demand for AI applications, positioning it at the forefront of the AI revolution.</p>
+<ol start="2" type="1">
+<li><p>Product Innovation: NVIDIA continues to innovate, introducing products like the Grace Hopper Superchip, Blackwell architecture chips, and AI-optimized networking solutions. This diversification strengthens its market position.</p></li>
+<li><p>Financial Health: The company’s strong financial position is evident from its substantial stock buyback program, with plans to repurchase over $30 billion in shares this year.</p></li>
+<li><p>Market Sentiment: Despite the recent selloff, overall market sentiment remains positive. Analysts and investors see NVIDIA as a key player in the AI industry, which is expected to continue growing.</p></li>
+<li><p>Competition: While NVIDIA dominates, other companies like Broadcom are making strides in AI-related technologies, which could impact NVIDIA’s market share in the future.</p></li>
+<li><p>Valuation Concerns: With the rapid price increase, there are some concerns about overvaluation, which might lead to short-term volatility.</p></li>
+</ol>
+<p>Prediction for the Next 3 Days: Predicting short-term stock movements is highly speculative and not recommended for making investment decisions. However, based on the current trends and news:</p>
+<p>Day 1: Slight recovery, possibly to $128-$130 range. Day 2: Consolidation around $130, with potential for minor gains. Day 3: Possible minor pullback to $127-$129 range as the market digests recent gains.</p>
+<p>These predictions are based on the assumption that no major news or market events occur. It’s important to note that stock prices, especially for volatile stocks like NVIDIA, can be influenced by numerous factors and can change rapidly.</p>
+<p>In conclusion, while NVIDIA’s stock has shown remarkable growth driven by AI demand, investors should be cautious of the high valuation and potential market volatility. The long-term outlook remains positive due to NVIDIA’s strong position in the AI market, but short-term fluctuations are likely as the market continues to assess the company’s valuation and future prospects.</p>
+</div>
+</div>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/arunprakash\.ai");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

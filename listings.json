@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/anthropic-sonnet3_5_tools/tool_usage.html",
       "/posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html",
       "/posts/anthropic-claude3-diary-of-ceo-2023024/diary_of_ceo.html",
       "/posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html",
