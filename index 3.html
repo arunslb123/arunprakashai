@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Explained Intuitively - Learning Generative AI - Explained Intuitively</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71NZ7KQLWE"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-71NZ7KQLWE', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Explained Intuitively - Learning Generative AI - Explained Intuitively">
+<meta property="og:site_name" content="Explained Intuitively">
+<meta name="twitter:title" content="Explained Intuitively - Learning Generative AI - Explained Intuitively">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://arunprakash.ai/index.html" />
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Explained Intuitively</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/arunslb123"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/arunprakashml"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Learning Generative AI - Explained Intuitively</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(17)</span></div><div class="category" data-category="agents">agents <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ai">ai <span class="quarto-category-count">(2)</span></div><div class="category" data-category="chat_completions">chat_completions <span class="quarto-category-count">(1)</span></div><div class="category" data-category="claude3">claude3 <span class="quarto-category-count">(7)</span></div><div class="category" data-category="claude3.5">claude3.5 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="data-analysis">data-analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="finance">finance <span class="quarto-category-count">(1)</span></div><div class="category" data-category="function-calling">function-calling <span class="quarto-category-count">(1)</span></div><div class="category" data-category="function_calling">function_calling <span class="quarto-category-count">(4)</span></div><div class="category" data-category="genai">genai <span class="quarto-category-count">(3)</span></div><div class="category" data-category="handson">handson <span class="quarto-category-count">(3)</span></div><div class="category" data-category="image-analysis">image-analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="llm">llm <span class="quarto-category-count">(12)</span></div><div class="category" data-category="messages-api">messages-api <span class="quarto-category-count">(4)</span></div><div class="category" data-category="newsletter-generation">newsletter-generation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="nlp">nlp <span class="quarto-category-count">(1)</span></div><div class="category" data-category="openai">openai <span class="quarto-category-count">(7)</span></div><div class="category" data-category="openai_assistants_api">openai_assistants_api <span class="quarto-category-count">(4)</span></div><div class="category" data-category="property-appraisal">property-appraisal <span class="quarto-category-count">(1)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="real-estate">real-estate <span class="quarto-category-count">(1)</span></div><div class="category" data-category="sonnet">sonnet <span class="quarto-category-count">(1)</span></div><div class="category" data-category="streamlit">streamlit <span class="quarto-category-count">(1)</span></div><div class="category" data-category="visualization">visualization <span class="quarto-category-count">(1)</span></div></div></div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="claude3.5,genai,finance,sonnet" data-listing-date-sort="1720533600000" data-listing-file-modified-sort="1720624535305" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="119">
+<div class="thumbnail">
+<p><a href="./posts/anthropic-sonnet3-5-tools/tool_usage_stock_outlook.html" class="no-external"></a></p><a href="./posts/anthropic-sonnet3-5-tools/tool_usage_stock_outlook.html" class="no-external">
+<p><img src="./posts/anthropic-sonnet3-5-tools/stock.webp" class="thumbnail-image"></p>
+</a><p><a href="./posts/anthropic-sonnet3-5-tools/tool_usage_stock_outlook.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/anthropic-sonnet3-5-tools/tool_usage_stock_outlook.html" class="no-external">Building a Smart Stock Market Analyzer with Anthropic Claude 3.5</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/anthropic-sonnet3-5-tools/tool_usage_stock_outlook.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('claude3.5'); return false;">
+claude3.5
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('genai'); return false;">
+genai
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('finance'); return false;">
+finance
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('sonnet'); return false;">
+sonnet
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/anthropic-sonnet3-5-tools/tool_usage_stock_outlook.html" class="no-external">Explore how to create an intelligent stock analysis assistant using Python, the Anthropic API, and financial libraries. This project fetches real-time stock data, visualizes trends, analyzes performance, gathers relevant news, and provides AI-powered insights and short-term price predictions.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/anthropic-sonnet3-5-tools/tool_usage_stock_outlook.html" class="no-external">
+<div class="listing-date">
+Jul 10, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="claude3,genai" data-listing-date-sort="1712325600000" data-listing-file-modified-sort="1712580143625" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="120">
+<div class="thumbnail">
+<p><a href="./posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html" class="no-external"></a></p><a href="./posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html" class="no-external">
+<p><img src="./posts/anthropic-claude3-diary-of-ceo-202122/ceo.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html" class="no-external">Part 2 - Book Recommendations, Interesting Advice, Key Lessons and Career Tips from Steven Bartlett’s Diary of a CEO Podcast using Anthropic’s Claude API</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('claude3'); return false;">
+claude3
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('genai'); return false;">
+genai
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html" class="no-external">Discover the most recommended books and intriguing ideas from guests on Steven Bartlett’s Diary of a CEO podcast. This project analyzes 140 podcast transcripts from 2021-2022 using Anthropic’s Claude API, extracts guest bios and key insights, visualizes metrics, and estimates the total cost based on token usage.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html" class="no-external">
+<div class="listing-date">
+Apr 6, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="claude3,genai" data-listing-date-sort="1712325600000" data-listing-file-modified-sort="1712323517031" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="118">
+<div class="thumbnail">
+<p><a href="./posts/anthropic-claude3-diary-of-ceo-2023024/diary_of_ceo.html" class="no-external"></a></p><a href="./posts/anthropic-claude3-diary-of-ceo-2023024/diary_of_ceo.html" class="no-external">
+<p><img src="./posts/anthropic-claude3-diary-of-ceo-2023024/ceo.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/anthropic-claude3-diary-of-ceo-2023024/diary_of_ceo.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/anthropic-claude3-diary-of-ceo-2023024/diary_of_ceo.html" class="no-external">Part 1 - Book Recommendations, Interesting Advices, Key Lessons and Career Tips from Steven Bartlett’s Diary of a CEO Podcast using Anthropic’s Claude 3 API</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/anthropic-claude3-diary-of-ceo-2023024/diary_of_ceo.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('claude3'); return false;">
+claude3
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('genai'); return false;">
+genai
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/anthropic-claude3-diary-of-ceo-2023024/diary_of_ceo.html" class="no-external">Discover the most recommended books and intriguing ideas from guests on Steven Bartlett’s Diary of a CEO podcast. This project analyzes 126 podcast transcripts from 2023-2024 using Anthropic’s Claude 3 API, extracts guest bios and key insights, visualizes metrics, and estimates the total cost based on token usage.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/anthropic-claude3-diary-of-ceo-2023024/diary_of_ceo.html" class="no-external">
+<div class="listing-date">
+Apr 6, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="ai,nlp,data-analysis,visualization" data-listing-date-sort="1711893600000" data-listing-file-modified-sort="1712020178537" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="107">
+<div class="thumbnail">
+<p><a href="./posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html" class="no-external"></a></p><a href="./posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html" class="no-external">
+<p><img src="./posts/dwarkesh-patel-anthropic-claude3-opus-python/maxresdefault.jpg" class="thumbnail-image"></p>
+</a><p><a href="./posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html" class="no-external">Book Recommendations, Interesting Advices, Career Tips from Dwarkesh Patel’s Podcasts using Anthropic’s Claude 3 API</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('ai'); return false;">
+ai
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('nlp'); return false;">
+nlp
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('data-analysis'); return false;">
+data-analysis
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('visualization'); return false;">
+visualization
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html" class="no-external">Discover the most recommended books and intriguing ideas from Dwarkesh Patel’s podcast guests. This project analyzes 63 podcast transcripts using Anthropic’s Claude 3 API, visualizes key metrics, and estimates the total cost based on token usage.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html" class="no-external">
+<div class="listing-date">
+Apr 1, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="ai,real-estate,property-appraisal,newsletter-generation,streamlit" data-listing-date-sort="1711548000000" data-listing-file-modified-sort="1711552112103" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="351">
+<div class="thumbnail">
+<p><a href="./posts/anthropic-claude3-industry-usecases/real_estate.html" class="no-external"></a></p><a href="./posts/anthropic-claude3-industry-usecases/real_estate.html" class="no-external">
+<p><img src="./posts/anthropic-claude3-industry-usecases/industry_yt.jpg" class="thumbnail-image"></p>
+</a><p><a href="./posts/anthropic-claude3-industry-usecases/real_estate.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/anthropic-claude3-industry-usecases/real_estate.html" class="no-external">Claude3 + Python: Automate Real Industry Workflows Like a Pro</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/anthropic-claude3-industry-usecases/real_estate.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('ai'); return false;">
+ai
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('real-estate'); return false;">
+real-estate
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('property-appraisal'); return false;">
+property-appraisal
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('newsletter-generation'); return false;">
+newsletter-generation
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('streamlit'); return false;">
+streamlit
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/anthropic-claude3-industry-usecases/real_estate.html" class="no-external">Explore how AI can revolutionize the real estate industry through automated property appraisals and personalized event newsletters. Learn to leverage Anthropic’s Claude model to generate comprehensive appraisals and engaging newsletters, and build an interactive Streamlit app to showcase these AI-powered functionalities.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/anthropic-claude3-industry-usecases/real_estate.html" class="no-external">
+<div class="listing-date">
+Mar 28, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="llm,claude3,messages-api,image-analysis" data-listing-date-sort="1711029600000" data-listing-file-modified-sort="1712357110948" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="173">
+<div class="thumbnail">
+<p><a href="./posts/anthropic-claude3-messages-images-claude/messages_api_images.html" class="no-external"></a></p><a href="./posts/anthropic-claude3-messages-images-claude/messages_api_images.html" class="no-external">
+<p><img src="./posts/anthropic-claude3-messages-images-claude/images.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/anthropic-claude3-messages-images-claude/messages_api_images.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/anthropic-claude3-messages-images-claude/messages_api_images.html" class="no-external">Anthropic Claude3: Messages API with Images</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/anthropic-claude3-messages-images-claude/messages_api_images.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('claude3'); return false;">
+claude3
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('messages-api'); return false;">
+messages-api
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('image-analysis'); return false;">
+image-analysis
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/anthropic-claude3-messages-images-claude/messages_api_images.html" class="no-external">Anthropic’s Claude 3 models can understand and analyze images, allowing for conversations that include both text and visuals. Supported image formats include JPEG, PNG, GIF, and WebP. Multiple images can be included in a single request for analysis. Image analysis counts towards token usage. Claude has some limitations in image understanding but provides valuable interpretations.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/anthropic-claude3-messages-images-claude/messages_api_images.html" class="no-external">
+<div class="listing-date">
+Mar 22, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="llm,claude3,function-calling,python" data-listing-date-sort="1711029600000" data-listing-file-modified-sort="1711522607530" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1235">
+<div class="thumbnail">
+<p><a href="./posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html" class="no-external"></a></p><a href="./posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html" class="no-external">
+<p><img src="./posts/anthropic-claude3-function-calling-tools-python/tools.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html" class="no-external">Anthropic Claude3: Function Calling Tools in Python</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('claude3'); return false;">
+claude3
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('function-calling'); return false;">
+function-calling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
+python
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html" class="no-external">Function calling tools in Python allow extending Claude’s capabilities by integrating external functions or APIs. Define functions, create tool descriptions, construct system prompts, and process user messages to generate responses with function calls. This powerful technique enables Claude to perform tasks beyond its built-in knowledge.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html" class="no-external">
+<div class="listing-date">
+Mar 22, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="llm,claude3,messages-api" data-listing-date-sort="1711029600000" data-listing-file-modified-sort="1711522520104" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="282">
+<div class="thumbnail">
+<p><a href="./posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html" class="no-external"></a></p><a href="./posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html" class="no-external">
+<p><img src="./posts/anthropic-claude3-messages-api-json-mode/json.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html" class="no-external">Anthropic Claude3: Messages API with JSON Mode</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('claude3'); return false;">
+claude3
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('messages-api'); return false;">
+messages-api
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html" class="no-external">Anthropic’s Claude AI model can generate structured JSON data by following specific techniques. By providing clear instructions and examples, developers can extract JSON from Claude’s responses using string parsing, partial responses, stop sequences, or XML-like tags. The JSON can then be easily parsed and integrated into applications or workflows.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html" class="no-external">
+<div class="listing-date">
+Mar 22, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="llm,claude3,messages-api" data-listing-date-sort="1711029600000" data-listing-file-modified-sort="1711079732496" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="313">
+<div class="thumbnail">
+<p><a href="./posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html" class="no-external"></a></p><a href="./posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html" class="no-external">
+<p><img src="./posts/anthropic-claude3-messages-api-streaming-python/streaming.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html" class="no-external">Anthropic Claude3: Messages API with Streaming</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('claude3'); return false;">
+claude3
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('messages-api'); return false;">
+messages-api
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html" class="no-external">Anthropic’s Messages API supports streaming mode for real-time conversational AI responses. Using server-sent events (SSE), the API incrementally streams message content, allowing for dynamic user experiences. SDKs simplify implementation, while raw HTTP streaming is available for custom integrations. Developers can handle various event types and gracefully process unknown events.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html" class="no-external">
+<div class="listing-date">
+Mar 22, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="llm,claude3,messages-api" data-listing-date-sort="1711029600000" data-listing-file-modified-sort="1711079311589" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="679">
+<div class="thumbnail">
+<p><a href="./posts/anthropic-claude3-messages-api-python/messages_api.html" class="no-external"></a></p><a href="./posts/anthropic-claude3-messages-api-python/messages_api.html" class="no-external">
+<p><img src="./posts/anthropic-claude3-messages-api-python/messages_api.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/anthropic-claude3-messages-api-python/messages_api.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/anthropic-claude3-messages-api-python/messages_api.html" class="no-external">Anthropic Claude3: Messages API with Multimodal Input</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/anthropic-claude3-messages-api-python/messages_api.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('claude3'); return false;">
+claude3
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('messages-api'); return false;">
+messages-api
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/anthropic-claude3-messages-api-python/messages_api.html" class="no-external">Anthropic’s Messages API enables creating sophisticated conversational AI experiences with text and image inputs. Customize model behavior using system prompts, fine-tune randomness with temperature, and stream responses. The API supports single queries and multi-turn conversations, making it versatile for various applications.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/anthropic-claude3-messages-api-python/messages_api.html" class="no-external">
+<div class="listing-date">
+Mar 22, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-categories="llm,openai,agents" data-listing-date-sort="1706796000000" data-listing-file-modified-sort="1706834481771" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="590">
+<div class="thumbnail">
+<p><a href="./posts/ai-assistants-crewai/classroom_crew.html" class="no-external"></a></p><a href="./posts/ai-assistants-crewai/classroom_crew.html" class="no-external">
+<p><img src="./posts/ai-assistants-crewai/crew.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/ai-assistants-crewai/classroom_crew.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/ai-assistants-crewai/classroom_crew.html" class="no-external">crewAI: Simulating a Classroom with CrewAI Agents</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/ai-assistants-crewai/classroom_crew.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai'); return false;">
+openai
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('agents'); return false;">
+agents
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/ai-assistants-crewai/classroom_crew.html" class="no-external">We use crewAI library to develop many agents and make them work together. We build a project where we simulate a classroom with students and teachers. Teacher agent teach a topic, student agents ask questions, then teacher agents incorporate the questions into the topic and teach again.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/ai-assistants-crewai/classroom_crew.html" class="no-external">
+<div class="listing-date">
+Feb 2, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-categories="llm,openai,openai_assistants_api,chat_completions,handson" data-listing-date-sort="1705672800000" data-listing-file-modified-sort="1711414840781" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="103">
+<div class="thumbnail">
+<p><a href="./posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html" class="no-external"></a></p><a href="./posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html" class="no-external">
+<p><img src="./posts/chatcompletions-vs-assistants-ai-openai/logo.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html" class="no-external">OpenAI ChatCompletions vs OpenAI Assistants API: A Hands-on Comparison</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai'); return false;">
+openai
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai_assistants_api'); return false;">
+openai_assistants_api
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('chat_completions'); return false;">
+chat_completions
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('handson'); return false;">
+handson
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html" class="no-external">Assistants API offers advanced features like conversation threading, code execution, and data retrieval, ideal for complex AI applications. In contrast, Chat Completion Models are lightweight and efficient, ideal for simple AI applications.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html" class="no-external">
+<div class="listing-date">
+Jan 20, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-categories="llm,openai,function_calling,openai_assistants_api,handson" data-listing-date-sort="1705154400000" data-listing-file-modified-sort="1705172123774" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1340">
+<div class="thumbnail">
+<p><a href="./posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html" class="no-external"></a></p><a href="./posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html" class="no-external">
+<p><img src="./posts/personalised-news-social-media-openai-assistants-api/0_0.webp" class="thumbnail-image"></p>
+</a><p><a href="./posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html" class="no-external">Morning with Jarvis: Craft Your Own News Universe from Social Media and News Digests</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai'); return false;">
+openai
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('function_calling'); return false;">
+function_calling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai_assistants_api'); return false;">
+openai_assistants_api
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('handson'); return false;">
+handson
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html" class="no-external">Revolutionize your morning routine with an AI-powered tool that delivers personalized audio news briefings on your topic of interest directly to your telegram. This project uses openai assistants API, Selenium, telegram API, openai text to speech models, DuckDuckGo for search, and many more.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html" class="no-external">
+<div class="listing-date">
+Jan 14, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="13" data-categories="llm,openai,function_calling,openai_assistants_api,handson" data-listing-date-sort="1704808800000" data-listing-file-modified-sort="1711414845141" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="606">
+<div class="thumbnail">
+<p><a href="./posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html" class="no-external"></a></p><a href="./posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html" class="no-external">
+<p><img src="./posts/building_a_personalised_travel_planner_using_openai_assistants_api/travel2.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html" class="no-external">Transform Your Travel: How to Build a Personalised Planner with OpenAI Assistants API</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai'); return false;">
+openai
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('function_calling'); return false;">
+function_calling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai_assistants_api'); return false;">
+openai_assistants_api
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('handson'); return false;">
+handson
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html" class="no-external">In this article, we will build a personalised travel planner using OpenAI Assistants API. We will explore multiple parallel function calling, creating multiple assistants each focuses on a specific task, and we create a thread that interacts with multiple assistants. We create a fun project that does interactive maps, a personalised travel guide with real time weather updates, and a personalised travel planner.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html" class="no-external">
+<div class="listing-date">
+Jan 10, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="14" data-categories="llm,openai,function_calling,openai_assistants_api" data-listing-date-sort="1704376800000" data-listing-file-modified-sort="1704688333035" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="343">
+<div class="thumbnail">
+<p><a href="./posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html" class="no-external"></a></p><a href="./posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html" class="no-external">
+<p><img src="./posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistant.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html" class="no-external">Master the Art of Function Calling in OpenAI Assistants API: A Comprehensive Guide for Beginners</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai'); return false;">
+openai
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('function_calling'); return false;">
+function_calling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai_assistants_api'); return false;">
+openai_assistants_api
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html" class="no-external">Discover how to leverage function calling in the OpenAI Assistant API with our comprehensive guide. This tutorial, suitable for both seasoned developers and beginners, covers the basics of function calling, creating an assistant, initiating a thread, and more. Learn how to identify when a message requires a function call, determine which function to call and what arguments to pass, and retrieve the response from a function call. We illustrate these concepts with a simple demo of reversing a string using a function integrated with the assistant. Enhance your AI applications with a clear, practical understanding of function calling in the OpenAI Assistant API</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html" class="no-external">
+<div class="listing-date">
+Jan 5, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="15" data-categories="llm,openai,function_calling" data-listing-date-sort="1704204000000" data-listing-file-modified-sort="1704735811737" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="706">
+<div class="thumbnail">
+<p><a href="./posts/openai-parallel-function-calling-handson-tools/function_calling.html" class="no-external"></a></p><a href="./posts/openai-parallel-function-calling-handson-tools/function_calling.html" class="no-external">
+<p><img src="./posts/openai-parallel-function-calling-handson-tools/music.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/openai-parallel-function-calling-handson-tools/function_calling.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/openai-parallel-function-calling-handson-tools/function_calling.html" class="no-external">MoodCast: Leveraging OpenAI Parallel Function Calling for Real-Time Weather-Based Music Playlists</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/openai-parallel-function-calling-handson-tools/function_calling.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai'); return false;">
+openai
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('function_calling'); return false;">
+function_calling
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/openai-parallel-function-calling-handson-tools/function_calling.html" class="no-external">The blog post introduces MoodCast, a project that uses OpenAI’s parallel function calling feature to create real-time, weather-based music playlists. It integrates OpenWeather and Spotify APIs, demonstrating the power and flexibility of OpenAI’s function calling. This feature allows developers to describe a function, and the model generates a JSON output containing arguments. It doesn’t call any function itself, but generates the JSON that can be used to call a function from your code. This is a significant advancement as it allows developers to interact with AI in a more structured and systematic way, overcoming the challenges of dealing with unstructured data outputs. The blog post provides a detailed guide on how to use function calling for OpenAI’s chat completion endpoints, with MoodCast serving as a real-world example. It aims to provide valuable insights into the potential of OpenAI’s function calling feature for both seasoned developers and beginners in the field of AI</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/openai-parallel-function-calling-handson-tools/function_calling.html" class="no-external">
+<div class="listing-date">
+Jan 3, 2024
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="16" data-categories="llm,openai" data-listing-date-sort="1702735200000" data-listing-file-modified-sort="1704907179299" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1229">
+<div class="thumbnail">
+<p><a href="./posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html" class="no-external"></a></p><a href="./posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html" class="no-external">
+<p><img src="./posts/understanding-openai-chatcompletion-model-parameters/IMG_F4CC52CE7F7F-1.jpeg" class="thumbnail-image"></p>
+</a><p><a href="./posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html" class="no-external">Understanding OpenAI ChatCompletion Model Parameters</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
+llm
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('openai'); return false;">
+openai
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html" class="no-external">Details: Dive into the intricacies of LLM token generation with our insightful notebook. We cover key parameters like temperature, top_p, frequency_penalty, and presence_penalty, examining their value ranges and OpenAI’s defaults.We highlight the generation probability using log_probs. Our comprehensive guide includes real examples to demonstrate how these settings impact the token generation process, providing a valuable resource for developers and AI enthusiasts alike</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html" class="no-external">
+<div class="listing-date">
+Dec 17, 2023
+</div>
+<div class="listing-author">
+Arun Prakash
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/arunprakash\.ai");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

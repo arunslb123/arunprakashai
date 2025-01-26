@@ -1,0 +1,24 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/anthropic-sonnet3-5-tools/tool_usage_stock_outlook.html",
+      "/posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html",
+      "/posts/anthropic-claude3-diary-of-ceo-2023024/diary_of_ceo.html",
+      "/posts/dwarkesh-patel-anthropic-claude3-opus-python/podcast_analysis.html",
+      "/posts/anthropic-claude3-industry-usecases/real_estate.html",
+      "/posts/anthropic-claude3-messages-images-claude/messages_api_images.html",
+      "/posts/anthropic-claude3-function-calling-tools-python/function_calling_tools.html",
+      "/posts/anthropic-claude3-messages-api-json-mode/messages_api_json.html",
+      "/posts/anthropic-claude3-messages-api-streaming-python/messages_api_streaming.html",
+      "/posts/anthropic-claude3-messages-api-python/messages_api.html",
+      "/posts/ai-assistants-crewai/classroom_crew.html",
+      "/posts/chatcompletions-vs-assistants-ai-openai/assistants_chatcomplettion.html",
+      "/posts/personalised-news-social-media-openai-assistants-api/news_assistant_tools.html",
+      "/posts/building_a_personalised_travel_planner_using_openai_assistants_api/tourist_assistant_tools.html",
+      "/posts/master-the-art-of-function-calling-in-openai-assistants-api-a-comprehensive-guide-for-beginners/assistants_function_calling.html",
+      "/posts/openai-parallel-function-calling-handson-tools/function_calling.html",
+      "/posts/understanding-openai-chatcompletion-model-parameters/llm_temperature.html"
+    ]
+  }
+]
