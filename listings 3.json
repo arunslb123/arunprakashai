@@ -2,7 +2,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/openai-deep-research/marvel_datascience.html",
       "/posts/make-claude-reasoning/anthropic_sonnet_reasoning_gemini_deepseek.html",
       "/posts/anthropic-sonnet3-5-tools/tool_usage_stock_outlook.html",
       "/posts/anthropic-claude3-diary-of-ceo-202122/diary_of_ceo_2122.html",
